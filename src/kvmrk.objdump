@@ -1,0 +1,136 @@
+
+kvmrk.ko:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <handle_trap_el1>:
+   0:	d503201f 	nop
+   4:	d503201f 	nop
+   8:	d503233f 	paciasp
+   c:	d69f03e0 	eret
+  10:	d50323bf 	autiasp
+  14:	d65f03c0 	ret
+  18:	d503201f 	nop
+  1c:	d503201f 	nop
+
+0000000000000020 <hijack_mdcr_el2>:
+  20:	d503201f 	nop
+  24:	d503201f 	nop
+  28:	d503233f 	paciasp
+  2c:	d53c1120 	mrs	x0, mdcr_el2
+  30:	b2770000 	orr	x0, x0, #0x200
+  34:	d51c1120 	msr	mdcr_el2, x0
+  38:	d69f03e0 	eret
+  3c:	d50323bf 	autiasp
+  40:	d65f03c0 	ret
+
+0000000000000044 <replace_vectors_el2>:
+  44:	d503201f 	nop
+  48:	d503201f 	nop
+  4c:	d503233f 	paciasp
+  50:	8b0003ea 	add	x10, xzr, x0
+  54:	d2800040 	mov	x0, #0x2                   	// #2
+  58:	d4000002 	hvc	#0x0
+  5c:	d2800000 	mov	x0, #0x0                   	// #0
+  60:	8b0a03e1 	add	x1, xzr, x10
+  64:	d4000002 	hvc	#0x0
+  68:	d50323bf 	autiasp
+  6c:	d65f03c0 	ret
+
+0000000000000070 <kvmrk_call_hyp>:
+  70:	d503201f 	nop
+  74:	d503201f 	nop
+  78:	d503233f 	paciasp
+  7c:	8b0003e1 	add	x1, xzr, x0
+  80:	d2800000 	mov	x0, #0x0                   	// #0
+  84:	d4000002 	hvc	#0x0
+  88:	d50323bf 	autiasp
+  8c:	d65f03c0 	ret
+
+Disassembly of section .init.text:
+
+0000000000000000 <init_module>:
+   0:	d503201f 	nop
+   4:	d503201f 	nop
+   8:	d503233f 	paciasp
+   c:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  10:	90000000 	adrp	x0, 0 <init_module>
+  14:	910003fd 	mov	x29, sp
+  18:	91000000 	add	x0, x0, #0x0
+  1c:	a90153f3 	stp	x19, x20, [sp, #16]
+  20:	94000000 	bl	0 <_printk>
+  24:	90000000 	adrp	x0, 0 <kmalloc_caches>
+  28:	d2820002 	mov	x2, #0x1000                	// #4096
+  2c:	52819801 	mov	w1, #0xcc0                 	// #3264
+  30:	f9400000 	ldr	x0, [x0]
+  34:	94000000 	bl	0 <kmem_cache_alloc_trace>
+  38:	aa0003f3 	mov	x19, x0
+  3c:	90000000 	adrp	x0, 0 <init_module>
+  40:	91000000 	add	x0, x0, #0x0
+  44:	91100262 	add	x2, x19, #0x400
+  48:	d2e00021 	mov	x1, #0x1000000000000       	// #281474976710656
+  4c:	8b010274 	add	x20, x19, x1
+  50:	b240bbe3 	mov	x3, #0x7fffffffffff        	// #140737488355327
+  54:	a9401404 	ldp	x4, x5, [x0]
+  58:	a9001444 	stp	x4, x5, [x2]
+  5c:	a9411404 	ldp	x4, x5, [x0, #16]
+  60:	a9011444 	stp	x4, x5, [x2, #16]
+  64:	eb03029f 	cmp	x20, x3
+  68:	540000c8 	b.hi	80 <init_module+0x80>  // b.pmore
+  6c:	90000000 	adrp	x0, 0 <memstart_addr>
+  70:	f9400002 	ldr	x2, [x0]
+  74:	8b010042 	add	x2, x2, x1
+  78:	8b130042 	add	x2, x2, x19
+  7c:	14000004 	b	8c <init_module+0x8c>
+  80:	90000000 	adrp	x0, 0 <kimage_voffset>
+  84:	f9400002 	ldr	x2, [x0]
+  88:	cb020262 	sub	x2, x19, x2
+  8c:	aa1303e1 	mov	x1, x19
+  90:	90000000 	adrp	x0, 0 <init_module>
+  94:	91000000 	add	x0, x0, #0x0
+  98:	94000000 	bl	0 <_printk>
+  9c:	b240bbe0 	mov	x0, #0x7fffffffffff        	// #140737488355327
+  a0:	eb00029f 	cmp	x20, x0
+  a4:	540000e8 	b.hi	c0 <init_module+0xc0>  // b.pmore
+  a8:	90000000 	adrp	x0, 0 <memstart_addr>
+  ac:	d2e00021 	mov	x1, #0x1000000000000       	// #281474976710656
+  b0:	f9400000 	ldr	x0, [x0]
+  b4:	8b010000 	add	x0, x0, x1
+  b8:	8b000260 	add	x0, x19, x0
+  bc:	14000004 	b	cc <init_module+0xcc>
+  c0:	90000000 	adrp	x0, 0 <kimage_voffset>
+  c4:	f9400000 	ldr	x0, [x0]
+  c8:	cb000260 	sub	x0, x19, x0
+  cc:	94000000 	bl	44 <init_module+0x44>
+  d0:	90000000 	adrp	x0, 0 <init_module>
+  d4:	91000000 	add	x0, x0, #0x0
+  d8:	94000000 	bl	0 <_printk>
+  dc:	52800000 	mov	w0, #0x0                   	// #0
+  e0:	a94153f3 	ldp	x19, x20, [sp, #16]
+  e4:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  e8:	d50323bf 	autiasp
+  ec:	d65f03c0 	ret
+
+Disassembly of section .exit.text:
+
+0000000000000000 <cleanup_module>:
+   0:	d503233f 	paciasp
+   4:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+   8:	90000000 	adrp	x0, 0 <cleanup_module>
+   c:	910003fd 	mov	x29, sp
+  10:	91000000 	add	x0, x0, #0x0
+  14:	94000000 	bl	0 <_printk>
+  18:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  1c:	d50323bf 	autiasp
+  20:	d65f03c0 	ret
+
+Disassembly of section .plt:
+
+0000000000000000 <.plt>:
+	...
+
+Disassembly of section .text.ftrace_trampoline:
+
+0000000000000000 <.text.ftrace_trampoline>:
+	...

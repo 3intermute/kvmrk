@@ -1,0 +1,24 @@
+ + set up sshfs
+ + set up copy/paste
+ + set up vnc
+ + download kvm papers here
+
+
+ + debug register writes ruin everything, save written value somewhere and show it when read
+ + reading __kvm_hyp_vector from el1 breaks everything, set watchpoint on over-written instruction
+
+!! vectors must be aligned !!
+
+ + overwrite target for el1_sync to physical address of handle_trap_el1
+ + trap accesses to mdcr_el2 as well
+
+
+ switch (x0) {
+     case KVMRK_CALL_HYP:
+         ((void (*)(void)) x1)();
+         break;
+     // case KVMRK_RESET_VECTORS:
+     //     asm volatile("ldr x5, =__hyp_stub_vectors\n\t");
+     //     asm volatile("msr vbar_el2, x5\n\t");
+     //     break;
+ }
