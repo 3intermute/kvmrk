@@ -11,57 +11,37 @@
 
 #include "include/kvmrk.h"
 
+
 	.text
-	.align 11
-SYM_CODE_START(kvmrk_vectors)
-    ventry	el2_sync_invalid		// Synchronous EL2t
-    ventry	el2_irq_invalid			// IRQ EL2t
-    ventry	el2_fiq_invalid			// FIQ EL2t
-    ventry	el2_error_invalid		// Error EL2t
+	.align	11
 
-    ventry	handle_trap_el1			// Synchronous EL2h
-    ventry	el2_irq_invalid			// IRQ EL2h
-    ventry	el2_fiq_invalid			// FIQ EL2h
-    ventry	el2_error_invalid		// Error EL2h
+SYM_CODE_START(__kvmrk_hyp_init)
+	ventry	__invalid		// Synchronous EL2t
+	ventry	__invalid		// IRQ EL2t
+	ventry	__invalid		// FIQ EL2t
+	ventry	__invalid		// Error EL2t
 
-    ventry	handle_trap_el1			// Synchronous 64-bit EL1
-    ventry	el1_irq_invalid			// IRQ 64-bit EL1
-    ventry	el1_fiq_invalid			// FIQ 64-bit EL1
-    ventry	el1_error_invalid		// Error 64-bit EL1
+	ventry	__invalid		// Synchronous EL2h
+	ventry	__invalid		// IRQ EL2h
+	ventry	__invalid		// FIQ EL2h
+	ventry	__invalid		// Error EL2h
 
-    ventry	el1_sync_invalid		// Synchronous 32-bit EL1
-    ventry	el1_irq_invalid			// IRQ 32-bit EL1
-    ventry	el1_fiq_invalid			// FIQ 32-bit EL1
-    ventry	el1_error_invalid		// Error 32-bit EL1
-SYM_CODE_END(kvmrk_vectors)
+	ventry	__do_kvmrk_init		// Synchronous 64-bit EL1
+	ventry	__invalid		// IRQ 64-bit EL1
+	ventry	__invalid		// FIQ 64-bit EL1
+	ventry	__invalid		// Error 64-bit EL1
 
-	.align 11
-SYM_CODE_START_LOCAL(handle_trap_el1)
+	ventry	__invalid		// Synchronous 32-bit EL1
+	ventry	__invalid		// IRQ 32-bit EL1
+	ventry	__invalid		// FIQ 32-bit EL1
+	ventry	__invalid		// Error 32-bit EL1
+
+__invalid:
+	b	.
+__do_kvmrk_init:
+	mov	    x0, #33
 	eret
-SYM_CODE_END(handle_trap_el1)
-
-SYM_CODE_START(hijack_mdcr_el2)
-    mrs     x0, mdcr_el2
-    orr     x0, x0, #MDCR_EL2_TDA
-    msr     mdcr_el2, x0
-    eret
-SYM_CODE_END(hijack_mdcr_el2)
-
-/* see: https://elixir.bootlin.com/linux/v5.15/source/arch/arm64/kernel/hyp-stub.S#L173 */
-.macro invalid_vector	label
-SYM_CODE_START_LOCAL(\label)
-	b \label
-SYM_CODE_END(\label)
-.endm
-
-	invalid_vector	el2_sync_invalid
-	invalid_vector	el2_irq_invalid
-	invalid_vector	el2_fiq_invalid
-	invalid_vector	el2_error_invalid
-	invalid_vector	el1_sync_invalid
-	invalid_vector	el1_irq_invalid
-	invalid_vector	el1_fiq_invalid
-	invalid_vector	el1_error_invalid
+SYM_CODE_END(__kvmrk_hyp_init)
 
 SYM_FUNC_START(kvmrk_set_vectors)
 	mov		x1, x0
@@ -75,10 +55,3 @@ SYM_FUNC_START(kvmrk_reset_vectors)
 	hvc		#0
 	ret
 SYM_FUNC_END(kvmrk_reset_vectors)
-
-SYM_FUNC_START(kvmrk_call_hyp)
-    add     x1, xzr, x0
-    mov     x0, #KVMRK_CALL_HYP
-    hvc     #0
-    ret
-SYM_FUNC_END(kvmrk_call_hyp)
