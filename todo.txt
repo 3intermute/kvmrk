@@ -1,8 +1,3 @@
- + set up sshfs
- + set up copy/paste
- + set up vnc
- + download kvm papers here
-
 
  + debug register writes ruin everything, save written value somewhere and show it when read
  + reading __kvm_hyp_vector from el1 breaks everything, set watchpoint on over-written instruction
@@ -31,10 +26,39 @@
  	eret
  1:
  	cmp     x0, #KVMRK_CRASH_EVERYTHING
- 	b.ne	2f
+ 	b.ne	1f
  	add 	x0, xzr, xzr
  	ldr 	x0, [x0]
  	eret
  2:
  	eret
  SYM_CODE_END(handle_trap_el1)
+
+
+
+
+ /*
+ x10 *hopefully* wont get clobbered by HVC_RESET_VECTORS
+ see: https://elixir.bootlin.com/linux/latest/source/arch/arm64/kernel/hyp-stub.S#L200
+ */
+ SYM_FUNC_START(kvmrk_replace_vbar_el2)
+     add     x19, xzr, x0
+     mov     x0, #HVC_RESET_VECTORS
+     hvc     #0
+
+     mov     x0, #HVC_SET_VECTORS
+     add     x1, xzr, x19
+     hvc     #0
+     ret
+ SYM_FUNC_END(kvmrk_replace_vbar_el2)
+
+
+
+ DO ON EACH CPU
+
+
+ SYM_FUNC_START(kvmrk_crash_everything)
+     mov     x0, #KVMRK_CRASH_EVERYTHING
+     hvc     #0
+     ret
+ SYM_FUNC_END(kvmrk_crash_everything)

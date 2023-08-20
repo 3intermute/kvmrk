@@ -1,1 +1,0 @@
-cmd_/mnt/Desktop/projects/kvmrk_arm/src/kvmrk.o := ld -EL  -maarch64elf -z noexecstack   -r -o /mnt/Desktop/projects/kvmrk_arm/src/kvmrk.o /mnt/Desktop/projects/kvmrk_arm/src/module.o /mnt/Desktop/projects/kvmrk_arm/src/vectors.o

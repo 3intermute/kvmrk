@@ -13,14 +13,13 @@
 
 	.text
 	.align 11
-
 SYM_CODE_START(kvmrk_vectors)
     ventry	el2_sync_invalid		// Synchronous EL2t
     ventry	el2_irq_invalid			// IRQ EL2t
     ventry	el2_fiq_invalid			// FIQ EL2t
     ventry	el2_error_invalid		// Error EL2t
 
-    ventry	el2_sync_invalid		// Synchronous EL2h
+    ventry	handle_trap_el1			// Synchronous EL2h
     ventry	el2_irq_invalid			// IRQ EL2h
     ventry	el2_fiq_invalid			// FIQ EL2h
     ventry	el2_error_invalid		// Error EL2h
@@ -42,9 +41,9 @@ SYM_CODE_START_LOCAL(handle_trap_el1)
 SYM_CODE_END(handle_trap_el1)
 
 SYM_CODE_START(hijack_mdcr_el2)
-    // mrs     x0, mdcr_el2
-    // orr     x0, x0, #MDCR_EL2_TDA
-    // msr     mdcr_el2, x0
+    mrs     x0, mdcr_el2
+    orr     x0, x0, #MDCR_EL2_TDA
+    msr     mdcr_el2, x0
     eret
 SYM_CODE_END(hijack_mdcr_el2)
 
@@ -64,30 +63,22 @@ SYM_CODE_END(\label)
 	invalid_vector	el1_fiq_invalid
 	invalid_vector	el1_error_invalid
 
-/*
-x10 *hopefully* wont get clobbered by HVC_RESET_VECTORS
-see: https://elixir.bootlin.com/linux/latest/source/arch/arm64/kernel/hyp-stub.S#L200
-*/
-SYM_FUNC_START(kvmrk_replace_vbar_el2)
-    add     x10, xzr, x0
-    mov     x0, #HVC_RESET_VECTORS
-    hvc     #0
+SYM_FUNC_START(kvmrk_set_vectors)
+	mov		x1, x0
+	mov		x0, #HVC_SET_VECTORS
+	hvc		#0
+	ret
+SYM_FUNC_END(kvmrk_set_vectors)
 
-    mov     x0, #HVC_SET_VECTORS
-    add     x1, xzr, x10
-    hvc     #0
-    ret
-SYM_FUNC_END(kvmrk_replace_vbar_el2)
+SYM_FUNC_START(kvmrk_reset_vectors)
+	mov		x0, #HVC_RESET_VECTORS
+	hvc		#0
+	ret
+SYM_FUNC_END(kvmrk_reset_vectors)
 
 SYM_FUNC_START(kvmrk_call_hyp)
     add     x1, xzr, x0
     mov     x0, #KVMRK_CALL_HYP
-    hvc     #0
-    ret
-SYM_FUNC_END(kvmrk_call_hyp)
-
-SYM_FUNC_START(kvmrk_crash_everything)
-    mov     x0, #KVMRK_CRASH_EVERYTHING
     hvc     #0
     ret
 SYM_FUNC_END(kvmrk_call_hyp)
