@@ -1,0 +1,1 @@
+cmd_/mnt/Desktop/projects/kvmrk_arm/src/Module.symvers := sed 's/\.ko$$/\.o/' /mnt/Desktop/projects/kvmrk_arm/src/modules.order | scripts/mod/modpost -m -a  -o /mnt/Desktop/projects/kvmrk_arm/src/Module.symvers -e -i Module.symvers   -T -

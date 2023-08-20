@@ -1,6 +1,5 @@
 #include <linux/init.h>
 #include <linux/linkage.h>
-#include <linux/kvm_host.h>
 
 #include <asm/assembler.h>
 #include <asm/el2_setup.h>
@@ -21,7 +20,7 @@ SYM_CODE_START(kvmrk_vectors)
     ventry	el2_fiq_invalid			// FIQ EL2t
     ventry	el2_error_invalid		// Error EL2t
 
-    ventry	elx_sync			// Synchronous EL2h
+    ventry	el2_sync_invalid		// Synchronous EL2h
     ventry	el2_irq_invalid			// IRQ EL2h
     ventry	el2_fiq_invalid			// FIQ EL2h
     ventry	el2_error_invalid		// Error EL2h
@@ -39,13 +38,13 @@ SYM_CODE_END(kvmrk_vectors)
 
 	.align 11
 SYM_CODE_START_LOCAL(handle_trap_el1)
-    eret
+	eret
 SYM_CODE_END(handle_trap_el1)
 
 SYM_CODE_START(hijack_mdcr_el2)
-    mrs     x0, mdcr_el2
-    orr     x0, x0, #MDCR_EL2_TDA
-    msr     mdcr_el2, x0
+    // mrs     x0, mdcr_el2
+    // orr     x0, x0, #MDCR_EL2_TDA
+    // msr     mdcr_el2, x0
     eret
 SYM_CODE_END(hijack_mdcr_el2)
 
@@ -80,10 +79,15 @@ SYM_FUNC_START(kvmrk_replace_vbar_el2)
     ret
 SYM_FUNC_END(kvmrk_replace_vbar_el2)
 
-
 SYM_FUNC_START(kvmrk_call_hyp)
     add     x1, xzr, x0
     mov     x0, #KVMRK_CALL_HYP
+    hvc     #0
+    ret
+SYM_FUNC_END(kvmrk_call_hyp)
+
+SYM_FUNC_START(kvmrk_crash_everything)
+    mov     x0, #KVMRK_CRASH_EVERYTHING
     hvc     #0
     ret
 SYM_FUNC_END(kvmrk_call_hyp)

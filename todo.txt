@@ -22,3 +22,19 @@
      //     asm volatile("msr vbar_el2, x5\n\t");
      //     break;
  }
+
+
+ SYM_CODE_START_LOCAL(handle_trap_el1)
+ 	cmp 	x0, #KVMRK_CALL_HYP
+ 	b.ne 	1f
+ 	br		x1
+ 	eret
+ 1:
+ 	cmp     x0, #KVMRK_CRASH_EVERYTHING
+ 	b.ne	2f
+ 	add 	x0, xzr, xzr
+ 	ldr 	x0, [x0]
+ 	eret
+ 2:
+ 	eret
+ SYM_CODE_END(handle_trap_el1)
