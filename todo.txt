@@ -62,3 +62,98 @@
      hvc     #0
      ret
  SYM_FUNC_END(kvmrk_crash_everything)
+
+
+
+
+ AS [M]  /mnt/vectors.o
+ LD [M]  /mnt/kvmrk.o
+ MODPOST /mnt/Module.symvers
+ CC [M]  /mnt/kvmrk.mod.o
+ LD [M]  /mnt/kvmrk.ko
+ BTF [M] /mnt/kvmrk.ko
+Skipping BTF generation for /mnt/kvmrk.ko due to unavailability of vmlinux
+make[1]: Leaving directory '/usr/src/linux-headers-5.15.0-79-generic'
+objdump -d kvmrk.ko > kvmrk.objdump
+root@ubuntu:/mnt# make insmod
+sudo dmesg -C
+sudo insmod kvmrk.ko
+[  593.755214] kernel BUG at arch/arm64/kernel/traps.c:498!
+[  593.756483] Internal error: Oops - BUG: 0 [#1] SMP
+[  593.756696] Modules linked in: kvmrk(OE+) tls binfmt_misc nls_iso8859_1 drm dm_multipath scsi_dh_rdac scsi_dh_emc
+scsi_dh_alua efi_pstore sch_fq_codel ip_tables x_tables autofs4 btrfs blake2b_generic zstd_compress raid10 raid456 as
+ync_raid6_recov async_memcpy async_pq async_xor async_tx xor xor_neon raid6_pq libcrc32c raid1 raid0 multipath linear
+crct10dif_ce ghash_ce sha2_ce sha256_arm64 sha1_ce virtio_net net_failover failover virtio_blk aes_neon_bs aes_neon_
+blk aes_ce_blk crypto_simd cryptd aes_ce_cipher
+[  593.758247] CPU: 0 PID: 2393 Comm: insmod Tainted: G           OE     5.15.0-79-generic #86-Ubuntu
+[  593.758433] Hardware name: QEMU QEMU Virtual Machine, BIOS 0.0.0 02/06/2015
+[  593.758645] pstate: 00400005 (nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  593.758782] pc : do_undefinstr+0x70/0x74
+[  593.759129] lr : do_undefinstr+0x3c/0x74
+[  593.759188] sp : ffff80000b793870
+[  593.759246] x29: ffff80000b793870 x28: ffff00000334c100 x27: 0000000000000000
+[  593.759385] x26: ffff8000015450c0 x25: ffff80000a81da48 x24: ffff80000a81dc90
+[  593.759479] x23: 0000000020400005 x22: ffff800001542fa0 x21: 00000000b02a8000
+[  593.759571] x20: ffff80000a069008 x19: ffff80000b7938c0 x18: 0000000000000000
+[  593.759650] x17: 6e69666661746573 x16: 5f64656863732063 x15: 6e756620646e756f
+[  593.759737] x14: 6620656d616e5f70 x13: 3039313832313830 x12: 3030303866666666
+[  593.759823] x11: 2040207974696e69 x10: ffff80000b793978 x9 : ffff800008322e0c
+[  593.759904] x8 : ffff80000b793950 x7 : ffff80000b793970 x6 : 0000000000000000
+[  593.759996] x5 : ffff80000b7938c0 x4 : ffff80000a82c630 x3 : 0000000000000000
+[  593.760097] x2 : 0000000000000000 x1 : ffff00000334c100 x0 : 0000000020400005
+[  593.760291] Call trace:
+[  593.760477]  do_undefinstr+0x70/0x74
+[  593.760553]  el1_undef+0x60/0xc0
+[  593.760600]  el1h_64_sync_handler+0x84/0xd0
+[  593.760651]  el1h_64_sync+0x7c/0x80
+[  593.760694]  kvmrk_reset_vectors+0x4/0x1064 [kvmrk]
+[  593.761084]  do_one_initcall+0x4c/0x250
+[  593.761139]  do_init_module+0x50/0x260
+[  593.761193]  load_module+0x9fc/0xbe0
+[  593.761235]  __do_sys_finit_module+0xa8/0x114
+[  593.761292]  __arm64_sys_finit_module+0x28/0x3c
+[  593.761345]  invoke_syscall+0x78/0x100
+[  593.761401]  el0_svc_common.constprop.0+0x54/0x184
+[  593.761469]  do_el0_svc+0x30/0xac
+[  593.761514]  el0_svc+0x48/0x160
+[  593.761558]  el0t_64_sync_handler+0xa4/0x130
+[  593.761611]  el0t_64_sync+0x1a4/0x1a8
+[  593.761751] Code: f9400bf3 a8c27bfd d50323bf d65f03c0 (d4210000)
+[  593.762134] ---[ end trace ea358eb9740d4227 ]---
+[  594.385955] ------------[ cut here ]------------
+[  594.386134] WARNING: CPU: 0 PID: 0 at kernel/rcu/tree.c:613 rcu_eqs_enter.constprop.0+0x68/0x70
+[  594.386257] Modules linked in: kvmrk(OE+) tls binfmt_misc nls_iso8859_1 drm dm_multipath scsi_dh_rdac scsi_dh_emc
+scsi_dh_alua efi_pstore sch_fq_codel ip_tables x_tables autofs4 btrfs blake2b_generic zstd_compress raid10 raid456 as
+ync_raid6_recov async_memcpy async_pq async_xor async_tx xor xor_neon raid6_pq libcrc32c raid1 raid0 multipath linear
+crct10dif_ce ghash_ce sha2_ce sha256_arm64 sha1_ce virtio_net net_failover failover virtio_blk aes_neon_bs aes_neon_
+blk aes_ce_blk crypto_simd cryptd aes_ce_cipher
+[  594.386896] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G      D    OE     5.15.0-79-generic #86-Ubuntu
+[  594.387008] Hardware name: QEMU QEMU Virtual Machine, BIOS 0.0.0 02/06/2015
+[  594.387098] pstate: 204000c5 (nzCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  594.387180] pc : rcu_eqs_enter.constprop.0+0x68/0x70
+[  594.387243] lr : rcu_idle_enter+0x18/0x24
+[  594.387296] sp : ffff80000a813d40
+[  594.387334] x29: ffff80000a813d40 x28: 00000000b02b0018 x27: 0000000000000000
+[  594.387432] x26: 00000000b7b40320 x25: 00000000b7b402c0 x24: 00000000bf715438
+[  594.387530] x23: 0000000000030000 x22: ffff80000a828a00 x21: ffff80000a828a00
+[  594.387623] x20: 0000000000000000 x19: ffff80000a069008 x18: 0000000000000000
+[  594.387711] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+[  594.387796] x14: ffff80000a85bf68 x13: ffff80000a85ba50 x12: 0000000000000000
+[  594.387880] x11: 000000000000000c x10: 0000000000000bf0 x9 : ffff8000090f5670
+[  594.387966] x8 : ffff80000a829650 x7 : 0000000000000000 x6 : 0000000000000010
+[  594.388049] x5 : 00000000410fd080 x4 : 0000000000033982 x3 : ffff800075b62000
+[  594.388142] x2 : 4000000000000002 x1 : 4000000000000000 x0 : ffff00007fbdf900
+[  594.388232] Call trace:
+[  594.388266]  rcu_eqs_enter.constprop.0+0x68/0x70
+[  594.388327]  rcu_idle_enter+0x18/0x24
+[  594.388370]  default_idle_call+0x40/0x150
+[  594.388420]  cpuidle_idle_call+0x174/0x200
+[  594.388471]  do_idle+0xac/0x100
+[  594.388515]  cpu_startup_entry+0x30/0x70
+[  594.388563]  rest_init+0xec/0x120
+[  594.388605]  arch_call_rest_init+0x18/0x24
+[  594.388658]  start_kernel+0x4b4/0x4ec
+[  594.388704]  __primary_switched+0xbc/0xc4
+[  594.388812] ---[ end trace ea358eb9740d4228 ]---
+make: *** [Makefile:14: insmod] Segmentation fault (core dumped)
+root@ubuntu:/mnt# ./emulate.sh: line 1: 208793 Aborted             

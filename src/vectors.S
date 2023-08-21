@@ -13,9 +13,10 @@
 
 
 	.text
+	.pushsection	.kvmrk.text, "ax"
 	.align	11
 
-SYM_CODE_START(__kvmrk_hyp_init)
+SYM_CODE_START(kvmrk_stub)
 	ventry	__invalid		// Synchronous EL2t
 	ventry	__invalid		// IRQ EL2t
 	ventry	__invalid		// FIQ EL2t
@@ -26,7 +27,7 @@ SYM_CODE_START(__kvmrk_hyp_init)
 	ventry	__invalid		// FIQ EL2h
 	ventry	__invalid		// Error EL2h
 
-	ventry	__do_kvmrk_init		// Synchronous 64-bit EL1
+	ventry	__do_kvmrk_el1_sync		// Synchronous 64-bit EL1
 	ventry	__invalid		// IRQ 64-bit EL1
 	ventry	__invalid		// FIQ 64-bit EL1
 	ventry	__invalid		// Error 64-bit EL1
@@ -38,10 +39,11 @@ SYM_CODE_START(__kvmrk_hyp_init)
 
 __invalid:
 	b	.
-__do_kvmrk_init:
-	mov	    x0, #33
-	eret
-SYM_CODE_END(__kvmrk_hyp_init)
+__do_kvmrk_el1_sync:
+	// mov_q	    x0, #KVMRK_STUB_SUCCESS
+ 	eret
+SYM_CODE_END(kvmrk_stub)
+
 
 SYM_FUNC_START(kvmrk_set_vectors)
 	mov		x1, x0
@@ -55,3 +57,6 @@ SYM_FUNC_START(kvmrk_reset_vectors)
 	hvc		#0
 	ret
 SYM_FUNC_END(kvmrk_reset_vectors)
+
+
+.popsection

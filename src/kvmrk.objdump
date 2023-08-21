@@ -145,6 +145,268 @@ Disassembly of section .text:
  20c:	a8c37bfd 	ldp	x29, x30, [sp], #48
  210:	d50323bf 	autiasp
  214:	d65f03c0 	ret
+
+Disassembly of section .text.unlikely:
+
+0000000000000000 <__kern_my_cpu_offset>:
+   0:	d503233f 	paciasp
+   4:	d50323bf 	autiasp
+   8:	d538d080 	mrs	x0, tpidr_el1
+   c:	d65f03c0 	ret
+  10:	d53cd040 	mrs	x0, tpidr_el2
+
+Disassembly of section .init.text:
+
+0000000000000000 <init_module>:
+   0:	d503201f 	nop
+   4:	d503201f 	nop
+   8:	d503233f 	paciasp
+   c:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
+  10:	90000000 	adrp	x0, 0 <init_module>
+  14:	910003fd 	mov	x29, sp
+  18:	91000000 	add	x0, x0, #0x0
+  1c:	a90153f3 	stp	x19, x20, [sp, #16]
+  20:	90000014 	adrp	x20, 0 <cpu_number>
+  24:	91000294 	add	x20, x20, #0x0
+  28:	a9025bf5 	stp	x21, x22, [sp, #32]
+  2c:	90000015 	adrp	x21, 0 <__num_online_cpus>
+  30:	52800016 	mov	w22, #0x0                   	// #0
+  34:	910002b5 	add	x21, x21, #0x0
+  38:	f9001bf7 	str	x23, [sp, #48]
+  3c:	94000000 	bl	0 <_printk>
+  40:	b94002a0 	ldr	w0, [x21]
+  44:	6b16001f 	cmp	w0, w22
+  48:	54000349 	b.ls	b0 <init_module+0xb0>  // b.plast
+  4c:	924016d3 	and	x19, x22, #0x3f
+  50:	91000673 	add	x19, x19, #0x1
+  54:	f101067f 	cmp	x19, #0x41
+  58:	540000a9 	b.ls	6c <init_module+0x6c>  // b.plast
+  5c:	90000000 	adrp	x0, 0 <init_module>
+  60:	aa1303e1 	mov	x1, x19
+  64:	91000000 	add	x0, x0, #0x0
+  68:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+  6c:	53067ec0 	lsr	w0, w22, #6
+  70:	d37bea73 	lsl	x19, x19, #5
+  74:	90000001 	adrp	x1, 0 <cpu_bit_bitmap>
+  78:	91000021 	add	x1, x1, #0x0
+  7c:	cb204e73 	sub	x19, x19, w0, uxtw #3
+  80:	52800000 	mov	w0, #0x0                   	// #0
+  84:	8b130021 	add	x1, x1, x19
+  88:	94000000 	bl	1a0 <kvmrk_sched_setaffinity>
+  8c:	110006d6 	add	w22, w22, #0x1
+  90:	94000000 	bl	79c <kvmrk_reset_vectors>
+  94:	94000000 	bl	0 <init_module>
+  98:	aa0003e1 	mov	x1, x0
+  9c:	90000000 	adrp	x0, 0 <init_module>
+  a0:	91000000 	add	x0, x0, #0x0
+  a4:	b8746821 	ldr	w1, [x1, x20]
+  a8:	94000000 	bl	0 <_printk>
+  ac:	17ffffe5 	b	40 <init_module+0x40>
+  b0:	90000014 	adrp	x20, 0 <init_module>
+  b4:	91000294 	add	x20, x20, #0x0
+  b8:	90000016 	adrp	x22, 0 <cpu_bit_bitmap>
+  bc:	91008294 	add	x20, x20, #0x20
+  c0:	910002d6 	add	x22, x22, #0x0
+  c4:	52800017 	mov	w23, #0x0                   	// #0
+  c8:	b94002a0 	ldr	w0, [x21]
+  cc:	6b17001f 	cmp	w0, w23
+  d0:	540003c9 	b.ls	148 <init_module+0x148>  // b.plast
+  d4:	924016f3 	and	x19, x23, #0x3f
+  d8:	91000673 	add	x19, x19, #0x1
+  dc:	f101067f 	cmp	x19, #0x41
+  e0:	54000089 	b.ls	f0 <init_module+0xf0>  // b.plast
+  e4:	aa1303e1 	mov	x1, x19
+  e8:	aa1403e0 	mov	x0, x20
+  ec:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+  f0:	53067ee2 	lsr	w2, w23, #6
+  f4:	d37bea61 	lsl	x1, x19, #5
+  f8:	52800000 	mov	w0, #0x0                   	// #0
+  fc:	90000013 	adrp	x19, 0 <cpu_number>
+ 100:	cb224c21 	sub	x1, x1, w2, uxtw #3
+ 104:	91000273 	add	x19, x19, #0x0
+ 108:	8b0102c1 	add	x1, x22, x1
+ 10c:	94000000 	bl	1a0 <kvmrk_sched_setaffinity>
+ 110:	90000001 	adrp	x1, 0 <kimage_voffset>
+ 114:	90000000 	adrp	x0, 0 <init_module>
+ 118:	91000000 	add	x0, x0, #0x0
+ 11c:	110006f7 	add	w23, w23, #0x1
+ 120:	f9400021 	ldr	x1, [x1]
+ 124:	cb010000 	sub	x0, x0, x1
+ 128:	94000000 	bl	78c <kvmrk_set_vectors>
+ 12c:	94000000 	bl	0 <init_module>
+ 130:	aa0003e1 	mov	x1, x0
+ 134:	90000000 	adrp	x0, 0 <init_module>
+ 138:	91000000 	add	x0, x0, #0x0
+ 13c:	b8736821 	ldr	w1, [x1, x19]
+ 140:	94000000 	bl	0 <_printk>
+ 144:	17ffffe1 	b	c8 <init_module+0xc8>
+ 148:	90000000 	adrp	x0, 0 <init_module>
+ 14c:	91000000 	add	x0, x0, #0x0
+ 150:	94000000 	bl	0 <_printk>
+ 154:	d28000a0 	mov	x0, #0x5                   	// #5
+ 158:	d4000002 	hvc	#0x0
+ 15c:	90000002 	adrp	x2, 0 <init_module>
+ 160:	aa0003e1 	mov	x1, x0
+ 164:	91000040 	add	x0, x2, #0x0
+ 168:	94000000 	bl	0 <_printk>
+ 16c:	52800000 	mov	w0, #0x0                   	// #0
+ 170:	a94153f3 	ldp	x19, x20, [sp, #16]
+ 174:	a9425bf5 	ldp	x21, x22, [sp, #32]
+ 178:	f9401bf7 	ldr	x23, [sp, #48]
+ 17c:	a8c47bfd 	ldp	x29, x30, [sp], #64
+ 180:	d50323bf 	autiasp
+ 184:	d65f03c0 	ret
+
+Disassembly of section .exit.text:
+
+0000000000000000 <cleanup_module>:
+   0:	d503233f 	paciasp
+   4:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+   8:	90000000 	adrp	x0, 0 <cleanup_module>
+   c:	910003fd 	mov	x29, sp
+  10:	91000000 	add	x0, x0, #0x0
+  14:	94000000 	bl	0 <_printk>
+  18:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  1c:	d50323bf 	autiasp
+  20:	d65f03c0 	ret
+
+Disassembly of section .kvmrk.text:
+
+0000000000000000 <kvmrk_stub>:
+   0:	140001e1 	b	784 <__invalid>
+   4:	d503201f 	nop
+   8:	d503201f 	nop
+   c:	d503201f 	nop
+  10:	d503201f 	nop
+  14:	d503201f 	nop
+  18:	d503201f 	nop
+  1c:	d503201f 	nop
+  20:	d503201f 	nop
+  24:	d503201f 	nop
+  28:	d503201f 	nop
+  2c:	d503201f 	nop
+  30:	d503201f 	nop
+  34:	d503201f 	nop
+  38:	d503201f 	nop
+  3c:	d503201f 	nop
+  40:	d503201f 	nop
+  44:	d503201f 	nop
+  48:	d503201f 	nop
+  4c:	d503201f 	nop
+  50:	d503201f 	nop
+  54:	d503201f 	nop
+  58:	d503201f 	nop
+  5c:	d503201f 	nop
+  60:	d503201f 	nop
+  64:	d503201f 	nop
+  68:	d503201f 	nop
+  6c:	d503201f 	nop
+  70:	d503201f 	nop
+  74:	d503201f 	nop
+  78:	d503201f 	nop
+  7c:	d503201f 	nop
+  80:	140001c1 	b	784 <__invalid>
+  84:	d503201f 	nop
+  88:	d503201f 	nop
+  8c:	d503201f 	nop
+  90:	d503201f 	nop
+  94:	d503201f 	nop
+  98:	d503201f 	nop
+  9c:	d503201f 	nop
+  a0:	d503201f 	nop
+  a4:	d503201f 	nop
+  a8:	d503201f 	nop
+  ac:	d503201f 	nop
+  b0:	d503201f 	nop
+  b4:	d503201f 	nop
+  b8:	d503201f 	nop
+  bc:	d503201f 	nop
+  c0:	d503201f 	nop
+  c4:	d503201f 	nop
+  c8:	d503201f 	nop
+  cc:	d503201f 	nop
+  d0:	d503201f 	nop
+  d4:	d503201f 	nop
+  d8:	d503201f 	nop
+  dc:	d503201f 	nop
+  e0:	d503201f 	nop
+  e4:	d503201f 	nop
+  e8:	d503201f 	nop
+  ec:	d503201f 	nop
+  f0:	d503201f 	nop
+  f4:	d503201f 	nop
+  f8:	d503201f 	nop
+  fc:	d503201f 	nop
+ 100:	140001a1 	b	784 <__invalid>
+ 104:	d503201f 	nop
+ 108:	d503201f 	nop
+ 10c:	d503201f 	nop
+ 110:	d503201f 	nop
+ 114:	d503201f 	nop
+ 118:	d503201f 	nop
+ 11c:	d503201f 	nop
+ 120:	d503201f 	nop
+ 124:	d503201f 	nop
+ 128:	d503201f 	nop
+ 12c:	d503201f 	nop
+ 130:	d503201f 	nop
+ 134:	d503201f 	nop
+ 138:	d503201f 	nop
+ 13c:	d503201f 	nop
+ 140:	d503201f 	nop
+ 144:	d503201f 	nop
+ 148:	d503201f 	nop
+ 14c:	d503201f 	nop
+ 150:	d503201f 	nop
+ 154:	d503201f 	nop
+ 158:	d503201f 	nop
+ 15c:	d503201f 	nop
+ 160:	d503201f 	nop
+ 164:	d503201f 	nop
+ 168:	d503201f 	nop
+ 16c:	d503201f 	nop
+ 170:	d503201f 	nop
+ 174:	d503201f 	nop
+ 178:	d503201f 	nop
+ 17c:	d503201f 	nop
+ 180:	14000181 	b	784 <__invalid>
+ 184:	d503201f 	nop
+ 188:	d503201f 	nop
+ 18c:	d503201f 	nop
+ 190:	d503201f 	nop
+ 194:	d503201f 	nop
+ 198:	d503201f 	nop
+ 19c:	d503201f 	nop
+ 1a0:	d503201f 	nop
+ 1a4:	d503201f 	nop
+ 1a8:	d503201f 	nop
+ 1ac:	d503201f 	nop
+ 1b0:	d503201f 	nop
+ 1b4:	d503201f 	nop
+ 1b8:	d503201f 	nop
+ 1bc:	d503201f 	nop
+ 1c0:	d503201f 	nop
+ 1c4:	d503201f 	nop
+ 1c8:	d503201f 	nop
+ 1cc:	d503201f 	nop
+ 1d0:	d503201f 	nop
+ 1d4:	d503201f 	nop
+ 1d8:	d503201f 	nop
+ 1dc:	d503201f 	nop
+ 1e0:	d503201f 	nop
+ 1e4:	d503201f 	nop
+ 1e8:	d503201f 	nop
+ 1ec:	d503201f 	nop
+ 1f0:	d503201f 	nop
+ 1f4:	d503201f 	nop
+ 1f8:	d503201f 	nop
+ 1fc:	d503201f 	nop
+ 200:	14000161 	b	784 <__invalid>
+ 204:	d503201f 	nop
+ 208:	d503201f 	nop
+ 20c:	d503201f 	nop
+ 210:	d503201f 	nop
+ 214:	d503201f 	nop
  218:	d503201f 	nop
  21c:	d503201f 	nop
  220:	d503201f 	nop
@@ -171,7 +433,7 @@ Disassembly of section .text:
  274:	d503201f 	nop
  278:	d503201f 	nop
  27c:	d503201f 	nop
- 280:	d503201f 	nop
+ 280:	14000141 	b	784 <__invalid>
  284:	d503201f 	nop
  288:	d503201f 	nop
  28c:	d503201f 	nop
@@ -203,7 +465,7 @@ Disassembly of section .text:
  2f4:	d503201f 	nop
  2f8:	d503201f 	nop
  2fc:	d503201f 	nop
- 300:	d503201f 	nop
+ 300:	14000121 	b	784 <__invalid>
  304:	d503201f 	nop
  308:	d503201f 	nop
  30c:	d503201f 	nop
@@ -235,7 +497,7 @@ Disassembly of section .text:
  374:	d503201f 	nop
  378:	d503201f 	nop
  37c:	d503201f 	nop
- 380:	d503201f 	nop
+ 380:	14000101 	b	784 <__invalid>
  384:	d503201f 	nop
  388:	d503201f 	nop
  38c:	d503201f 	nop
@@ -267,7 +529,7 @@ Disassembly of section .text:
  3f4:	d503201f 	nop
  3f8:	d503201f 	nop
  3fc:	d503201f 	nop
- 400:	d503201f 	nop
+ 400:	140000e2 	b	788 <__do_kvmrk_el1_sync>
  404:	d503201f 	nop
  408:	d503201f 	nop
  40c:	d503201f 	nop
@@ -299,7 +561,7 @@ Disassembly of section .text:
  474:	d503201f 	nop
  478:	d503201f 	nop
  47c:	d503201f 	nop
- 480:	d503201f 	nop
+ 480:	140000c1 	b	784 <__invalid>
  484:	d503201f 	nop
  488:	d503201f 	nop
  48c:	d503201f 	nop
@@ -331,7 +593,7 @@ Disassembly of section .text:
  4f4:	d503201f 	nop
  4f8:	d503201f 	nop
  4fc:	d503201f 	nop
- 500:	d503201f 	nop
+ 500:	140000a1 	b	784 <__invalid>
  504:	d503201f 	nop
  508:	d503201f 	nop
  50c:	d503201f 	nop
@@ -363,7 +625,7 @@ Disassembly of section .text:
  574:	d503201f 	nop
  578:	d503201f 	nop
  57c:	d503201f 	nop
- 580:	d503201f 	nop
+ 580:	14000081 	b	784 <__invalid>
  584:	d503201f 	nop
  588:	d503201f 	nop
  58c:	d503201f 	nop
@@ -395,7 +657,7 @@ Disassembly of section .text:
  5f4:	d503201f 	nop
  5f8:	d503201f 	nop
  5fc:	d503201f 	nop
- 600:	d503201f 	nop
+ 600:	14000061 	b	784 <__invalid>
  604:	d503201f 	nop
  608:	d503201f 	nop
  60c:	d503201f 	nop
@@ -427,7 +689,7 @@ Disassembly of section .text:
  674:	d503201f 	nop
  678:	d503201f 	nop
  67c:	d503201f 	nop
- 680:	d503201f 	nop
+ 680:	14000041 	b	784 <__invalid>
  684:	d503201f 	nop
  688:	d503201f 	nop
  68c:	d503201f 	nop
@@ -459,7 +721,7 @@ Disassembly of section .text:
  6f4:	d503201f 	nop
  6f8:	d503201f 	nop
  6fc:	d503201f 	nop
- 700:	d503201f 	nop
+ 700:	14000021 	b	784 <__invalid>
  704:	d503201f 	nop
  708:	d503201f 	nop
  70c:	d503201f 	nop
@@ -491,682 +753,24 @@ Disassembly of section .text:
  774:	d503201f 	nop
  778:	d503201f 	nop
  77c:	d503201f 	nop
- 780:	d503201f 	nop
- 784:	d503201f 	nop
- 788:	d503201f 	nop
- 78c:	d503201f 	nop
- 790:	d503201f 	nop
- 794:	d503201f 	nop
- 798:	d503201f 	nop
- 79c:	d503201f 	nop
- 7a0:	d503201f 	nop
- 7a4:	d503201f 	nop
- 7a8:	d503201f 	nop
- 7ac:	d503201f 	nop
- 7b0:	d503201f 	nop
- 7b4:	d503201f 	nop
- 7b8:	d503201f 	nop
- 7bc:	d503201f 	nop
- 7c0:	d503201f 	nop
- 7c4:	d503201f 	nop
- 7c8:	d503201f 	nop
- 7cc:	d503201f 	nop
- 7d0:	d503201f 	nop
- 7d4:	d503201f 	nop
- 7d8:	d503201f 	nop
- 7dc:	d503201f 	nop
- 7e0:	d503201f 	nop
- 7e4:	d503201f 	nop
- 7e8:	d503201f 	nop
- 7ec:	d503201f 	nop
- 7f0:	d503201f 	nop
- 7f4:	d503201f 	nop
- 7f8:	d503201f 	nop
- 7fc:	d503201f 	nop
+ 780:	14000001 	b	784 <__invalid>
 
-0000000000000800 <__kvmrk_hyp_init>:
- 800:	140001e1 	b	f84 <__invalid>
- 804:	d503201f 	nop
- 808:	d503201f 	nop
- 80c:	d503201f 	nop
- 810:	d503201f 	nop
- 814:	d503201f 	nop
- 818:	d503201f 	nop
- 81c:	d503201f 	nop
- 820:	d503201f 	nop
- 824:	d503201f 	nop
- 828:	d503201f 	nop
- 82c:	d503201f 	nop
- 830:	d503201f 	nop
- 834:	d503201f 	nop
- 838:	d503201f 	nop
- 83c:	d503201f 	nop
- 840:	d503201f 	nop
- 844:	d503201f 	nop
- 848:	d503201f 	nop
- 84c:	d503201f 	nop
- 850:	d503201f 	nop
- 854:	d503201f 	nop
- 858:	d503201f 	nop
- 85c:	d503201f 	nop
- 860:	d503201f 	nop
- 864:	d503201f 	nop
- 868:	d503201f 	nop
- 86c:	d503201f 	nop
- 870:	d503201f 	nop
- 874:	d503201f 	nop
- 878:	d503201f 	nop
- 87c:	d503201f 	nop
- 880:	140001c1 	b	f84 <__invalid>
- 884:	d503201f 	nop
- 888:	d503201f 	nop
- 88c:	d503201f 	nop
- 890:	d503201f 	nop
- 894:	d503201f 	nop
- 898:	d503201f 	nop
- 89c:	d503201f 	nop
- 8a0:	d503201f 	nop
- 8a4:	d503201f 	nop
- 8a8:	d503201f 	nop
- 8ac:	d503201f 	nop
- 8b0:	d503201f 	nop
- 8b4:	d503201f 	nop
- 8b8:	d503201f 	nop
- 8bc:	d503201f 	nop
- 8c0:	d503201f 	nop
- 8c4:	d503201f 	nop
- 8c8:	d503201f 	nop
- 8cc:	d503201f 	nop
- 8d0:	d503201f 	nop
- 8d4:	d503201f 	nop
- 8d8:	d503201f 	nop
- 8dc:	d503201f 	nop
- 8e0:	d503201f 	nop
- 8e4:	d503201f 	nop
- 8e8:	d503201f 	nop
- 8ec:	d503201f 	nop
- 8f0:	d503201f 	nop
- 8f4:	d503201f 	nop
- 8f8:	d503201f 	nop
- 8fc:	d503201f 	nop
- 900:	140001a1 	b	f84 <__invalid>
- 904:	d503201f 	nop
- 908:	d503201f 	nop
- 90c:	d503201f 	nop
- 910:	d503201f 	nop
- 914:	d503201f 	nop
- 918:	d503201f 	nop
- 91c:	d503201f 	nop
- 920:	d503201f 	nop
- 924:	d503201f 	nop
- 928:	d503201f 	nop
- 92c:	d503201f 	nop
- 930:	d503201f 	nop
- 934:	d503201f 	nop
- 938:	d503201f 	nop
- 93c:	d503201f 	nop
- 940:	d503201f 	nop
- 944:	d503201f 	nop
- 948:	d503201f 	nop
- 94c:	d503201f 	nop
- 950:	d503201f 	nop
- 954:	d503201f 	nop
- 958:	d503201f 	nop
- 95c:	d503201f 	nop
- 960:	d503201f 	nop
- 964:	d503201f 	nop
- 968:	d503201f 	nop
- 96c:	d503201f 	nop
- 970:	d503201f 	nop
- 974:	d503201f 	nop
- 978:	d503201f 	nop
- 97c:	d503201f 	nop
- 980:	14000181 	b	f84 <__invalid>
- 984:	d503201f 	nop
- 988:	d503201f 	nop
- 98c:	d503201f 	nop
- 990:	d503201f 	nop
- 994:	d503201f 	nop
- 998:	d503201f 	nop
- 99c:	d503201f 	nop
- 9a0:	d503201f 	nop
- 9a4:	d503201f 	nop
- 9a8:	d503201f 	nop
- 9ac:	d503201f 	nop
- 9b0:	d503201f 	nop
- 9b4:	d503201f 	nop
- 9b8:	d503201f 	nop
- 9bc:	d503201f 	nop
- 9c0:	d503201f 	nop
- 9c4:	d503201f 	nop
- 9c8:	d503201f 	nop
- 9cc:	d503201f 	nop
- 9d0:	d503201f 	nop
- 9d4:	d503201f 	nop
- 9d8:	d503201f 	nop
- 9dc:	d503201f 	nop
- 9e0:	d503201f 	nop
- 9e4:	d503201f 	nop
- 9e8:	d503201f 	nop
- 9ec:	d503201f 	nop
- 9f0:	d503201f 	nop
- 9f4:	d503201f 	nop
- 9f8:	d503201f 	nop
- 9fc:	d503201f 	nop
- a00:	14000161 	b	f84 <__invalid>
- a04:	d503201f 	nop
- a08:	d503201f 	nop
- a0c:	d503201f 	nop
- a10:	d503201f 	nop
- a14:	d503201f 	nop
- a18:	d503201f 	nop
- a1c:	d503201f 	nop
- a20:	d503201f 	nop
- a24:	d503201f 	nop
- a28:	d503201f 	nop
- a2c:	d503201f 	nop
- a30:	d503201f 	nop
- a34:	d503201f 	nop
- a38:	d503201f 	nop
- a3c:	d503201f 	nop
- a40:	d503201f 	nop
- a44:	d503201f 	nop
- a48:	d503201f 	nop
- a4c:	d503201f 	nop
- a50:	d503201f 	nop
- a54:	d503201f 	nop
- a58:	d503201f 	nop
- a5c:	d503201f 	nop
- a60:	d503201f 	nop
- a64:	d503201f 	nop
- a68:	d503201f 	nop
- a6c:	d503201f 	nop
- a70:	d503201f 	nop
- a74:	d503201f 	nop
- a78:	d503201f 	nop
- a7c:	d503201f 	nop
- a80:	14000141 	b	f84 <__invalid>
- a84:	d503201f 	nop
- a88:	d503201f 	nop
- a8c:	d503201f 	nop
- a90:	d503201f 	nop
- a94:	d503201f 	nop
- a98:	d503201f 	nop
- a9c:	d503201f 	nop
- aa0:	d503201f 	nop
- aa4:	d503201f 	nop
- aa8:	d503201f 	nop
- aac:	d503201f 	nop
- ab0:	d503201f 	nop
- ab4:	d503201f 	nop
- ab8:	d503201f 	nop
- abc:	d503201f 	nop
- ac0:	d503201f 	nop
- ac4:	d503201f 	nop
- ac8:	d503201f 	nop
- acc:	d503201f 	nop
- ad0:	d503201f 	nop
- ad4:	d503201f 	nop
- ad8:	d503201f 	nop
- adc:	d503201f 	nop
- ae0:	d503201f 	nop
- ae4:	d503201f 	nop
- ae8:	d503201f 	nop
- aec:	d503201f 	nop
- af0:	d503201f 	nop
- af4:	d503201f 	nop
- af8:	d503201f 	nop
- afc:	d503201f 	nop
- b00:	14000121 	b	f84 <__invalid>
- b04:	d503201f 	nop
- b08:	d503201f 	nop
- b0c:	d503201f 	nop
- b10:	d503201f 	nop
- b14:	d503201f 	nop
- b18:	d503201f 	nop
- b1c:	d503201f 	nop
- b20:	d503201f 	nop
- b24:	d503201f 	nop
- b28:	d503201f 	nop
- b2c:	d503201f 	nop
- b30:	d503201f 	nop
- b34:	d503201f 	nop
- b38:	d503201f 	nop
- b3c:	d503201f 	nop
- b40:	d503201f 	nop
- b44:	d503201f 	nop
- b48:	d503201f 	nop
- b4c:	d503201f 	nop
- b50:	d503201f 	nop
- b54:	d503201f 	nop
- b58:	d503201f 	nop
- b5c:	d503201f 	nop
- b60:	d503201f 	nop
- b64:	d503201f 	nop
- b68:	d503201f 	nop
- b6c:	d503201f 	nop
- b70:	d503201f 	nop
- b74:	d503201f 	nop
- b78:	d503201f 	nop
- b7c:	d503201f 	nop
- b80:	14000101 	b	f84 <__invalid>
- b84:	d503201f 	nop
- b88:	d503201f 	nop
- b8c:	d503201f 	nop
- b90:	d503201f 	nop
- b94:	d503201f 	nop
- b98:	d503201f 	nop
- b9c:	d503201f 	nop
- ba0:	d503201f 	nop
- ba4:	d503201f 	nop
- ba8:	d503201f 	nop
- bac:	d503201f 	nop
- bb0:	d503201f 	nop
- bb4:	d503201f 	nop
- bb8:	d503201f 	nop
- bbc:	d503201f 	nop
- bc0:	d503201f 	nop
- bc4:	d503201f 	nop
- bc8:	d503201f 	nop
- bcc:	d503201f 	nop
- bd0:	d503201f 	nop
- bd4:	d503201f 	nop
- bd8:	d503201f 	nop
- bdc:	d503201f 	nop
- be0:	d503201f 	nop
- be4:	d503201f 	nop
- be8:	d503201f 	nop
- bec:	d503201f 	nop
- bf0:	d503201f 	nop
- bf4:	d503201f 	nop
- bf8:	d503201f 	nop
- bfc:	d503201f 	nop
- c00:	140000e2 	b	f88 <__do_kvmrk_init>
- c04:	d503201f 	nop
- c08:	d503201f 	nop
- c0c:	d503201f 	nop
- c10:	d503201f 	nop
- c14:	d503201f 	nop
- c18:	d503201f 	nop
- c1c:	d503201f 	nop
- c20:	d503201f 	nop
- c24:	d503201f 	nop
- c28:	d503201f 	nop
- c2c:	d503201f 	nop
- c30:	d503201f 	nop
- c34:	d503201f 	nop
- c38:	d503201f 	nop
- c3c:	d503201f 	nop
- c40:	d503201f 	nop
- c44:	d503201f 	nop
- c48:	d503201f 	nop
- c4c:	d503201f 	nop
- c50:	d503201f 	nop
- c54:	d503201f 	nop
- c58:	d503201f 	nop
- c5c:	d503201f 	nop
- c60:	d503201f 	nop
- c64:	d503201f 	nop
- c68:	d503201f 	nop
- c6c:	d503201f 	nop
- c70:	d503201f 	nop
- c74:	d503201f 	nop
- c78:	d503201f 	nop
- c7c:	d503201f 	nop
- c80:	140000c1 	b	f84 <__invalid>
- c84:	d503201f 	nop
- c88:	d503201f 	nop
- c8c:	d503201f 	nop
- c90:	d503201f 	nop
- c94:	d503201f 	nop
- c98:	d503201f 	nop
- c9c:	d503201f 	nop
- ca0:	d503201f 	nop
- ca4:	d503201f 	nop
- ca8:	d503201f 	nop
- cac:	d503201f 	nop
- cb0:	d503201f 	nop
- cb4:	d503201f 	nop
- cb8:	d503201f 	nop
- cbc:	d503201f 	nop
- cc0:	d503201f 	nop
- cc4:	d503201f 	nop
- cc8:	d503201f 	nop
- ccc:	d503201f 	nop
- cd0:	d503201f 	nop
- cd4:	d503201f 	nop
- cd8:	d503201f 	nop
- cdc:	d503201f 	nop
- ce0:	d503201f 	nop
- ce4:	d503201f 	nop
- ce8:	d503201f 	nop
- cec:	d503201f 	nop
- cf0:	d503201f 	nop
- cf4:	d503201f 	nop
- cf8:	d503201f 	nop
- cfc:	d503201f 	nop
- d00:	140000a1 	b	f84 <__invalid>
- d04:	d503201f 	nop
- d08:	d503201f 	nop
- d0c:	d503201f 	nop
- d10:	d503201f 	nop
- d14:	d503201f 	nop
- d18:	d503201f 	nop
- d1c:	d503201f 	nop
- d20:	d503201f 	nop
- d24:	d503201f 	nop
- d28:	d503201f 	nop
- d2c:	d503201f 	nop
- d30:	d503201f 	nop
- d34:	d503201f 	nop
- d38:	d503201f 	nop
- d3c:	d503201f 	nop
- d40:	d503201f 	nop
- d44:	d503201f 	nop
- d48:	d503201f 	nop
- d4c:	d503201f 	nop
- d50:	d503201f 	nop
- d54:	d503201f 	nop
- d58:	d503201f 	nop
- d5c:	d503201f 	nop
- d60:	d503201f 	nop
- d64:	d503201f 	nop
- d68:	d503201f 	nop
- d6c:	d503201f 	nop
- d70:	d503201f 	nop
- d74:	d503201f 	nop
- d78:	d503201f 	nop
- d7c:	d503201f 	nop
- d80:	14000081 	b	f84 <__invalid>
- d84:	d503201f 	nop
- d88:	d503201f 	nop
- d8c:	d503201f 	nop
- d90:	d503201f 	nop
- d94:	d503201f 	nop
- d98:	d503201f 	nop
- d9c:	d503201f 	nop
- da0:	d503201f 	nop
- da4:	d503201f 	nop
- da8:	d503201f 	nop
- dac:	d503201f 	nop
- db0:	d503201f 	nop
- db4:	d503201f 	nop
- db8:	d503201f 	nop
- dbc:	d503201f 	nop
- dc0:	d503201f 	nop
- dc4:	d503201f 	nop
- dc8:	d503201f 	nop
- dcc:	d503201f 	nop
- dd0:	d503201f 	nop
- dd4:	d503201f 	nop
- dd8:	d503201f 	nop
- ddc:	d503201f 	nop
- de0:	d503201f 	nop
- de4:	d503201f 	nop
- de8:	d503201f 	nop
- dec:	d503201f 	nop
- df0:	d503201f 	nop
- df4:	d503201f 	nop
- df8:	d503201f 	nop
- dfc:	d503201f 	nop
- e00:	14000061 	b	f84 <__invalid>
- e04:	d503201f 	nop
- e08:	d503201f 	nop
- e0c:	d503201f 	nop
- e10:	d503201f 	nop
- e14:	d503201f 	nop
- e18:	d503201f 	nop
- e1c:	d503201f 	nop
- e20:	d503201f 	nop
- e24:	d503201f 	nop
- e28:	d503201f 	nop
- e2c:	d503201f 	nop
- e30:	d503201f 	nop
- e34:	d503201f 	nop
- e38:	d503201f 	nop
- e3c:	d503201f 	nop
- e40:	d503201f 	nop
- e44:	d503201f 	nop
- e48:	d503201f 	nop
- e4c:	d503201f 	nop
- e50:	d503201f 	nop
- e54:	d503201f 	nop
- e58:	d503201f 	nop
- e5c:	d503201f 	nop
- e60:	d503201f 	nop
- e64:	d503201f 	nop
- e68:	d503201f 	nop
- e6c:	d503201f 	nop
- e70:	d503201f 	nop
- e74:	d503201f 	nop
- e78:	d503201f 	nop
- e7c:	d503201f 	nop
- e80:	14000041 	b	f84 <__invalid>
- e84:	d503201f 	nop
- e88:	d503201f 	nop
- e8c:	d503201f 	nop
- e90:	d503201f 	nop
- e94:	d503201f 	nop
- e98:	d503201f 	nop
- e9c:	d503201f 	nop
- ea0:	d503201f 	nop
- ea4:	d503201f 	nop
- ea8:	d503201f 	nop
- eac:	d503201f 	nop
- eb0:	d503201f 	nop
- eb4:	d503201f 	nop
- eb8:	d503201f 	nop
- ebc:	d503201f 	nop
- ec0:	d503201f 	nop
- ec4:	d503201f 	nop
- ec8:	d503201f 	nop
- ecc:	d503201f 	nop
- ed0:	d503201f 	nop
- ed4:	d503201f 	nop
- ed8:	d503201f 	nop
- edc:	d503201f 	nop
- ee0:	d503201f 	nop
- ee4:	d503201f 	nop
- ee8:	d503201f 	nop
- eec:	d503201f 	nop
- ef0:	d503201f 	nop
- ef4:	d503201f 	nop
- ef8:	d503201f 	nop
- efc:	d503201f 	nop
- f00:	14000021 	b	f84 <__invalid>
- f04:	d503201f 	nop
- f08:	d503201f 	nop
- f0c:	d503201f 	nop
- f10:	d503201f 	nop
- f14:	d503201f 	nop
- f18:	d503201f 	nop
- f1c:	d503201f 	nop
- f20:	d503201f 	nop
- f24:	d503201f 	nop
- f28:	d503201f 	nop
- f2c:	d503201f 	nop
- f30:	d503201f 	nop
- f34:	d503201f 	nop
- f38:	d503201f 	nop
- f3c:	d503201f 	nop
- f40:	d503201f 	nop
- f44:	d503201f 	nop
- f48:	d503201f 	nop
- f4c:	d503201f 	nop
- f50:	d503201f 	nop
- f54:	d503201f 	nop
- f58:	d503201f 	nop
- f5c:	d503201f 	nop
- f60:	d503201f 	nop
- f64:	d503201f 	nop
- f68:	d503201f 	nop
- f6c:	d503201f 	nop
- f70:	d503201f 	nop
- f74:	d503201f 	nop
- f78:	d503201f 	nop
- f7c:	d503201f 	nop
- f80:	14000001 	b	f84 <__invalid>
+0000000000000784 <__invalid>:
+ 784:	14000000 	b	784 <__invalid>
 
-0000000000000f84 <__invalid>:
- f84:	14000000 	b	f84 <__invalid>
+0000000000000788 <__do_kvmrk_el1_sync>:
+ 788:	14000000 	b	788 <__do_kvmrk_el1_sync>
 
-0000000000000f88 <__do_kvmrk_init>:
- f88:	d2800420 	mov	x0, #0x21                  	// #33
- f8c:	d69f03e0 	eret
+000000000000078c <kvmrk_set_vectors>:
+ 78c:	aa0003e1 	mov	x1, x0
+ 790:	d2800000 	mov	x0, #0x0                   	// #0
+ 794:	d4000002 	hvc	#0x0
+ 798:	d65f03c0 	ret
 
-0000000000000f90 <hijack_mdcr_el2>:
- f90:	d53c1120 	mrs	x0, mdcr_el2
- f94:	b2770000 	orr	x0, x0, #0x200
- f98:	d51c1120 	msr	mdcr_el2, x0
- f9c:	d69f03e0 	eret
-
-0000000000000fa0 <kvmrk_set_vectors>:
- fa0:	aa0003e1 	mov	x1, x0
- fa4:	d2800000 	mov	x0, #0x0                   	// #0
- fa8:	d4000002 	hvc	#0x0
- fac:	d65f03c0 	ret
-
-0000000000000fb0 <kvmrk_reset_vectors>:
- fb0:	d2800040 	mov	x0, #0x2                   	// #2
- fb4:	d4000002 	hvc	#0x0
- fb8:	d65f03c0 	ret
-
-0000000000000fbc <kvmrk_call_hyp>:
- fbc:	8b0003e1 	add	x1, xzr, x0
- fc0:	d2800160 	mov	x0, #0xb                   	// #11
- fc4:	d4000002 	hvc	#0x0
- fc8:	d65f03c0 	ret
-
-Disassembly of section .text.unlikely:
-
-0000000000000000 <__kern_my_cpu_offset>:
-   0:	d503233f 	paciasp
-   4:	d50323bf 	autiasp
-   8:	d538d080 	mrs	x0, tpidr_el1
-   c:	d65f03c0 	ret
-  10:	d53cd040 	mrs	x0, tpidr_el2
-
-Disassembly of section .init.text:
-
-0000000000000000 <init_module>:
-   0:	d503201f 	nop
-   4:	d503201f 	nop
-   8:	d503233f 	paciasp
-   c:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
-  10:	90000000 	adrp	x0, 0 <init_module>
-  14:	910003fd 	mov	x29, sp
-  18:	a9025bf5 	stp	x21, x22, [sp, #32]
-  1c:	90000015 	adrp	x21, 0 <__num_online_cpus>
-  20:	910002b5 	add	x21, x21, #0x0
-  24:	52800016 	mov	w22, #0x0                   	// #0
-  28:	91000000 	add	x0, x0, #0x0
-  2c:	a90153f3 	stp	x19, x20, [sp, #16]
-  30:	90000014 	adrp	x20, 0 <cpu_number>
-  34:	91000294 	add	x20, x20, #0x0
-  38:	a90363f7 	stp	x23, x24, [sp, #48]
-  3c:	94000000 	bl	0 <_printk>
-  40:	b94002a0 	ldr	w0, [x21]
-  44:	6b16001f 	cmp	w0, w22
-  48:	54000389 	b.ls	b8 <init_module+0xb8>  // b.plast
-  4c:	924016d3 	and	x19, x22, #0x3f
-  50:	91000673 	add	x19, x19, #0x1
-  54:	f101067f 	cmp	x19, #0x41
-  58:	540000a9 	b.ls	6c <init_module+0x6c>  // b.plast
-  5c:	90000000 	adrp	x0, 0 <init_module>
-  60:	aa1303e1 	mov	x1, x19
-  64:	91000000 	add	x0, x0, #0x0
-  68:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
-  6c:	53067ec0 	lsr	w0, w22, #6
-  70:	d37bea73 	lsl	x19, x19, #5
-  74:	90000001 	adrp	x1, 0 <cpu_bit_bitmap>
-  78:	91000021 	add	x1, x1, #0x0
-  7c:	cb204e73 	sub	x19, x19, w0, uxtw #3
-  80:	52800000 	mov	w0, #0x0                   	// #0
-  84:	8b130021 	add	x1, x1, x19
-  88:	94000000 	bl	1a0 <init_module+0x1a0>
-  8c:	110006d6 	add	w22, w22, #0x1
-  90:	94000000 	bl	fb0 <kvmrk_reset_vectors>
-  94:	2a0003f3 	mov	w19, w0
-  98:	94000000 	bl	0 <init_module>
-  9c:	aa0003e1 	mov	x1, x0
-  a0:	2a1303e2 	mov	w2, w19
-  a4:	90000000 	adrp	x0, 0 <init_module>
-  a8:	91000000 	add	x0, x0, #0x0
-  ac:	b8746821 	ldr	w1, [x1, x20]
-  b0:	94000000 	bl	0 <_printk>
-  b4:	17ffffe3 	b	40 <init_module+0x40>
-  b8:	90000016 	adrp	x22, 800 <__kvmrk_hyp_init>
-  bc:	910002d6 	add	x22, x22, #0x0
-  c0:	d2e00034 	mov	x20, #0x1000000000000       	// #281474976710656
-  c4:	8b1402d4 	add	x20, x22, x20
-  c8:	52800018 	mov	w24, #0x0                   	// #0
-  cc:	90000017 	adrp	x23, 0 <init_module>
-  d0:	b94002a0 	ldr	w0, [x21]
-  d4:	6b18001f 	cmp	w0, w24
-  d8:	540004c9 	b.ls	170 <init_module+0x170>  // b.plast
-  dc:	92401713 	and	x19, x24, #0x3f
-  e0:	91000673 	add	x19, x19, #0x1
-  e4:	f101067f 	cmp	x19, #0x41
-  e8:	540000a9 	b.ls	fc <init_module+0xfc>  // b.plast
-  ec:	910002e0 	add	x0, x23, #0x0
-  f0:	aa1303e1 	mov	x1, x19
-  f4:	91008000 	add	x0, x0, #0x20
-  f8:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
-  fc:	53067f00 	lsr	w0, w24, #6
- 100:	d37bea73 	lsl	x19, x19, #5
- 104:	90000001 	adrp	x1, 0 <cpu_bit_bitmap>
- 108:	91000021 	add	x1, x1, #0x0
- 10c:	cb204e73 	sub	x19, x19, w0, uxtw #3
- 110:	52800000 	mov	w0, #0x0                   	// #0
- 114:	8b130021 	add	x1, x1, x19
- 118:	94000000 	bl	1a0 <init_module+0x1a0>
- 11c:	90000000 	adrp	x0, 0 <kimage_voffset>
- 120:	90000001 	adrp	x1, 0 <memstart_addr>
- 124:	b240bbe2 	mov	x2, #0x7fffffffffff        	// #140737488355327
- 128:	eb02029f 	cmp	x20, x2
- 12c:	54000088 	b.hi	13c <init_module+0x13c>  // b.pmore
- 130:	f9400020 	ldr	x0, [x1]
- 134:	8b000280 	add	x0, x20, x0
- 138:	14000003 	b	144 <init_module+0x144>
- 13c:	f9400000 	ldr	x0, [x0]
- 140:	cb0002c0 	sub	x0, x22, x0
- 144:	94000000 	bl	fa0 <kvmrk_set_vectors>
- 148:	90000013 	adrp	x19, 0 <cpu_number>
- 14c:	94000000 	bl	0 <init_module>
- 150:	aa0003e1 	mov	x1, x0
- 154:	91000273 	add	x19, x19, #0x0
- 158:	11000718 	add	w24, w24, #0x1
- 15c:	b8736821 	ldr	w1, [x1, x19]
- 160:	90000000 	adrp	x0, 0 <init_module>
- 164:	91000000 	add	x0, x0, #0x0
- 168:	94000000 	bl	0 <_printk>
- 16c:	17ffffd9 	b	d0 <init_module+0xd0>
- 170:	90000000 	adrp	x0, 0 <init_module>
- 174:	91000000 	add	x0, x0, #0x0
- 178:	94000000 	bl	0 <_printk>
- 17c:	90000000 	adrp	x0, 0 <init_module>
- 180:	91000000 	add	x0, x0, #0x0
- 184:	94000000 	bl	0 <_printk>
- 188:	52800000 	mov	w0, #0x0                   	// #0
- 18c:	a94153f3 	ldp	x19, x20, [sp, #16]
- 190:	a9425bf5 	ldp	x21, x22, [sp, #32]
- 194:	a94363f7 	ldp	x23, x24, [sp, #48]
- 198:	a8c47bfd 	ldp	x29, x30, [sp], #64
- 19c:	d50323bf 	autiasp
- 1a0:	d65f03c0 	ret
-
-Disassembly of section .exit.text:
-
-0000000000000000 <cleanup_module>:
-   0:	d503233f 	paciasp
-   4:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
-   8:	90000000 	adrp	x0, 0 <cleanup_module>
-   c:	910003fd 	mov	x29, sp
-  10:	91000000 	add	x0, x0, #0x0
-  14:	94000000 	bl	0 <_printk>
-  18:	a8c17bfd 	ldp	x29, x30, [sp], #16
-  1c:	d50323bf 	autiasp
-  20:	d65f03c0 	ret
+000000000000079c <kvmrk_reset_vectors>:
+ 79c:	d2800040 	mov	x0, #0x2                   	// #2
+ 7a0:	d4000002 	hvc	#0x0
+ 7a4:	d65f03c0 	ret
 
 Disassembly of section .plt:
 

@@ -22,7 +22,7 @@ long kvmrk_sched_setaffinity(pid_t pid, const struct cpumask *in_mask) {
 }
 
 
-extern char __kvmrk_hyp_init[];
+extern char kvmrk_stub[];
 extern void kvmrk_set_vectors(phys_addr_t phys_vector_base);
 extern int kvmrk_reset_vectors(void);
 
@@ -38,20 +38,21 @@ static int __init kvmrk_init(void) {
     int i;
     for (i = 0; i < num_online_cpus(); i++) {
         kvmrk_sched_setaffinity(0, get_cpu_mask(i));
-        int r = kvmrk_reset_vectors();
-        printk(KERN_INFO "kvmrk: reset vectors of cpu %i with return code %i\n", smp_processor_id(), r);
+        kvmrk_reset_vectors();
+        printk(KERN_INFO "kvmrk: reset vectors of cpu %i to hyp stub\n", smp_processor_id());
     }
 
     for (i = 0; i < num_online_cpus(); i++) {
         kvmrk_sched_setaffinity(0, get_cpu_mask(i));
-        kvmrk_set_vectors(virt_to_phys(__kvmrk_hyp_init));
-        printk(KERN_INFO "kvmrk: set vectors of cpu %i\n", smp_processor_id());
+        kvmrk_set_vectors(__pa_symbol(kvmrk_stub));
+        printk(KERN_INFO "kvmrk: set vectors of cpu %i to kvmrk stub\n", smp_processor_id());
     }
     printk(KERN_INFO "kvmrk: replaced vbar_el2 on all cpus\n");
 
-    // asm volatile("hvc #0\n\t");
-    // register unsigned long r asm("x0");
-    // printk(KERN_INFO "kvmrk: hvc returned %i\n", r);
+    asm volatile("mov       x0, 5\n\t");
+    asm volatile("hvc       #0\n\t");
+    register unsigned long r asm("x0");
+    printk(KERN_INFO "kvmrk: hvc returned %lx\n", r);
 
     return 0;
 }
