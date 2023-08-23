@@ -12,7 +12,7 @@ clean:
 insmod:
 	sudo dmesg -C
 	sudo insmod kvmrk.ko
-	sudo dmesg -wH
+	sudo dmesg -wH --notime
 
 rmmod:
 	sudo rmmod kvmrk.ko

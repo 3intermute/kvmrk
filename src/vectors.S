@@ -11,12 +11,12 @@
 
 #include "include/kvmrk.h"
 
-
+/*
 	.text
 	.pushsection	.kvmrk.text, "ax"
 	.align	11
 
-SYM_CODE_START(kvmrk_stub)
+SYM_CODE_START(kvmrk_vector)
 	ventry	__invalid		// Synchronous EL2t
 	ventry	__invalid		// IRQ EL2t
 	ventry	__invalid		// FIQ EL2t
@@ -42,8 +42,24 @@ __invalid:
 __do_kvmrk_el1_sync:
 	// mov_q	    x0, #KVMRK_STUB_SUCCESS
  	eret
-SYM_CODE_END(kvmrk_stub)
+SYM_CODE_END(kvmrk_vector)
+*/
 
+SYM_CODE_START(kvmrk_elx_sync)
+	mov_q	x0, 0x600dca11
+	eret
+SYM_CODE_END(kvmrk_elx_sync)
+SYM_CODE_START(kvmrk_elx_sync_end)
+	nop
+SYM_CODE_END(kvmrk_elx_sync_end)
+
+
+
+
+SYM_FUNC_START(kvmrk_flush_virt)
+	dc 		cvac, x0
+	ret
+SYM_FUNC_END(kvmrk_flush_virt)
 
 SYM_FUNC_START(kvmrk_set_vectors)
 	mov		x1, x0
