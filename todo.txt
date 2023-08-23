@@ -548,3 +548,20 @@ SYM_CODE_END(kvmrk_elx_sync_end)
 // asm volatile("hvc       #0\n\t");
 // register unsigned long r asm("x0");
 // printk(KERN_INFO "kvmrk: hvc returned %lx\n", r);
+
+
+
+
+
+
+
+
+
+/*
+	x0: kvmrk hvc #
+	x_n: nth arg
+*/
+SYM_FUNC_START(kvmrk_hvc)
+	hvc	   #0
+	ret
+SYM_FUNC_END(kvmrk_hvc)

