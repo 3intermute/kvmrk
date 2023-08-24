@@ -52,7 +52,7 @@
      ret
  SYM_FUNC_END(kvmrk_replace_vbar_el2)
 
-
+dbgcr0_el1 can be accessed from external debug interface
 
  DO ON EACH CPU
 
@@ -64,7 +64,7 @@
  SYM_FUNC_END(kvmrk_crash_everything)
 
 
-
+VM escape
 
  AS [M]  /mnt/vectors.o
  LD [M]  /mnt/kvmrk.o
@@ -158,6 +158,20 @@ blk aes_ce_blk crypto_simd cryptd aes_ce_cipher
 make: *** [Makefile:14: insmod] Segmentation fault (core dumped)
 root@ubuntu:/mnt# ./emulate.sh: line 1: 208793 Aborted
 
+kvm_ksym_ref
+
+
+set breakpoint + watchpoint on address
+when read, read fake value to destination register
+
+easier to disas msr
+
+
+create hvc to rpelace nops with branch to trap handler
+check esr vals
+check if debug regs exist for el2 that dont exist for el1
+
+disas msr and emulate
 
 #include <linux/init.h>
 #include <linux/module.h>
