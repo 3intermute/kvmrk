@@ -13,8 +13,7 @@
 
 .text
 .pushsection	.kvmrk.text, "ax"
-.align	11
-
+.align	12
 SYM_CODE_START(kvmrk_vectors)
 	ventry	__invalid		// Synchronous EL2t
 	ventry	__invalid		// IRQ EL2t
@@ -124,6 +123,7 @@ __host_enter_without_restoring:
 	sb
 SYM_CODE_END(kvmrk_vectors)
 
+.align 12
 SYM_CODE_START(hijack_mdcr_el2)
 	mrs 	x0, mdcr_el2
 	orr 	x0, x0, #MDCR_EL2_TDA

