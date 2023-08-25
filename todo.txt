@@ -579,3 +579,103 @@ SYM_FUNC_START(kvmrk_hvc)
 	hvc	   #0
 	ret
 SYM_FUNC_END(kvmrk_hvc)
+
+
+
+
+
+
+
+
+
+
+
+
+mrs 	x18, esr_el2 // clobbers x18 bc stack isnt setup kms
+lsr 	x18, x18, #ESR_ELx_EC_SHIFT
+cmp		x18, #ESR_ELx_EC_HVC64
+b.ne	not_hypercall
+1:
+cmp	    x0, #KVMRK_CALL_HYP
+bne		1f
+br 		x1
+eret
+1:
+cmp 	x0, #KVMRK_CRASH_EVERYTHING
+bne 	1f
+mov		x0, xzr
+eret
+1:
+cmp 	x0, #KVMRK_SET_SP
+b.ne	not_hypercall
+mov 	sp, x1
+mov		x0, x1
+eret
+
+
+
+
+
+
+
+
+
+__do_kvmrk_stub_el1_sync:
+	cmp	    x0, #KVMRK_CALL_HYP
+	bne		1f
+	br 		x1
+	eret
+1:
+	cmp 	x0, #KVMRK_CRASH_EVERYTHING
+	bne 	1f
+	mov		x0, xzr
+	eret
+1:
+	cmp 	x0, #KVMRK_SET_SP
+	bne 	1f
+	mov 	sp, x1
+	mov		x0, sp
+	eret
+1:
+	eret
+
+
+	/*
+-	 * @dst: Result of per_cpu(sym, smp_processor_id())
++	 * @dst: Result of per_cpu(sym, smp_processor_id()), can be SP for
++	 *       non-module code
+	 * @sym: The name of the per-cpu variable
+	 * @tmp: scratch register
+	 */
+	.macro adr_this_cpu, dst, sym, tmp
++#ifndef MODULE
++	adrp	\tmp, \sym
++	add	\dst, \tmp, #:lo12:\sym
++#else
+	adr_l	\dst, \sym
++#endif
+	mrs	\tmp, tpidr_el1
+	add	\dst, \dst, \tmp
+	.endm
+
+
+// .macro kvmrk_adr_this_cpu dst, base, tmp
+//     mrs     tmp, tpidr_el1
+//     add     dst, base, tmp
+// .endm
+//
+// .macro kvmrk_get_host_ctxt reg, tmp
+//     // this is a kernel VA NOT hyp PA, praying this addressed PC relative ??
+//     // if not pc relative, need to put patch addr here and make pc relative
+// 	adr_this_cpu \reg, \tmp
+//
+// 	add	\reg, \reg, #HOST_DATA_CONTEXT
+// .endm
+
+
+
+
+- ALMOST DONE: force contig for all hyp code via kmalloc copy
+- make my own per cpu macros, accessible from asm
+- no hypercall handler in stub only init_vectors
+- allocate stack per cpu

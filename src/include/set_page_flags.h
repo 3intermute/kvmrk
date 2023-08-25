@@ -13,7 +13,7 @@ static void init_init_mm_ptr(void) {
     }
 }
 
-void *virt_to_pte(uintptr_t addr) {
+void *virt_to_ptep(uintptr_t addr) {
     pgd_t *pgdp;
     p4d_t *p4dp;
     pud_t *pudp;
@@ -35,7 +35,7 @@ void *virt_to_pte(uintptr_t addr) {
         return NULL;
     }
     if (pud_sect(*pudp)) {
-        printk(KERN_INFO "debug: virt_to_pte success, virt (%pK), ptep @ %pK", addr, pudp);
+        printk(KERN_INFO "debug: virt_to_ptep success, virt (%pK), ptep @ %pK", addr, pudp);
         return pudp;
     }
 
@@ -44,7 +44,7 @@ void *virt_to_pte(uintptr_t addr) {
         return NULL;
     }
     if (pmd_sect(*pmdp)) {
-        printk(KERN_INFO "debug: virt_to_pte success, virt (%pK), ptep @ %pK", addr, pmdp);
+        printk(KERN_INFO "debug: virt_to_ptep success, virt (%pK), ptep @ %pK", addr, pmdp);
         return pmdp;
     }
 
@@ -53,7 +53,7 @@ void *virt_to_pte(uintptr_t addr) {
         return NULL;
     }
 
-    printk(KERN_INFO "debug: virt_to_pte success, virt (%pK), ptep @ %pK", addr, ptep);
+    printk(KERN_INFO "debug: virt_to_ptep success, virt (%pK), ptep @ %pK", addr, ptep);
     return ptep;
 }
 
@@ -61,13 +61,12 @@ void pte_flip_write_protect(pte_t *ptep) {
     if (!pte_write(*ptep)) {
         *ptep = pte_mkwrite(pte_mkdirty(*ptep));
         *ptep = clear_pte_bit(*ptep, __pgprot((_AT(pteval_t, 1) << 7)));
-        printk(KERN_INFO "debug: pte_flip_write_protect flipped ptep @ %pK, pte_write(%i)\n", ptep, pte_write(*ptep));
+
         return;
     }
 
     *ptep = pte_wrprotect(*ptep);
     *ptep = set_pte_bit(*ptep, __pgprot((_AT(pteval_t, 1) << 7)));
-    printk(KERN_INFO "debug: pte_flip_write_protect ptep @ %pK, pte_write(%i)\n", ptep, pte_write(*ptep));
 }
 
 static unsigned long highmem_pte_to_phys(pte_t *ptep) {
@@ -77,8 +76,8 @@ static unsigned long highmem_pte_to_phys(pte_t *ptep) {
 
 static unsigned long highmem_virt_to_phys(unsigned long addr) {
     unsigned long off = addr & ~PAGE_MASK;
-    unsigned long r = highmem_pte_to_phys(virt_to_pte(addr)) + off;
-    printk(KERN_INFO "kvmrk: highmem_virt_to_phys on addr %lx, off %lx -> %lx\n", addr, off, r);
+    unsigned long r = highmem_pte_to_phys(virt_to_ptep(addr)) + off;
+    // printk(KERN_INFO "debug: highmem_virt_to_phys on addr %lx, off %lx -> %lx\n", addr, off, r);
     return r;
 }
 

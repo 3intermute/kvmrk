@@ -4,8 +4,6 @@
 #include <linux/types.h>
 #include <linux/delay.h>
 
-#define INS_SIZE 4
-
 // https://developer.arm.com/documentation/ddi0596/2021-12/Base-Instructions/MOVK--Move-wide-with-keep-?lang=en
 // movk encoding:
 // 0 | 1 1 1 0 0 1 0 1 | 0 0 | 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 | 0 0 0 0 0

