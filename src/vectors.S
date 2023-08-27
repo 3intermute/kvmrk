@@ -41,11 +41,13 @@ __invalid_stub_vect:
 	b	.
 __kvmrk_stub_el1_sync:
 // x0 = KVMRK_INIT_VECTORS: x1 = new vbar_el2, x2 = sp_el2
+// check if is hypercall esr ?
 	cmp	    x0, #KVMRK_HVC_INIT_VECTORS
 	bne		__bad_exit
 	msr 	vbar_el2, x1
 	mov 	sp, x2
-	// msr		spsel, 1 // C5.2.16
+	// msr 	vmpidr_el2, x3
+	// spsel, 1 // C5.2.16
 	mov 	x0, sp
 	eret
 __bad_exit:
@@ -88,13 +90,13 @@ __kvmrk_el1_sync:
 	// https://elixir.bootlin.com/linux/v5.15/source/arch/arm64/kvm/hyp/nvhe/host.S#L116
 
 	ldr 	x0, __fixup_1
-	b __fixup_1_end
+	b 	    __fixup_1_end
 .globl __fixup_1
 __fixup_1:
 	nop
 	nop
 __fixup_1_end:
-	mrs 	x1, vmpidr_el2
+	mrs 	x1, mpidr_el1
 	// https://elixir.bootlin.com/linux/latest/source/arch/arm/include/asm/cputype.h#L54
 	mov_q 	x2, 0xffffff // MPIDR_HWID_BITMASK
 	and   	x1, x1, x2
@@ -153,23 +155,12 @@ __host_enter_for_panic:
 	// Restore host regs x18-x29, lr
 	restore_callee_saved_regs x29
 
-	/* Do not touch any register after this! */
+// Do not touch any register after this!
 __host_enter_without_restoring:
 	eret
 	sb
 SYM_CODE_END(__kvmrk_vectors)
 kvmrk_end __kvmrk_vectors_end
-
-.align 12
-SYM_CODE_START(__hijack_mdcr_el2)
-	mrs 	x0, mdcr_el2
-	orr 	x0, x0, #MDCR_EL2_TDA
-	msr 	mdcr_el2, x0
-	mov_q	x0, 0x333
-	eret
-SYM_CODE_END(__hijack_mdcr_el2)
-kvmrk_end __hijack_mdcr_el2_end
-
 
 
 

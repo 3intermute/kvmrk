@@ -692,3 +692,107 @@ __do_kvmrk_stub_el1_sync:
 // asm volatile("mrs x0, dbgbcr0_el1");
 // register unsigned long r3 asm("x0");
 // printk(KERN_INFO "kvmrk: read dbgbcr0_el1 returned %lx\n", r3);
+
+
+
+
+.align 12
+SYM_CODE_START(__hijack_mdcr_el2)
+	mrs 	x0, mdcr_el2
+	orr 	x0, x0, #MDCR_EL2_TDA
+	msr 	mdcr_el2, x0
+	mov_q	x0, 0x333
+	eret
+SYM_CODE_END(__hijack_mdcr_el2)
+kvmrk_end __hijack_mdcr_el2_end
+
+
+sudo dmesg -C
+sudo insmod kvmrk.ko
+sudo dmesg -wH --notime | grep kvmrk
+kvmrk: loading out-of-tree module taints kernel.
+kvmrk: module loaded
+kvmrk: copy___kvmrk_vectors()
+kvmrk: fixup__kvmrk_vectors(ffff011050b89000)
+kvmrk:    host_data_per_cpu @ PA 123938000
+kvmrk:    _kvmrk_vectors @ VA ffff011050b89000
+kvmrk:    addr__kvmrk_vectors(_kvmrk_vectors, __fixup_1) ffff011050b89798
+kvmrk:    _kvmrk_vectors @ PA 110b89000
+kvmrk:    FIXED __fixup_1 -> host_data_per_cpu PA is 123938000
+kvmrk:    FIXED __fixup_2 -> b __kvmrk_handle_trap (PA 108b9b000) is
+kvmrk:        120096f2
+kvmrk:        3217a1f2
+kvmrk:        3200c0f2
+kvmrk:        1200e0f2
+kvmrk:        40023fd6
+kvmrk: try init cpu context on all cpus
+kvmrk:    host_data for cpu 0 @ VA ffff011063938000 PA 123938000
+kvmrk:    host_data for cpu 1 @ VA ffff011063938730 PA 123938730
+kvmrk:    host_data for cpu 2 @ VA ffff011063938e60 PA 123938e60
+kvmrk:    host_data for cpu 3 @ VA ffff011063939590 PA 123939590
+kvmrk: try reset vectors on all cpus to _hyp_stub_vectors
+kvmrk: try set vbar_el2 on all cpus to __kvmrk_stub_vectors, @ PA 1115f4000
+kvmrk: stack allocated for cpu 0 @ VA ffff01108fa86000, PA 14fa86000
+kvmrk: stack allocated for cpu 1 @ VA ffff011050b8c000, PA 110b8c000
+kvmrk: stack allocated for cpu 2 @ VA ffff0110a050a000, PA 16050a000
+kvmrk: stack allocated for cpu 3 @ VA ffff0110a2f58000, PA 162f58000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 0 returned 14fa87000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 1 returned 110b8d000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 2 returned 16050b000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 3 returned 162f59000
+kvmrk: hvc returned 333
+kvmrk: hvc returned 333
+kvmrk: hvc returned 333
+kvmrk: hvc returned 333
+
+
+
+
+
+
+
+
+12008af2
+7278aff2
+      3200c0f2
+      1200e0f2
+     40023fd6
+
+
+
+
+
+
+sudo dmesg -C
+sudo insmod kvmrk.ko
+sudo dmesg -wH --notime | grep kvmrk
+kvmrk: loading out-of-tree module taints kernel.
+kvmrk: module loaded
+kvmrk: copy___kvmrk_vectors()
+kvmrk: fixup__kvmrk_vectors(ffff2b2dce537000)
+kvmrk:    host_data_per_cpu @ PA 175b98000
+kvmrk:    _kvmrk_vectors @ VA ffff2b2dce537000
+kvmrk:    addr__kvmrk_vectors(_kvmrk_vectors, __fixup_1) ffff2b2dce537798
+kvmrk:    _kvmrk_vectors @ PA 14e537000
+kvmrk:    FIXED __fixup_1 -> host_data_per_cpu PA is 175b98000
+kvmrk:    FIXED __fixup_2 -> b __kvmrk_handle_trap (PA 111678000) is
+kvmrk:        120090f2
+kvmrk:        f22ca2f2
+kvmrk:        3200c0f2
+kvmrk:        1200e0f2
+kvmrk:        40023fd6
+kvmrk: try init cpu context on all cpus
+kvmrk:    host_data for cpu 0 @ VA ffff2b2df5b98000 PA 175b98000
+kvmrk:    host_data for cpu 1 @ VA ffff2b2df5b98730 PA 175b98730
+kvmrk:    host_data for cpu 2 @ VA ffff2b2df5b98e60 PA 175b98e60
+kvmrk:    host_data for cpu 3 @ VA ffff2b2df5b99590 PA 175b99590
+kvmrk: try reset vectors on all cpus to _hyp_stub_vectors
+kvmrk: try set vbar_el2 on all cpus to __kvmrk_stub_vectors, @ PA 10547f000
+kvmrk: stack allocated for cpu 0 @ VA ffff2b2d80813000, PA 100813000
+kvmrk: stack allocated for cpu 1 @ VA ffff2b2deb21d000, PA 16b21d000
+kvmrk: stack allocated for cpu 2 @ VA ffff2b2df0c23000, PA 170c23000
+kvmrk: stack allocated for cpu 3 @ VA ffff2b2dce534000, PA 14e534000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 0 returned 100814000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 1 returned 16b21e000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 2 returned 170c24000
+kvmrk: KVMRK_HVC_INIT_VECTORS for cpu 3 returned 14e535000

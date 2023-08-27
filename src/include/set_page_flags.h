@@ -35,7 +35,7 @@ void *virt_to_ptep(uintptr_t addr) {
         return NULL;
     }
     if (pud_sect(*pudp)) {
-        printk(KERN_INFO "debug: virt_to_ptep success, virt (%pK), ptep @ %pK", addr, pudp);
+        printk(KERN_INFO "debug: entry at pud virt_to_ptep success, virt (%pK), ptep @ %pK", addr, pudp);
         return pudp;
     }
 
@@ -44,7 +44,7 @@ void *virt_to_ptep(uintptr_t addr) {
         return NULL;
     }
     if (pmd_sect(*pmdp)) {
-        printk(KERN_INFO "debug: virt_to_ptep success, virt (%pK), ptep @ %pK", addr, pmdp);
+        printk(KERN_INFO "debug: entry at pmd virt_to_ptep success, virt (%pK), ptep @ %pK", addr, pmdp);
         return pmdp;
     }
 

@@ -31,22 +31,20 @@ MODULE_DESCRIPTION("FUCKKKK");
 MODULE_VERSION("0.01");
 
 
-// force 64k pages via alignment via __attribute__((optimize("align-functions=4096"))) ???
-__attribute__((align(PAGE_SIZE))) __attribute__((used)) noinline static void __kvmrk_handle_trap(struct kvm_cpu_context *host_ctxt) {
+__attribute__((align(PAGE_SIZE))) noinline static void __kvmrk_handle_trap(struct kvm_cpu_context *host_ctxt) {
     u64 esr = read_sysreg_el2(SYS_ESR);
 
     switch (ESR_ELx_EC(esr)) {
         case ESR_ELx_EC_HVC64: {
+            // cpu_reg(host_ctxt, 0) = read_sysreg(VMPIDR_EL2);
             cpu_reg(host_ctxt, 0) = 0x333;
-            break;
-        }
-    	case ESR_ELx_EC_CP14_MR: {
             break;
         }
 	}
 }
 
 static void fixup__kvmrk_vectors(void *_kvmrk_vectors) {
+
     printk(KERN_INFO "kvmrk: fixup__kvmrk_vectors(%lx)\n", _kvmrk_vectors);
 
     // copy pa of host_data_per_cpu to __kvmrk_vectors __fixup_1
@@ -68,6 +66,7 @@ static void fixup__kvmrk_vectors(void *_kvmrk_vectors) {
 }
 
 static void *copy___kvmrk_vectors(void) {
+
     // copy __kvmrk_vectors to phys contig lowmem THEN fixup
     printk(KERN_INFO "kvmrk: copy___kvmrk_vectors()\n");
 
@@ -95,9 +94,6 @@ static int __init kvmrk_init(void) {
     init_init_mm_ptr();
 
     void *_kvmrk_vectors = copy___kvmrk_vectors();
-    // try uncommenting this if something breaks
-    // helper_for_each_cpu(helper_flush_virt(_kvmrk_vectors);)
-
 
     printk(KERN_INFO "kvmrk: try init cpu context on all cpus\n");
     helper_for_each_cpu(\
@@ -123,11 +119,17 @@ static int __init kvmrk_init(void) {
         unsigned long x = kvmrk_hvc(KVMRK_HVC_INIT_VECTORS, \
                                     virt_to_phys(_kvmrk_vectors), \
                                     stack_top(virt_to_phys(kvmrk_this_cpu(hyp_stack_per_cpu))), \
-                                    NULL); \
+                                    read_sysreg(MPIDR_EL1)); \
         printk(KERN_INFO "kvmrk: KVMRK_HVC_INIT_VECTORS for cpu %i returned %lx\n", kvmrk_get_smp_processor_id, x); \
     )
 
-    printk(KERN_INFO "kvmrk: hvc returned %lx\n", kvmrk_hvc(NULL, NULL, NULL, NULL));
+    helper_for_each_cpu(\
+        printk(KERN_INFO "kvmrk: hvc returned %lx\n", kvmrk_hvc(NULL, NULL, NULL, NULL)); \
+        printk(KERN_INFO "kvmrk:    host_data saved x0: %lx\n", cpu_reg(&(kvmrk_this_cpu(host_data_per_cpu).host_ctxt), 0)); \
+        printk(KERN_INFO "kvmrk:    host_data saved x1: %lx\n", cpu_reg(&(kvmrk_this_cpu(host_data_per_cpu).host_ctxt), 1)); \
+        printk(KERN_INFO "kvmrk:    host_data saved x2: %lx\n", cpu_reg(&(kvmrk_this_cpu(host_data_per_cpu).host_ctxt), 2)); \
+        printk(KERN_INFO "kvmrk:    host_data saved x3: %lx\n", cpu_reg(&(kvmrk_this_cpu(host_data_per_cpu).host_ctxt), 3)); \
+    )
 
     return 0;
 }

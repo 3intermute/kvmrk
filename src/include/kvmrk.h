@@ -7,10 +7,10 @@
 // #define KVMRK_HVC_SET_SP                14
 #define KVMRK_HVC_INIT_VECTORS          15
 
-#define INST_WIDTH                  4
+#define INST_WIDTH                  (4)
 
-#define KVMRK_HYP_STACK_SIZE        (PAGE_SIZE * 4)
-#define SIZEOF_KVM_HOST_DATA        1840
+#define KVMRK_HYP_STACK_SIZE        (PAGE_SIZE)
+#define SIZEOF_KVM_HOST_DATA        (1840)
 
 
 #ifndef __ASSEMBLY__
@@ -43,7 +43,7 @@ extern void __hijack_mdcr_el2_end(void);
 #define addr__kvmrk_vectors(_kvmrk_vectors_base, sym) \
                             ((unsigned long) _kvmrk_vectors_base + (unsigned long) offset___kvmrk_vectors(sym))
 
-#define kvmrk_get_smp_processor_id  (read_sysreg(mpidr_el1) & MPIDR_HWID_BITMASK)
+#define kvmrk_get_smp_processor_id  (read_sysreg(MPIDR_EL1) & MPIDR_HWID_BITMASK)
 
 // cpus may not be contig ??
 #define kvmrk_this_cpu(x)       (x[kvmrk_get_smp_processor_id])

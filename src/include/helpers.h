@@ -20,27 +20,27 @@ static inline void helper_init_host_cpu_context(struct kvm_cpu_context *cpu_ctxt
 	ctxt_sys_reg(cpu_ctxt, MPIDR_EL1) = read_cpuid_mpidr();
 }
 
-
+// ALIGN macro is fucked, rounds down to 0 ?? or size ??? i have no fucking idea
 #define helper_make_contig(src, size)     \
-    memcpy(kmalloc(ALIGN(size, PAGE_SIZE), GFP_KERNEL), src, size)
+    memcpy(kmalloc(PAGE_SIZE, GFP_KERNEL), src, size)
 
 
 // !! cant be in a func idk why
 #define helper_flush_virt(addr)       \
     flush_cache_mm(init_mm_ptr);      \
     flush_tlb_all();                  \
-    _helper_flush_virt(addr);         \
+    _helper_flush_virt(addr);
 
-
+// preempt_disable(); here
 #define helper_for_each_cpu(f)        \
-    flush_cache_mm(init_mm_ptr);      \
+    preempt_disable();                \
     do {                              \
         int i;                        \
         for (i = 0; i < num_online_cpus(); i++) {             \
             helper_sched_setaffinity(0, get_cpu_mask(i));     \
             f                         \
         }                             \
-    } while (0);
-
+    } while (0);                      \
+    preempt_enable();
 
 #endif
