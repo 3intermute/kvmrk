@@ -10,7 +10,7 @@
 why:
     there are a lot of research bluepill hypervisors for x86 but not many for
     arm. the goal of this project is to provide a simple and small foundation
-    to build a thin hypervisors for arm64 linux.
+    to build a thin hypervisor for arm64 linux.
 
 exploit:
     to replace kvm's el2 exception vector table, kvmrk uses a technique-
@@ -76,4 +76,3 @@ todo:
 
 references:
     [1] https://i.blackhat.com/us-18/Wed-August-8/us-18-SINGH-BACK-TO-THE-FUTURE-A-RADICAL-INSECURE-DESIGN-OF-KVM-ON-ARM-wp.pdf
-    
