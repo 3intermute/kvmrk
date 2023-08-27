@@ -57,7 +57,7 @@ void *virt_to_ptep(uintptr_t addr) {
     return ptep;
 }
 
-void pte_flip_write_protect(pte_t *ptep) {
+void ptep_flip_write_protect(pte_t *ptep) {
     if (!pte_write(*ptep)) {
         *ptep = pte_mkwrite(pte_mkdirty(*ptep));
         *ptep = clear_pte_bit(*ptep, __pgprot((_AT(pteval_t, 1) << 7)));

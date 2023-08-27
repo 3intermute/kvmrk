@@ -679,3 +679,16 @@ __do_kvmrk_stub_el1_sync:
 - make my own per cpu macros, accessible from asm
 - no hypercall handler in stub only init_vectors
 - allocate stack per cpu
+
+
+
+
+
+
+// kvmrk_hvc(KVMRK_CALL_HYP, highmem_virt_to_phys(__hijack_mdcr_el2), NULL, NULL);
+// register unsigned long r2 asm("x0");
+// printk(KERN_INFO "kvmrk: KVMRK_CALL_HYP returned %lx\n", r2);
+//
+// asm volatile("mrs x0, dbgbcr0_el1");
+// register unsigned long r3 asm("x0");
+// printk(KERN_INFO "kvmrk: read dbgbcr0_el1 returned %lx\n", r3);

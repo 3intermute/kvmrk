@@ -7,13 +7,19 @@
 // #define KVMRK_HVC_SET_SP                14
 #define KVMRK_HVC_INIT_VECTORS          15
 
-#define INS_WIDTH 4
+#define INST_WIDTH                  4
 
-#define KVMRK_HYP_STACK_SIZE        PAGE_SIZE * 4
+#define KVMRK_HYP_STACK_SIZE        (PAGE_SIZE * 4)
 #define SIZEOF_KVM_HOST_DATA        1840
 
 
 #ifndef __ASSEMBLY__
+#define stack_top(stack_bottom)     (stack_bottom + KVMRK_HYP_STACK_SIZE)
+
+#define cpu_reg(ctxt, r)	(ctxt)->regs.regs[r]
+#define DECLARE_REG(type, name, ctxt, reg)	\
+				type name = (type) cpu_reg(ctxt, (reg))
+
 extern void _helper_flush_virt(void *);
 
 extern unsigned long kvmrk_hvc(unsigned long x0, unsigned long x1, unsigned long x2, unsigned long x3);

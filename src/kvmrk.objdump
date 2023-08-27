@@ -13,7 +13,7 @@ Disassembly of section .text:
   14:	f100583f 	cmp	x1, #0x16
   18:	54000061 	b.ne	24 <__kvmrk_handle_trap+0x24>  // b.any
   1c:	d2806661 	mov	x1, #0x333                 	// #819
-  20:	f901a001 	str	x1, [x0, #832]
+  20:	f9000001 	str	x1, [x0]
   24:	d50323bf 	autiasp
   28:	d65f03c0 	ret
   2c:	d503201f 	nop
@@ -226,12 +226,12 @@ Disassembly of section .text:
  338:	17ffffe6 	b	2d0 <virt_to_ptep+0x80>
  33c:	d503201f 	nop
 
-0000000000000340 <pte_flip_write_protect>:
+0000000000000340 <ptep_flip_write_protect>:
  340:	d503201f 	nop
  344:	d503201f 	nop
  348:	f9400001 	ldr	x1, [x0]
  34c:	d503233f 	paciasp
- 350:	b69801a1 	tbz	x1, #51, 384 <pte_flip_write_protect+0x44>
+ 350:	b69801a1 	tbz	x1, #51, 384 <ptep_flip_write_protect+0x44>
  354:	9279b023 	and	x3, x1, #0xfffffffffff80
  358:	9278f822 	and	x2, x1, #0xffffffffffffff7f
  35c:	924d5063 	and	x3, x3, #0xfff80000000000ff
@@ -316,7 +316,7 @@ Disassembly of section .init.text:
    0:	d503201f 	nop
    4:	d503201f 	nop
    8:	d503233f 	paciasp
-   c:	a9b77bfd 	stp	x29, x30, [sp, #-144]!
+   c:	a9b67bfd 	stp	x29, x30, [sp, #-160]!
   10:	d5384101 	mrs	x1, sp_el0
   14:	910003fd 	mov	x29, sp
   18:	a90153f3 	stp	x19, x20, [sp, #16]
@@ -329,7 +329,7 @@ Disassembly of section .init.text:
   34:	a9046bf9 	stp	x25, x26, [sp, #64]
   38:	a90573fb 	stp	x27, x28, [sp, #80]
   3c:	f942f422 	ldr	x2, [x1, #1512]
-  40:	f90047e2 	str	x2, [sp, #136]
+  40:	f9004fe2 	str	x2, [sp, #152]
   44:	d2800002 	mov	x2, #0x0                   	// #0
   48:	94000000 	bl	0 <_printk>
   4c:	f9404aa0 	ldr	x0, [x21, #144]
@@ -338,11 +338,11 @@ Disassembly of section .init.text:
   58:	91000000 	add	x0, x0, #0x0
   5c:	94000000 	bl	0 <init_module>
   60:	f9004aa0 	str	x0, [x21, #144]
-  64:	90000013 	adrp	x19, 186c <__kvmrk_vectors_end>
-  68:	90000017 	adrp	x23, 1000 <__kvmrk_vectors>
+  64:	90000013 	adrp	x19, 1868 <__kvmrk_vectors_end>
+  68:	90000016 	adrp	x22, 1000 <__kvmrk_vectors>
   6c:	91000273 	add	x19, x19, #0x0
-  70:	910002f7 	add	x23, x23, #0x0
-  74:	cb170273 	sub	x19, x19, x23
+  70:	910002d6 	add	x22, x22, #0x0
+  74:	cb160273 	sub	x19, x19, x22
   78:	90000000 	adrp	x0, 0 <init_module>
   7c:	91000000 	add	x0, x0, #0x0
   80:	94000000 	bl	0 <_printk>
@@ -351,7 +351,7 @@ Disassembly of section .init.text:
   8c:	9274cc00 	and	x0, x0, #0xfffffffffffff000
   90:	94000000 	bl	0 <__kmalloc>
   94:	aa1303e2 	mov	x2, x19
-  98:	aa1703e1 	mov	x1, x23
+  98:	aa1603e1 	mov	x1, x22
   9c:	90000013 	adrp	x19, 0 <__num_online_cpus>
   a0:	90000019 	adrp	x25, 0 <init_module>
   a4:	94000000 	bl	0 <memcpy>
@@ -363,23 +363,23 @@ Disassembly of section .init.text:
   bc:	b9400260 	ldr	w0, [x19]
   c0:	6b1a001f 	cmp	w0, w26
   c4:	54000269 	b.ls	110 <init_module+0x110>  // b.plast
-  c8:	92401756 	and	x22, x26, #0x3f
-  cc:	910006d6 	add	x22, x22, #0x1
-  d0:	f10106df 	cmp	x22, #0x41
+  c8:	92401757 	and	x23, x26, #0x3f
+  cc:	910006f7 	add	x23, x23, #0x1
+  d0:	f10106ff 	cmp	x23, #0x41
   d4:	54000089 	b.ls	e4 <init_module+0xe4>  // b.plast
-  d8:	aa1603e1 	mov	x1, x22
+  d8:	aa1703e1 	mov	x1, x23
   dc:	aa1903e0 	mov	x0, x25
   e0:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
   e4:	53067f41 	lsr	w1, w26, #6
-  e8:	d37bead6 	lsl	x22, x22, #5
+  e8:	d37beaf7 	lsl	x23, x23, #5
   ec:	91000300 	add	x0, x24, #0x0
   f0:	1100075a 	add	w26, w26, #0x1
-  f4:	cb214ed6 	sub	x22, x22, w1, uxtw #3
-  f8:	8b160000 	add	x0, x0, x22
+  f4:	cb214ef7 	sub	x23, x23, w1, uxtw #3
+  f8:	8b170000 	add	x0, x0, x23
   fc:	94000000 	bl	0 <init_module>
  100:	94000000 	bl	0 <init_module>
  104:	aa1403e0 	mov	x0, x20
- 108:	94000000 	bl	2010 <_helper_flush_virt>
+ 108:	94000000 	bl	2024 <_helper_flush_virt>
  10c:	17ffffec 	b	bc <init_module+0xbc>
  110:	aa1403e1 	mov	x1, x20
  114:	90000000 	adrp	x0, 0 <init_module>
@@ -399,445 +399,479 @@ Disassembly of section .init.text:
  14c:	90000001 	adrp	x1, 0 <memstart_addr>
  150:	f9400021 	ldr	x1, [x1]
  154:	8b020021 	add	x1, x1, x2
- 158:	8b000036 	add	x22, x1, x0
+ 158:	8b000037 	add	x23, x1, x0
  15c:	14000004 	b	16c <init_module+0x16c>
  160:	90000001 	adrp	x1, 0 <kimage_voffset>
  164:	f9400021 	ldr	x1, [x1]
- 168:	cb010016 	sub	x22, x0, x1
- 16c:	cb170297 	sub	x23, x20, x23
- 170:	90000019 	adrp	x25, 1794 <__fixup_1>
- 174:	91000339 	add	x25, x25, #0x0
- 178:	90000018 	adrp	x24, 0 <init_module>
- 17c:	91000318 	add	x24, x24, #0x0
+ 168:	cb010017 	sub	x23, x0, x1
+ 16c:	cb160296 	sub	x22, x20, x22
+ 170:	90000018 	adrp	x24, 1798 <__fixup_1>
+ 174:	91000318 	add	x24, x24, #0x0
+ 178:	90000019 	adrp	x25, 0 <init_module>
+ 17c:	91000339 	add	x25, x25, #0x0
  180:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
- 184:	8b1902fb 	add	x27, x23, x25
- 188:	91008318 	add	x24, x24, #0x20
+ 184:	8b1802dc 	add	x28, x22, x24
+ 188:	91008339 	add	x25, x25, #0x20
  18c:	9100035a 	add	x26, x26, #0x0
- 190:	aa1603e1 	mov	x1, x22
+ 190:	aa1703e1 	mov	x1, x23
  194:	90000000 	adrp	x0, 0 <init_module>
- 198:	5280001c 	mov	w28, #0x0                   	// #0
+ 198:	5280001b 	mov	w27, #0x0                   	// #0
  19c:	91000000 	add	x0, x0, #0x0
  1a0:	94000000 	bl	0 <_printk>
- 1a4:	f8376b36 	str	x22, [x25, x23]
+ 1a4:	f8366b17 	str	x23, [x24, x22]
  1a8:	b9400260 	ldr	w0, [x19]
- 1ac:	6b00039f 	cmp	w28, w0
+ 1ac:	6b00037f 	cmp	w27, w0
  1b0:	54000242 	b.cs	1f8 <init_module+0x1f8>  // b.hs, b.nlast
- 1b4:	92401796 	and	x22, x28, #0x3f
- 1b8:	910006d6 	add	x22, x22, #0x1
- 1bc:	f10106df 	cmp	x22, #0x41
+ 1b4:	92401777 	and	x23, x27, #0x3f
+ 1b8:	910006f7 	add	x23, x23, #0x1
+ 1bc:	f10106ff 	cmp	x23, #0x41
  1c0:	54000089 	b.ls	1d0 <init_module+0x1d0>  // b.plast
- 1c4:	aa1603e1 	mov	x1, x22
- 1c8:	aa1803e0 	mov	x0, x24
+ 1c4:	aa1703e1 	mov	x1, x23
+ 1c8:	aa1903e0 	mov	x0, x25
  1cc:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 1d0:	53067f81 	lsr	w1, w28, #6
- 1d4:	d37beac0 	lsl	x0, x22, #5
- 1d8:	1100079c 	add	w28, w28, #0x1
+ 1d0:	53067f61 	lsr	w1, w27, #6
+ 1d4:	d37beae0 	lsl	x0, x23, #5
+ 1d8:	1100077b 	add	w27, w27, #0x1
  1dc:	cb214c00 	sub	x0, x0, w1, uxtw #3
  1e0:	8b000340 	add	x0, x26, x0
  1e4:	94000000 	bl	0 <init_module>
  1e8:	94000000 	bl	0 <init_module>
- 1ec:	aa1b03e0 	mov	x0, x27
- 1f0:	94000000 	bl	2010 <_helper_flush_virt>
+ 1ec:	aa1c03e0 	mov	x0, x28
+ 1f0:	94000000 	bl	2024 <_helper_flush_virt>
  1f4:	17ffffed 	b	1a8 <init_module+0x1a8>
- 1f8:	9000001a 	adrp	x26, 0 <init_module>
- 1fc:	9100035a 	add	x26, x26, #0x0
- 200:	aa1a03e0 	mov	x0, x26
- 204:	90000016 	adrp	x22, 180c <__fixup_2>
- 208:	94000000 	bl	0 <init_module>
- 20c:	910002d6 	add	x22, x22, #0x0
- 210:	aa0003e1 	mov	x1, x0
- 214:	9101d3e2 	add	x2, sp, #0x74
- 218:	52800240 	mov	w0, #0x12                  	// #18
- 21c:	9000001c 	adrp	x28, 0 <init_module>
- 220:	94000000 	bl	1f4 <init_module+0x1f4>
- 224:	9100039c 	add	x28, x28, #0x0
- 228:	8b1702d6 	add	x22, x22, x23
- 22c:	91010380 	add	x0, x28, #0x40
- 230:	5280001c 	mov	w28, #0x0                   	// #0
- 234:	f90033e0 	str	x0, [sp, #96]
- 238:	b9400260 	ldr	w0, [x19]
- 23c:	6b1c001f 	cmp	w0, w28
- 240:	54000289 	b.ls	290 <init_module+0x290>  // b.plast
- 244:	92401798 	and	x24, x28, #0x3f
- 248:	91000718 	add	x24, x24, #0x1
- 24c:	f101071f 	cmp	x24, #0x41
- 250:	54000089 	b.ls	260 <init_module+0x260>  // b.plast
- 254:	f94033e0 	ldr	x0, [sp, #96]
- 258:	aa1803e1 	mov	x1, x24
- 25c:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 260:	53067f81 	lsr	w1, w28, #6
- 264:	d37beb18 	lsl	x24, x24, #5
- 268:	90000000 	adrp	x0, 0 <cpu_bit_bitmap>
- 26c:	91000000 	add	x0, x0, #0x0
- 270:	cb214f18 	sub	x24, x24, w1, uxtw #3
- 274:	1100079c 	add	w28, w28, #0x1
- 278:	8b180000 	add	x0, x0, x24
- 27c:	94000000 	bl	0 <init_module>
- 280:	94000000 	bl	0 <init_module>
- 284:	aa1603e0 	mov	x0, x22
- 288:	94000000 	bl	2010 <_helper_flush_virt>
- 28c:	17ffffeb 	b	238 <init_module+0x238>
- 290:	90000018 	adrp	x24, 0 <init_module>
- 294:	9000001c 	adrp	x28, 0 <cpu_bit_bitmap>
- 298:	91000318 	add	x24, x24, #0x0
- 29c:	9100039c 	add	x28, x28, #0x0
- 2a0:	91018300 	add	x0, x24, #0x60
- 2a4:	52800018 	mov	w24, #0x0                   	// #0
- 2a8:	f90033e0 	str	x0, [sp, #96]
- 2ac:	b9400260 	ldr	w0, [x19]
- 2b0:	6b18001f 	cmp	w0, w24
- 2b4:	54000269 	b.ls	300 <init_module+0x300>  // b.plast
- 2b8:	92401701 	and	x1, x24, #0x3f
- 2bc:	91000421 	add	x1, x1, #0x1
- 2c0:	f101043f 	cmp	x1, #0x41
- 2c4:	540000a9 	b.ls	2d8 <init_module+0x2d8>  // b.plast
- 2c8:	f94033e0 	ldr	x0, [sp, #96]
- 2cc:	f90037e1 	str	x1, [sp, #104]
- 2d0:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 2d4:	f94037e1 	ldr	x1, [sp, #104]
- 2d8:	53067f00 	lsr	w0, w24, #6
- 2dc:	d37be821 	lsl	x1, x1, #5
- 2e0:	11000718 	add	w24, w24, #0x1
- 2e4:	cb204c20 	sub	x0, x1, w0, uxtw #3
- 2e8:	8b000380 	add	x0, x28, x0
- 2ec:	94000000 	bl	0 <init_module>
- 2f0:	94000000 	bl	0 <init_module>
- 2f4:	aa1403e0 	mov	x0, x20
- 2f8:	94000000 	bl	2010 <_helper_flush_virt>
- 2fc:	17ffffec 	b	2ac <init_module+0x2ac>
- 300:	aa1403e1 	mov	x1, x20
- 304:	90000000 	adrp	x0, 0 <init_module>
- 308:	91000000 	add	x0, x0, #0x0
- 30c:	94000000 	bl	0 <_printk>
- 310:	aa1b03e1 	mov	x1, x27
- 314:	90000000 	adrp	x0, 0 <init_module>
- 318:	91000000 	add	x0, x0, #0x0
- 31c:	94000000 	bl	0 <_printk>
- 320:	d2e00020 	mov	x0, #0x1000000000000       	// #281474976710656
- 324:	8b000298 	add	x24, x20, x0
- 328:	b240bbe1 	mov	x1, #0x7fffffffffff        	// #140737488355327
- 32c:	eb01031f 	cmp	x24, x1
- 330:	540000c8 	b.hi	348 <init_module+0x348>  // b.pmore
- 334:	90000001 	adrp	x1, 0 <memstart_addr>
- 338:	f9400021 	ldr	x1, [x1]
- 33c:	8b000021 	add	x1, x1, x0
- 340:	8b010281 	add	x1, x20, x1
- 344:	14000004 	b	354 <init_module+0x354>
- 348:	90000000 	adrp	x0, 0 <kimage_voffset>
- 34c:	f9400001 	ldr	x1, [x0]
- 350:	cb010281 	sub	x1, x20, x1
- 354:	90000000 	adrp	x0, 0 <init_module>
- 358:	91000000 	add	x0, x0, #0x0
- 35c:	94000000 	bl	0 <_printk>
- 360:	f8776b21 	ldr	x1, [x25, x23]
- 364:	90000000 	adrp	x0, 0 <init_module>
- 368:	91000000 	add	x0, x0, #0x0
- 36c:	90000017 	adrp	x23, 0 <init_module>
- 370:	910002f7 	add	x23, x23, #0x0
- 374:	52800019 	mov	w25, #0x0                   	// #0
- 378:	94000000 	bl	0 <_printk>
- 37c:	aa1a03e0 	mov	x0, x26
- 380:	94000000 	bl	0 <init_module>
- 384:	aa0003e1 	mov	x1, x0
- 388:	90000000 	adrp	x0, 0 <init_module>
- 38c:	91000000 	add	x0, x0, #0x0
- 390:	94000000 	bl	0 <_printk>
- 394:	b94002c1 	ldr	w1, [x22]
- 398:	aa1703e0 	mov	x0, x23
- 39c:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
- 3a0:	9100035a 	add	x26, x26, #0x0
- 3a4:	94000000 	bl	0 <_printk>
- 3a8:	b94006c1 	ldr	w1, [x22, #4]
- 3ac:	aa1703e0 	mov	x0, x23
- 3b0:	94000000 	bl	0 <_printk>
- 3b4:	b9400ac1 	ldr	w1, [x22, #8]
- 3b8:	aa1703e0 	mov	x0, x23
- 3bc:	94000000 	bl	0 <_printk>
- 3c0:	b9400ec1 	ldr	w1, [x22, #12]
- 3c4:	aa1703e0 	mov	x0, x23
- 3c8:	94000000 	bl	0 <_printk>
- 3cc:	b94012c1 	ldr	w1, [x22, #16]
- 3d0:	aa1703e0 	mov	x0, x23
- 3d4:	90000017 	adrp	x23, 0 <init_module>
- 3d8:	910002f7 	add	x23, x23, #0x0
- 3dc:	910202f7 	add	x23, x23, #0x80
+ 1f8:	9000001b 	adrp	x27, 0 <init_module>
+ 1fc:	9100037b 	add	x27, x27, #0x0
+ 200:	aa1b03e0 	mov	x0, x27
+ 204:	94000000 	bl	0 <init_module>
+ 208:	aa0003e1 	mov	x1, x0
+ 20c:	52800240 	mov	w0, #0x12                  	// #18
+ 210:	910213e2 	add	x2, sp, #0x84
+ 214:	9000001a 	adrp	x26, 1808 <__fixup_2>
+ 218:	94000000 	bl	1f4 <init_module+0x1f4>
+ 21c:	9100035a 	add	x26, x26, #0x0
+ 220:	910093e0 	add	x0, sp, #0x24
+ 224:	8b1a02d7 	add	x23, x22, x26
+ 228:	90000019 	adrp	x25, 0 <init_module>
+ 22c:	91000339 	add	x25, x25, #0x0
+ 230:	91010321 	add	x1, x25, #0x40
+ 234:	52800019 	mov	w25, #0x0                   	// #0
+ 238:	a9461404 	ldp	x4, x5, [x0, #96]
+ 23c:	52804800 	mov	w0, #0x240                 	// #576
+ 240:	72bac7e0 	movk	w0, #0xd63f, lsl #16
+ 244:	a90016e4 	stp	x4, x5, [x23]
+ 248:	b90012e0 	str	w0, [x23, #16]
+ 24c:	f90037e1 	str	x1, [sp, #104]
+ 250:	90000001 	adrp	x1, 0 <cpu_bit_bitmap>
+ 254:	91000021 	add	x1, x1, #0x0
+ 258:	f9003be1 	str	x1, [sp, #112]
+ 25c:	b90097e0 	str	w0, [sp, #148]
+ 260:	b9400260 	ldr	w0, [x19]
+ 264:	6b00033f 	cmp	w25, w0
+ 268:	54000282 	b.cs	2b8 <init_module+0x2b8>  // b.hs, b.nlast
+ 26c:	92401721 	and	x1, x25, #0x3f
+ 270:	91000421 	add	x1, x1, #0x1
+ 274:	f101043f 	cmp	x1, #0x41
+ 278:	540000a9 	b.ls	28c <init_module+0x28c>  // b.plast
+ 27c:	f94037e0 	ldr	x0, [sp, #104]
+ 280:	f9003fe1 	str	x1, [sp, #120]
+ 284:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 288:	f9403fe1 	ldr	x1, [sp, #120]
+ 28c:	53067f20 	lsr	w0, w25, #6
+ 290:	d37be821 	lsl	x1, x1, #5
+ 294:	11000739 	add	w25, w25, #0x1
+ 298:	cb204c20 	sub	x0, x1, w0, uxtw #3
+ 29c:	f9403be1 	ldr	x1, [sp, #112]
+ 2a0:	8b000020 	add	x0, x1, x0
+ 2a4:	94000000 	bl	0 <init_module>
+ 2a8:	94000000 	bl	0 <init_module>
+ 2ac:	aa1703e0 	mov	x0, x23
+ 2b0:	94000000 	bl	2024 <_helper_flush_virt>
+ 2b4:	17ffffeb 	b	260 <init_module+0x260>
+ 2b8:	90000019 	adrp	x25, 0 <init_module>
+ 2bc:	91000339 	add	x25, x25, #0x0
+ 2c0:	91018320 	add	x0, x25, #0x60
+ 2c4:	52800019 	mov	w25, #0x0                   	// #0
+ 2c8:	f90037e0 	str	x0, [sp, #104]
+ 2cc:	90000000 	adrp	x0, 0 <cpu_bit_bitmap>
+ 2d0:	91000000 	add	x0, x0, #0x0
+ 2d4:	f9003be0 	str	x0, [sp, #112]
+ 2d8:	b9400260 	ldr	w0, [x19]
+ 2dc:	6b19001f 	cmp	w0, w25
+ 2e0:	54000289 	b.ls	330 <init_module+0x330>  // b.plast
+ 2e4:	92401721 	and	x1, x25, #0x3f
+ 2e8:	91000421 	add	x1, x1, #0x1
+ 2ec:	f101043f 	cmp	x1, #0x41
+ 2f0:	540000a9 	b.ls	304 <init_module+0x304>  // b.plast
+ 2f4:	f94037e0 	ldr	x0, [sp, #104]
+ 2f8:	f9003fe1 	str	x1, [sp, #120]
+ 2fc:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 300:	f9403fe1 	ldr	x1, [sp, #120]
+ 304:	53067f20 	lsr	w0, w25, #6
+ 308:	d37be821 	lsl	x1, x1, #5
+ 30c:	11000739 	add	w25, w25, #0x1
+ 310:	cb204c20 	sub	x0, x1, w0, uxtw #3
+ 314:	f9403be1 	ldr	x1, [sp, #112]
+ 318:	8b000020 	add	x0, x1, x0
+ 31c:	94000000 	bl	0 <init_module>
+ 320:	94000000 	bl	0 <init_module>
+ 324:	aa1403e0 	mov	x0, x20
+ 328:	94000000 	bl	2024 <_helper_flush_virt>
+ 32c:	17ffffeb 	b	2d8 <init_module+0x2d8>
+ 330:	aa1403e1 	mov	x1, x20
+ 334:	90000000 	adrp	x0, 0 <init_module>
+ 338:	91000000 	add	x0, x0, #0x0
+ 33c:	94000000 	bl	0 <_printk>
+ 340:	aa1c03e1 	mov	x1, x28
+ 344:	90000000 	adrp	x0, 0 <init_module>
+ 348:	91000000 	add	x0, x0, #0x0
+ 34c:	94000000 	bl	0 <_printk>
+ 350:	d2e00020 	mov	x0, #0x1000000000000       	// #281474976710656
+ 354:	8b000299 	add	x25, x20, x0
+ 358:	b240bbe1 	mov	x1, #0x7fffffffffff        	// #140737488355327
+ 35c:	eb01033f 	cmp	x25, x1
+ 360:	540000c8 	b.hi	378 <init_module+0x378>  // b.pmore
+ 364:	90000001 	adrp	x1, 0 <memstart_addr>
+ 368:	f9400021 	ldr	x1, [x1]
+ 36c:	8b000021 	add	x1, x1, x0
+ 370:	8b010281 	add	x1, x20, x1
+ 374:	14000004 	b	384 <init_module+0x384>
+ 378:	90000000 	adrp	x0, 0 <kimage_voffset>
+ 37c:	f9400001 	ldr	x1, [x0]
+ 380:	cb010281 	sub	x1, x20, x1
+ 384:	90000000 	adrp	x0, 0 <init_module>
+ 388:	91000000 	add	x0, x0, #0x0
+ 38c:	94000000 	bl	0 <_printk>
+ 390:	f8766b01 	ldr	x1, [x24, x22]
+ 394:	90000000 	adrp	x0, 0 <init_module>
+ 398:	91000000 	add	x0, x0, #0x0
+ 39c:	52800018 	mov	w24, #0x0                   	// #0
+ 3a0:	94000000 	bl	0 <_printk>
+ 3a4:	aa1b03e0 	mov	x0, x27
+ 3a8:	94000000 	bl	0 <init_module>
+ 3ac:	aa0003e1 	mov	x1, x0
+ 3b0:	90000000 	adrp	x0, 0 <init_module>
+ 3b4:	91000000 	add	x0, x0, #0x0
+ 3b8:	94000000 	bl	0 <_printk>
+ 3bc:	b8766b41 	ldr	w1, [x26, x22]
+ 3c0:	90000016 	adrp	x22, 0 <init_module>
+ 3c4:	910002d6 	add	x22, x22, #0x0
+ 3c8:	5ac00821 	rev	w1, w1
+ 3cc:	aa1603e0 	mov	x0, x22
+ 3d0:	94000000 	bl	0 <_printk>
+ 3d4:	b94006e1 	ldr	w1, [x23, #4]
+ 3d8:	aa1603e0 	mov	x0, x22
+ 3dc:	5ac00821 	rev	w1, w1
  3e0:	94000000 	bl	0 <_printk>
- 3e4:	90000000 	adrp	x0, 0 <init_module>
- 3e8:	91000000 	add	x0, x0, #0x0
- 3ec:	94000000 	bl	0 <_printk>
- 3f0:	b9400260 	ldr	w0, [x19]
- 3f4:	6b19001f 	cmp	w0, w25
- 3f8:	54000409 	b.ls	478 <init_module+0x478>  // b.plast
- 3fc:	92401736 	and	x22, x25, #0x3f
- 400:	910006d6 	add	x22, x22, #0x1
- 404:	f10106df 	cmp	x22, #0x41
- 408:	54000089 	b.ls	418 <init_module+0x418>  // b.plast
- 40c:	aa1603e1 	mov	x1, x22
- 410:	aa1703e0 	mov	x0, x23
- 414:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 418:	53067f21 	lsr	w1, w25, #6
- 41c:	d37beac0 	lsl	x0, x22, #5
- 420:	cb214c00 	sub	x0, x0, w1, uxtw #3
- 424:	8b000340 	add	x0, x26, x0
- 428:	94000000 	bl	0 <init_module>
- 42c:	f9404ea2 	ldr	x2, [x21, #152]
- 430:	d53800a0 	mrs	x0, mpidr_el1
- 434:	d53800a3 	mrs	x3, mpidr_el1
- 438:	b2405fe1 	mov	x1, #0xffffff              	// #16777215
- 43c:	d280e604 	mov	x4, #0x730                 	// #1840
- 440:	f2c01fe1 	movk	x1, #0xff, lsl #32
- 444:	8a010000 	and	x0, x0, x1
- 448:	9b040800 	madd	x0, x0, x4, x2
- 44c:	f901a403 	str	x3, [x0, #840]
- 450:	d53800a0 	mrs	x0, mpidr_el1
- 454:	d53800a3 	mrs	x3, mpidr_el1
- 458:	8a010063 	and	x3, x3, x1
- 45c:	11000739 	add	w25, w25, #0x1
- 460:	8a010001 	and	x1, x0, x1
- 464:	90000000 	adrp	x0, 0 <init_module>
- 468:	91000000 	add	x0, x0, #0x0
- 46c:	9b040862 	madd	x2, x3, x4, x2
- 470:	94000000 	bl	0 <_printk>
- 474:	17ffffdf 	b	3f0 <init_module+0x3f0>
- 478:	90000017 	adrp	x23, 0 <init_module>
- 47c:	910002f7 	add	x23, x23, #0x0
- 480:	90000019 	adrp	x25, 0 <cpu_bit_bitmap>
- 484:	910282f7 	add	x23, x23, #0xa0
- 488:	91000339 	add	x25, x25, #0x0
- 48c:	5280001a 	mov	w26, #0x0                   	// #0
- 490:	90000000 	adrp	x0, 0 <init_module>
- 494:	91000000 	add	x0, x0, #0x0
- 498:	94000000 	bl	0 <_printk>
- 49c:	b9400260 	ldr	w0, [x19]
- 4a0:	6b1a001f 	cmp	w0, w26
- 4a4:	54000209 	b.ls	4e4 <init_module+0x4e4>  // b.plast
- 4a8:	92401756 	and	x22, x26, #0x3f
- 4ac:	910006d6 	add	x22, x22, #0x1
- 4b0:	f10106df 	cmp	x22, #0x41
- 4b4:	54000089 	b.ls	4c4 <init_module+0x4c4>  // b.plast
- 4b8:	aa1603e1 	mov	x1, x22
- 4bc:	aa1703e0 	mov	x0, x23
- 4c0:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 4c4:	53067f41 	lsr	w1, w26, #6
- 4c8:	d37beac0 	lsl	x0, x22, #5
- 4cc:	1100075a 	add	w26, w26, #0x1
- 4d0:	cb214c00 	sub	x0, x0, w1, uxtw #3
- 4d4:	8b000320 	add	x0, x25, x0
- 4d8:	94000000 	bl	0 <init_module>
- 4dc:	94000000 	bl	2028 <kvmrk_reset_vectors>
- 4e0:	17ffffef 	b	49c <init_module+0x49c>
- 4e4:	90000019 	adrp	x25, 0 <init_module>
- 4e8:	90000017 	adrp	x23, 0 <init_module>
- 4ec:	91000339 	add	x25, x25, #0x0
- 4f0:	910002f7 	add	x23, x23, #0x0
- 4f4:	aa1903e0 	mov	x0, x25
- 4f8:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
- 4fc:	94000000 	bl	0 <init_module>
- 500:	910302f7 	add	x23, x23, #0xc0
- 504:	9100035a 	add	x26, x26, #0x0
- 508:	90000002 	adrp	x2, 0 <init_module>
- 50c:	5280001b 	mov	w27, #0x0                   	// #0
- 510:	aa0003e1 	mov	x1, x0
- 514:	91000040 	add	x0, x2, #0x0
- 518:	94000000 	bl	0 <_printk>
- 51c:	b9400260 	ldr	w0, [x19]
- 520:	6b1b001f 	cmp	w0, w27
- 524:	54000249 	b.ls	56c <init_module+0x56c>  // b.plast
- 528:	92401776 	and	x22, x27, #0x3f
- 52c:	910006d6 	add	x22, x22, #0x1
- 530:	f10106df 	cmp	x22, #0x41
- 534:	54000089 	b.ls	544 <init_module+0x544>  // b.plast
- 538:	aa1603e1 	mov	x1, x22
- 53c:	aa1703e0 	mov	x0, x23
- 540:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 544:	53067f60 	lsr	w0, w27, #6
- 548:	d37bead6 	lsl	x22, x22, #5
- 54c:	1100077b 	add	w27, w27, #0x1
- 550:	cb204ec0 	sub	x0, x22, w0, uxtw #3
- 554:	8b000340 	add	x0, x26, x0
- 558:	94000000 	bl	0 <init_module>
- 55c:	aa1903e0 	mov	x0, x25
- 560:	94000000 	bl	0 <init_module>
- 564:	94000000 	bl	2018 <kvmrk_set_vectors>
- 568:	17ffffed 	b	51c <init_module+0x51c>
- 56c:	b9400260 	ldr	w0, [x19]
- 570:	90000017 	adrp	x23, 0 <init_module>
+ 3e4:	b9400ae1 	ldr	w1, [x23, #8]
+ 3e8:	aa1603e0 	mov	x0, x22
+ 3ec:	5ac00821 	rev	w1, w1
+ 3f0:	94000000 	bl	0 <_printk>
+ 3f4:	b9400ee1 	ldr	w1, [x23, #12]
+ 3f8:	aa1603e0 	mov	x0, x22
+ 3fc:	5ac00821 	rev	w1, w1
+ 400:	94000000 	bl	0 <_printk>
+ 404:	b94012e1 	ldr	w1, [x23, #16]
+ 408:	aa1603e0 	mov	x0, x22
+ 40c:	90000016 	adrp	x22, 0 <init_module>
+ 410:	910002d6 	add	x22, x22, #0x0
+ 414:	5ac00821 	rev	w1, w1
+ 418:	90000017 	adrp	x23, 0 <cpu_bit_bitmap>
+ 41c:	910202d6 	add	x22, x22, #0x80
+ 420:	910002f7 	add	x23, x23, #0x0
+ 424:	94000000 	bl	0 <_printk>
+ 428:	90000000 	adrp	x0, 0 <init_module>
+ 42c:	91000000 	add	x0, x0, #0x0
+ 430:	94000000 	bl	0 <_printk>
+ 434:	b9400260 	ldr	w0, [x19]
+ 438:	6b18001f 	cmp	w0, w24
+ 43c:	54000609 	b.ls	4fc <init_module+0x4fc>  // b.plast
+ 440:	9240171a 	and	x26, x24, #0x3f
+ 444:	9100075a 	add	x26, x26, #0x1
+ 448:	f101075f 	cmp	x26, #0x41
+ 44c:	54000089 	b.ls	45c <init_module+0x45c>  // b.plast
+ 450:	aa1a03e1 	mov	x1, x26
+ 454:	aa1603e0 	mov	x0, x22
+ 458:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 45c:	53067f01 	lsr	w1, w24, #6
+ 460:	d37beb40 	lsl	x0, x26, #5
+ 464:	cb214c00 	sub	x0, x0, w1, uxtw #3
+ 468:	8b0002e0 	add	x0, x23, x0
+ 46c:	94000000 	bl	0 <init_module>
+ 470:	f9404ea5 	ldr	x5, [x21, #152]
+ 474:	d53800a0 	mrs	x0, mpidr_el1
+ 478:	d53800a1 	mrs	x1, mpidr_el1
+ 47c:	b2405fe4 	mov	x4, #0xffffff              	// #16777215
+ 480:	d280e606 	mov	x6, #0x730                 	// #1840
+ 484:	f2c01fe4 	movk	x4, #0xff, lsl #32
+ 488:	8a040000 	and	x0, x0, x4
+ 48c:	9b061400 	madd	x0, x0, x6, x5
+ 490:	f901a401 	str	x1, [x0, #840]
+ 494:	d53800a1 	mrs	x1, mpidr_el1
+ 498:	8a040021 	and	x1, x1, x4
+ 49c:	d53800a2 	mrs	x2, mpidr_el1
+ 4a0:	8a040042 	and	x2, x2, x4
+ 4a4:	9b061442 	madd	x2, x2, x6, x5
+ 4a8:	d53800a3 	mrs	x3, mpidr_el1
+ 4ac:	8a040063 	and	x3, x3, x4
+ 4b0:	d2e00024 	mov	x4, #0x1000000000000       	// #281474976710656
+ 4b4:	b240bbe0 	mov	x0, #0x7fffffffffff        	// #140737488355327
+ 4b8:	9b061463 	madd	x3, x3, x6, x5
+ 4bc:	8b040065 	add	x5, x3, x4
+ 4c0:	eb0000bf 	cmp	x5, x0
+ 4c4:	540000c8 	b.hi	4dc <init_module+0x4dc>  // b.pmore
+ 4c8:	90000000 	adrp	x0, 0 <memstart_addr>
+ 4cc:	f9400000 	ldr	x0, [x0]
+ 4d0:	8b040000 	add	x0, x0, x4
+ 4d4:	8b030003 	add	x3, x0, x3
+ 4d8:	14000004 	b	4e8 <init_module+0x4e8>
+ 4dc:	90000000 	adrp	x0, 0 <kimage_voffset>
+ 4e0:	f9400000 	ldr	x0, [x0]
+ 4e4:	cb000063 	sub	x3, x3, x0
+ 4e8:	11000718 	add	w24, w24, #0x1
+ 4ec:	90000000 	adrp	x0, 0 <init_module>
+ 4f0:	91000000 	add	x0, x0, #0x0
+ 4f4:	94000000 	bl	0 <_printk>
+ 4f8:	17ffffcf 	b	434 <init_module+0x434>
+ 4fc:	90000017 	adrp	x23, 0 <init_module>
+ 500:	910002f7 	add	x23, x23, #0x0
+ 504:	90000018 	adrp	x24, 0 <cpu_bit_bitmap>
+ 508:	910282f7 	add	x23, x23, #0xa0
+ 50c:	91000318 	add	x24, x24, #0x0
+ 510:	5280001a 	mov	w26, #0x0                   	// #0
+ 514:	90000000 	adrp	x0, 0 <init_module>
+ 518:	91000000 	add	x0, x0, #0x0
+ 51c:	94000000 	bl	0 <_printk>
+ 520:	b9400260 	ldr	w0, [x19]
+ 524:	6b1a001f 	cmp	w0, w26
+ 528:	54000209 	b.ls	568 <init_module+0x568>  // b.plast
+ 52c:	92401756 	and	x22, x26, #0x3f
+ 530:	910006d6 	add	x22, x22, #0x1
+ 534:	f10106df 	cmp	x22, #0x41
+ 538:	54000089 	b.ls	548 <init_module+0x548>  // b.plast
+ 53c:	aa1603e1 	mov	x1, x22
+ 540:	aa1703e0 	mov	x0, x23
+ 544:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 548:	53067f41 	lsr	w1, w26, #6
+ 54c:	d37beac0 	lsl	x0, x22, #5
+ 550:	1100075a 	add	w26, w26, #0x1
+ 554:	cb214c00 	sub	x0, x0, w1, uxtw #3
+ 558:	8b000300 	add	x0, x24, x0
+ 55c:	94000000 	bl	0 <init_module>
+ 560:	94000000 	bl	203c <kvmrk_reset_vectors>
+ 564:	17ffffef 	b	520 <init_module+0x520>
+ 568:	90000018 	adrp	x24, 0 <init_module>
+ 56c:	90000017 	adrp	x23, 0 <init_module>
+ 570:	91000318 	add	x24, x24, #0x0
  574:	910002f7 	add	x23, x23, #0x0
- 578:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
- 57c:	910382f7 	add	x23, x23, #0xe0
- 580:	9100035a 	add	x26, x26, #0x0
- 584:	d37d7c00 	ubfiz	x0, x0, #3, #32
- 588:	52819801 	mov	w1, #0xcc0                 	// #3264
- 58c:	52800019 	mov	w25, #0x0                   	// #0
- 590:	94000000 	bl	0 <__kmalloc>
- 594:	f90052a0 	str	x0, [x21, #160]
- 598:	b9400260 	ldr	w0, [x19]
- 59c:	6b00033f 	cmp	w25, w0
- 5a0:	54000662 	b.cs	66c <init_module+0x66c>  // b.hs, b.nlast
- 5a4:	92401736 	and	x22, x25, #0x3f
- 5a8:	910006d6 	add	x22, x22, #0x1
- 5ac:	f10106df 	cmp	x22, #0x41
- 5b0:	54000089 	b.ls	5c0 <init_module+0x5c0>  // b.plast
- 5b4:	aa1603e1 	mov	x1, x22
- 5b8:	aa1703e0 	mov	x0, x23
- 5bc:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 5c0:	53067f21 	lsr	w1, w25, #6
- 5c4:	d37beac0 	lsl	x0, x22, #5
- 5c8:	cb214c00 	sub	x0, x0, w1, uxtw #3
- 5cc:	8b000340 	add	x0, x26, x0
- 5d0:	94000000 	bl	0 <init_module>
- 5d4:	d53800b6 	mrs	x22, mpidr_el1
- 5d8:	b2405ffb 	mov	x27, #0xffffff              	// #16777215
- 5dc:	52800042 	mov	w2, #0x2                   	// #2
- 5e0:	f2c01ffb 	movk	x27, #0xff, lsl #32
- 5e4:	8a1b02d6 	and	x22, x22, x27
- 5e8:	f94052bc 	ldr	x28, [x21, #160]
- 5ec:	d37df2d6 	lsl	x22, x22, #3
- 5f0:	52819801 	mov	w1, #0xcc0                 	// #3264
- 5f4:	d2880000 	mov	x0, #0x4000                	// #16384
- 5f8:	94000000 	bl	0 <kmalloc_order_trace>
- 5fc:	f8366b80 	str	x0, [x28, x22]
- 600:	d53800a1 	mrs	x1, mpidr_el1
- 604:	8a1b0021 	and	x1, x1, x27
- 608:	f94052a3 	ldr	x3, [x21, #160]
- 60c:	d53800a0 	mrs	x0, mpidr_el1
- 610:	8a1b0000 	and	x0, x0, x27
- 614:	f8607862 	ldr	x2, [x3, x0, lsl #3]
- 618:	d53800a0 	mrs	x0, mpidr_el1
- 61c:	8a1b0000 	and	x0, x0, x27
- 620:	d2e00024 	mov	x4, #0x1000000000000       	// #281474976710656
- 624:	b240bbe5 	mov	x5, #0x7fffffffffff        	// #140737488355327
- 628:	f8607863 	ldr	x3, [x3, x0, lsl #3]
- 62c:	8b040060 	add	x0, x3, x4
- 630:	eb05001f 	cmp	x0, x5
- 634:	540000c8 	b.hi	64c <init_module+0x64c>  // b.pmore
- 638:	90000000 	adrp	x0, 0 <memstart_addr>
- 63c:	f9400000 	ldr	x0, [x0]
- 640:	8b040000 	add	x0, x0, x4
- 644:	8b030003 	add	x3, x0, x3
- 648:	14000004 	b	658 <init_module+0x658>
- 64c:	90000000 	adrp	x0, 0 <kimage_voffset>
- 650:	f9400000 	ldr	x0, [x0]
- 654:	cb000063 	sub	x3, x3, x0
- 658:	11000739 	add	w25, w25, #0x1
- 65c:	90000000 	adrp	x0, 0 <init_module>
- 660:	91000000 	add	x0, x0, #0x0
- 664:	94000000 	bl	0 <_printk>
- 668:	17ffffcc 	b	598 <init_module+0x598>
- 66c:	90000017 	adrp	x23, 0 <init_module>
- 670:	910002f7 	add	x23, x23, #0x0
- 674:	90000019 	adrp	x25, 0 <cpu_bit_bitmap>
- 678:	910402f7 	add	x23, x23, #0x100
- 67c:	91000339 	add	x25, x25, #0x0
- 680:	5280001a 	mov	w26, #0x0                   	// #0
- 684:	b9400260 	ldr	w0, [x19]
- 688:	6b1a001f 	cmp	w0, w26
- 68c:	54000249 	b.ls	6d4 <init_module+0x6d4>  // b.plast
- 690:	92401756 	and	x22, x26, #0x3f
- 694:	910006d6 	add	x22, x22, #0x1
- 698:	f10106df 	cmp	x22, #0x41
- 69c:	54000089 	b.ls	6ac <init_module+0x6ac>  // b.plast
- 6a0:	aa1603e1 	mov	x1, x22
- 6a4:	aa1703e0 	mov	x0, x23
- 6a8:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 6ac:	53067f41 	lsr	w1, w26, #6
- 6b0:	d37beac0 	lsl	x0, x22, #5
- 6b4:	1100075a 	add	w26, w26, #0x1
- 6b8:	cb214c00 	sub	x0, x0, w1, uxtw #3
- 6bc:	8b000320 	add	x0, x25, x0
- 6c0:	94000000 	bl	0 <init_module>
- 6c4:	94000000 	bl	0 <init_module>
- 6c8:	f94052a0 	ldr	x0, [x21, #160]
- 6cc:	94000000 	bl	2010 <_helper_flush_virt>
- 6d0:	17ffffed 	b	684 <init_module+0x684>
- 6d4:	90000019 	adrp	x25, 0 <init_module>
- 6d8:	91000339 	add	x25, x25, #0x0
- 6dc:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
- 6e0:	91048339 	add	x25, x25, #0x120
- 6e4:	9100035a 	add	x26, x26, #0x0
- 6e8:	52800017 	mov	w23, #0x0                   	// #0
- 6ec:	b9400260 	ldr	w0, [x19]
- 6f0:	6b17001f 	cmp	w0, w23
- 6f4:	540006e9 	b.ls	7d0 <init_module+0x7d0>  // b.plast
- 6f8:	924016f6 	and	x22, x23, #0x3f
- 6fc:	910006d6 	add	x22, x22, #0x1
- 700:	f10106df 	cmp	x22, #0x41
- 704:	54000089 	b.ls	714 <init_module+0x714>  // b.plast
- 708:	aa1603e1 	mov	x1, x22
- 70c:	aa1903e0 	mov	x0, x25
- 710:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
- 714:	53067ee1 	lsr	w1, w23, #6
- 718:	d37beac0 	lsl	x0, x22, #5
- 71c:	cb214c00 	sub	x0, x0, w1, uxtw #3
- 720:	8b000340 	add	x0, x26, x0
- 724:	94000000 	bl	0 <init_module>
- 728:	b240bbe0 	mov	x0, #0x7fffffffffff        	// #140737488355327
- 72c:	eb00031f 	cmp	x24, x0
- 730:	540000e8 	b.hi	74c <init_module+0x74c>  // b.pmore
- 734:	90000001 	adrp	x1, 0 <memstart_addr>
- 738:	d2e00020 	mov	x0, #0x1000000000000       	// #281474976710656
- 73c:	f9400021 	ldr	x1, [x1]
- 740:	8b000021 	add	x1, x1, x0
- 744:	8b010281 	add	x1, x20, x1
- 748:	14000004 	b	758 <init_module+0x758>
- 74c:	90000000 	adrp	x0, 0 <kimage_voffset>
- 750:	f9400001 	ldr	x1, [x0]
- 754:	cb010281 	sub	x1, x20, x1
- 758:	d53800a0 	mrs	x0, mpidr_el1
- 75c:	92409c00 	and	x0, x0, #0xffffffffff
- 760:	d2e00023 	mov	x3, #0x1000000000000       	// #281474976710656
- 764:	f94052a2 	ldr	x2, [x21, #160]
- 768:	9260dc00 	and	x0, x0, #0xffffffff00ffffff
- 76c:	b240bbe4 	mov	x4, #0x7fffffffffff        	// #140737488355327
- 770:	f8607842 	ldr	x2, [x2, x0, lsl #3]
- 774:	8b030040 	add	x0, x2, x3
- 778:	eb04001f 	cmp	x0, x4
- 77c:	540000c8 	b.hi	794 <init_module+0x794>  // b.pmore
- 780:	90000000 	adrp	x0, 0 <memstart_addr>
- 784:	f9400000 	ldr	x0, [x0]
- 788:	8b030000 	add	x0, x0, x3
- 78c:	8b020002 	add	x2, x0, x2
- 790:	14000004 	b	7a0 <init_module+0x7a0>
- 794:	90000000 	adrp	x0, 0 <kimage_voffset>
- 798:	f9400000 	ldr	x0, [x0]
- 79c:	cb000042 	sub	x2, x2, x0
- 7a0:	d2800003 	mov	x3, #0x0                   	// #0
- 7a4:	d28001e0 	mov	x0, #0xf                   	// #15
- 7a8:	94000000 	bl	2008 <kvmrk_hvc>
- 7ac:	aa0003e2 	mov	x2, x0
- 7b0:	d53800a1 	mrs	x1, mpidr_el1
- 7b4:	92409c21 	and	x1, x1, #0xffffffffff
- 7b8:	110006f7 	add	w23, w23, #0x1
- 7bc:	9260dc21 	and	x1, x1, #0xffffffff00ffffff
- 7c0:	90000000 	adrp	x0, 0 <init_module>
- 7c4:	91000000 	add	x0, x0, #0x0
- 7c8:	94000000 	bl	0 <_printk>
- 7cc:	17ffffc8 	b	6ec <init_module+0x6ec>
- 7d0:	d2800002 	mov	x2, #0x0                   	// #0
- 7d4:	d2800003 	mov	x3, #0x0                   	// #0
- 7d8:	d2800001 	mov	x1, #0x0                   	// #0
- 7dc:	d2800000 	mov	x0, #0x0                   	// #0
- 7e0:	94000000 	bl	2008 <kvmrk_hvc>
- 7e4:	aa0003e1 	mov	x1, x0
- 7e8:	90000000 	adrp	x0, 0 <init_module>
- 7ec:	91000000 	add	x0, x0, #0x0
- 7f0:	94000000 	bl	0 <_printk>
- 7f4:	d5384100 	mrs	x0, sp_el0
- 7f8:	f94047e2 	ldr	x2, [sp, #136]
- 7fc:	f942f401 	ldr	x1, [x0, #1512]
- 800:	eb010042 	subs	x2, x2, x1
- 804:	d2800001 	mov	x1, #0x0                   	// #0
- 808:	54000040 	b.eq	810 <init_module+0x810>  // b.none
- 80c:	94000000 	bl	0 <__stack_chk_fail>
- 810:	52800000 	mov	w0, #0x0                   	// #0
- 814:	a94153f3 	ldp	x19, x20, [sp, #16]
- 818:	a9425bf5 	ldp	x21, x22, [sp, #32]
- 81c:	a94363f7 	ldp	x23, x24, [sp, #48]
- 820:	a9446bf9 	ldp	x25, x26, [sp, #64]
- 824:	a94573fb 	ldp	x27, x28, [sp, #80]
- 828:	a8c97bfd 	ldp	x29, x30, [sp], #144
- 82c:	d50323bf 	autiasp
- 830:	d65f03c0 	ret
+ 578:	aa1803e0 	mov	x0, x24
+ 57c:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
+ 580:	94000000 	bl	0 <init_module>
+ 584:	910302f7 	add	x23, x23, #0xc0
+ 588:	9100035a 	add	x26, x26, #0x0
+ 58c:	90000002 	adrp	x2, 0 <init_module>
+ 590:	5280001b 	mov	w27, #0x0                   	// #0
+ 594:	aa0003e1 	mov	x1, x0
+ 598:	91000040 	add	x0, x2, #0x0
+ 59c:	94000000 	bl	0 <_printk>
+ 5a0:	b9400260 	ldr	w0, [x19]
+ 5a4:	6b1b001f 	cmp	w0, w27
+ 5a8:	54000249 	b.ls	5f0 <init_module+0x5f0>  // b.plast
+ 5ac:	92401776 	and	x22, x27, #0x3f
+ 5b0:	910006d6 	add	x22, x22, #0x1
+ 5b4:	f10106df 	cmp	x22, #0x41
+ 5b8:	54000089 	b.ls	5c8 <init_module+0x5c8>  // b.plast
+ 5bc:	aa1603e1 	mov	x1, x22
+ 5c0:	aa1703e0 	mov	x0, x23
+ 5c4:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 5c8:	53067f60 	lsr	w0, w27, #6
+ 5cc:	d37bead6 	lsl	x22, x22, #5
+ 5d0:	1100077b 	add	w27, w27, #0x1
+ 5d4:	cb204ec0 	sub	x0, x22, w0, uxtw #3
+ 5d8:	8b000340 	add	x0, x26, x0
+ 5dc:	94000000 	bl	0 <init_module>
+ 5e0:	aa1803e0 	mov	x0, x24
+ 5e4:	94000000 	bl	0 <init_module>
+ 5e8:	94000000 	bl	202c <kvmrk_set_vectors>
+ 5ec:	17ffffed 	b	5a0 <init_module+0x5a0>
+ 5f0:	b9400260 	ldr	w0, [x19]
+ 5f4:	90000017 	adrp	x23, 0 <init_module>
+ 5f8:	910002f7 	add	x23, x23, #0x0
+ 5fc:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
+ 600:	910382f7 	add	x23, x23, #0xe0
+ 604:	9100035a 	add	x26, x26, #0x0
+ 608:	d37d7c00 	ubfiz	x0, x0, #3, #32
+ 60c:	52819801 	mov	w1, #0xcc0                 	// #3264
+ 610:	52800018 	mov	w24, #0x0                   	// #0
+ 614:	94000000 	bl	0 <__kmalloc>
+ 618:	f90052a0 	str	x0, [x21, #160]
+ 61c:	b9400260 	ldr	w0, [x19]
+ 620:	6b18001f 	cmp	w0, w24
+ 624:	54000669 	b.ls	6f0 <init_module+0x6f0>  // b.plast
+ 628:	92401716 	and	x22, x24, #0x3f
+ 62c:	910006d6 	add	x22, x22, #0x1
+ 630:	f10106df 	cmp	x22, #0x41
+ 634:	54000089 	b.ls	644 <init_module+0x644>  // b.plast
+ 638:	aa1603e1 	mov	x1, x22
+ 63c:	aa1703e0 	mov	x0, x23
+ 640:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 644:	53067f01 	lsr	w1, w24, #6
+ 648:	d37beac0 	lsl	x0, x22, #5
+ 64c:	cb214c00 	sub	x0, x0, w1, uxtw #3
+ 650:	8b000340 	add	x0, x26, x0
+ 654:	94000000 	bl	0 <init_module>
+ 658:	d53800b6 	mrs	x22, mpidr_el1
+ 65c:	b2405ffb 	mov	x27, #0xffffff              	// #16777215
+ 660:	52800042 	mov	w2, #0x2                   	// #2
+ 664:	f2c01ffb 	movk	x27, #0xff, lsl #32
+ 668:	8a1b02d6 	and	x22, x22, x27
+ 66c:	f94052bc 	ldr	x28, [x21, #160]
+ 670:	d37df2d6 	lsl	x22, x22, #3
+ 674:	52819801 	mov	w1, #0xcc0                 	// #3264
+ 678:	d2880000 	mov	x0, #0x4000                	// #16384
+ 67c:	94000000 	bl	0 <kmalloc_order_trace>
+ 680:	f8366b80 	str	x0, [x28, x22]
+ 684:	d53800a1 	mrs	x1, mpidr_el1
+ 688:	8a1b0021 	and	x1, x1, x27
+ 68c:	f94052a3 	ldr	x3, [x21, #160]
+ 690:	d53800a0 	mrs	x0, mpidr_el1
+ 694:	8a1b0000 	and	x0, x0, x27
+ 698:	f8607862 	ldr	x2, [x3, x0, lsl #3]
+ 69c:	d53800a0 	mrs	x0, mpidr_el1
+ 6a0:	8a1b0000 	and	x0, x0, x27
+ 6a4:	d2e00024 	mov	x4, #0x1000000000000       	// #281474976710656
+ 6a8:	b240bbe5 	mov	x5, #0x7fffffffffff        	// #140737488355327
+ 6ac:	f8607863 	ldr	x3, [x3, x0, lsl #3]
+ 6b0:	8b040060 	add	x0, x3, x4
+ 6b4:	eb05001f 	cmp	x0, x5
+ 6b8:	540000c8 	b.hi	6d0 <init_module+0x6d0>  // b.pmore
+ 6bc:	90000000 	adrp	x0, 0 <memstart_addr>
+ 6c0:	f9400000 	ldr	x0, [x0]
+ 6c4:	8b040000 	add	x0, x0, x4
+ 6c8:	8b030003 	add	x3, x0, x3
+ 6cc:	14000004 	b	6dc <init_module+0x6dc>
+ 6d0:	90000000 	adrp	x0, 0 <kimage_voffset>
+ 6d4:	f9400000 	ldr	x0, [x0]
+ 6d8:	cb000063 	sub	x3, x3, x0
+ 6dc:	11000718 	add	w24, w24, #0x1
+ 6e0:	90000000 	adrp	x0, 0 <init_module>
+ 6e4:	91000000 	add	x0, x0, #0x0
+ 6e8:	94000000 	bl	0 <_printk>
+ 6ec:	17ffffcc 	b	61c <init_module+0x61c>
+ 6f0:	90000017 	adrp	x23, 0 <init_module>
+ 6f4:	910002f7 	add	x23, x23, #0x0
+ 6f8:	90000018 	adrp	x24, 0 <cpu_bit_bitmap>
+ 6fc:	910402f7 	add	x23, x23, #0x100
+ 700:	91000318 	add	x24, x24, #0x0
+ 704:	5280001a 	mov	w26, #0x0                   	// #0
+ 708:	b9400260 	ldr	w0, [x19]
+ 70c:	6b1a001f 	cmp	w0, w26
+ 710:	54000249 	b.ls	758 <init_module+0x758>  // b.plast
+ 714:	92401756 	and	x22, x26, #0x3f
+ 718:	910006d6 	add	x22, x22, #0x1
+ 71c:	f10106df 	cmp	x22, #0x41
+ 720:	54000089 	b.ls	730 <init_module+0x730>  // b.plast
+ 724:	aa1603e1 	mov	x1, x22
+ 728:	aa1703e0 	mov	x0, x23
+ 72c:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 730:	53067f41 	lsr	w1, w26, #6
+ 734:	d37beac0 	lsl	x0, x22, #5
+ 738:	1100075a 	add	w26, w26, #0x1
+ 73c:	cb214c00 	sub	x0, x0, w1, uxtw #3
+ 740:	8b000300 	add	x0, x24, x0
+ 744:	94000000 	bl	0 <init_module>
+ 748:	94000000 	bl	0 <init_module>
+ 74c:	f94052a0 	ldr	x0, [x21, #160]
+ 750:	94000000 	bl	2024 <_helper_flush_virt>
+ 754:	17ffffed 	b	708 <init_module+0x708>
+ 758:	90000018 	adrp	x24, 0 <init_module>
+ 75c:	91000318 	add	x24, x24, #0x0
+ 760:	9000001a 	adrp	x26, 0 <cpu_bit_bitmap>
+ 764:	91048318 	add	x24, x24, #0x120
+ 768:	9100035a 	add	x26, x26, #0x0
+ 76c:	52800017 	mov	w23, #0x0                   	// #0
+ 770:	b9400260 	ldr	w0, [x19]
+ 774:	6b17001f 	cmp	w0, w23
+ 778:	54000709 	b.ls	858 <init_module+0x858>  // b.plast
+ 77c:	924016f6 	and	x22, x23, #0x3f
+ 780:	910006d6 	add	x22, x22, #0x1
+ 784:	f10106df 	cmp	x22, #0x41
+ 788:	54000089 	b.ls	798 <init_module+0x798>  // b.plast
+ 78c:	aa1603e1 	mov	x1, x22
+ 790:	aa1803e0 	mov	x0, x24
+ 794:	94000000 	bl	0 <__ubsan_handle_out_of_bounds>
+ 798:	53067ee1 	lsr	w1, w23, #6
+ 79c:	d37beac0 	lsl	x0, x22, #5
+ 7a0:	cb214c00 	sub	x0, x0, w1, uxtw #3
+ 7a4:	8b000340 	add	x0, x26, x0
+ 7a8:	94000000 	bl	0 <init_module>
+ 7ac:	b240bbe0 	mov	x0, #0x7fffffffffff        	// #140737488355327
+ 7b0:	eb00033f 	cmp	x25, x0
+ 7b4:	540000e8 	b.hi	7d0 <init_module+0x7d0>  // b.pmore
+ 7b8:	90000001 	adrp	x1, 0 <memstart_addr>
+ 7bc:	d2e00020 	mov	x0, #0x1000000000000       	// #281474976710656
+ 7c0:	f9400021 	ldr	x1, [x1]
+ 7c4:	8b000021 	add	x1, x1, x0
+ 7c8:	8b010281 	add	x1, x20, x1
+ 7cc:	14000004 	b	7dc <init_module+0x7dc>
+ 7d0:	90000000 	adrp	x0, 0 <kimage_voffset>
+ 7d4:	f9400001 	ldr	x1, [x0]
+ 7d8:	cb010281 	sub	x1, x20, x1
+ 7dc:	d53800a0 	mrs	x0, mpidr_el1
+ 7e0:	92409c00 	and	x0, x0, #0xffffffffff
+ 7e4:	d2e00023 	mov	x3, #0x1000000000000       	// #281474976710656
+ 7e8:	f94052a2 	ldr	x2, [x21, #160]
+ 7ec:	9260dc00 	and	x0, x0, #0xffffffff00ffffff
+ 7f0:	b240bbe4 	mov	x4, #0x7fffffffffff        	// #140737488355327
+ 7f4:	f8607842 	ldr	x2, [x2, x0, lsl #3]
+ 7f8:	8b030040 	add	x0, x2, x3
+ 7fc:	eb04001f 	cmp	x0, x4
+ 800:	540000c8 	b.hi	818 <init_module+0x818>  // b.pmore
+ 804:	90000000 	adrp	x0, 0 <memstart_addr>
+ 808:	f9400000 	ldr	x0, [x0]
+ 80c:	8b030000 	add	x0, x0, x3
+ 810:	8b020002 	add	x2, x0, x2
+ 814:	14000004 	b	824 <init_module+0x824>
+ 818:	90000000 	adrp	x0, 0 <kimage_voffset>
+ 81c:	f9400000 	ldr	x0, [x0]
+ 820:	cb000042 	sub	x2, x2, x0
+ 824:	91401042 	add	x2, x2, #0x4, lsl #12
+ 828:	d2800003 	mov	x3, #0x0                   	// #0
+ 82c:	d28001e0 	mov	x0, #0xf                   	// #15
+ 830:	94000000 	bl	201c <kvmrk_hvc>
+ 834:	aa0003e2 	mov	x2, x0
+ 838:	d53800a1 	mrs	x1, mpidr_el1
+ 83c:	92409c21 	and	x1, x1, #0xffffffffff
+ 840:	110006f7 	add	w23, w23, #0x1
+ 844:	9260dc21 	and	x1, x1, #0xffffffff00ffffff
+ 848:	90000000 	adrp	x0, 0 <init_module>
+ 84c:	91000000 	add	x0, x0, #0x0
+ 850:	94000000 	bl	0 <_printk>
+ 854:	17ffffc7 	b	770 <init_module+0x770>
+ 858:	d2800002 	mov	x2, #0x0                   	// #0
+ 85c:	d2800003 	mov	x3, #0x0                   	// #0
+ 860:	d2800001 	mov	x1, #0x0                   	// #0
+ 864:	d2800000 	mov	x0, #0x0                   	// #0
+ 868:	94000000 	bl	201c <kvmrk_hvc>
+ 86c:	aa0003e1 	mov	x1, x0
+ 870:	90000000 	adrp	x0, 0 <init_module>
+ 874:	91000000 	add	x0, x0, #0x0
+ 878:	94000000 	bl	0 <_printk>
+ 87c:	d5384100 	mrs	x0, sp_el0
+ 880:	f9404fe2 	ldr	x2, [sp, #152]
+ 884:	f942f401 	ldr	x1, [x0, #1512]
+ 888:	eb010042 	subs	x2, x2, x1
+ 88c:	d2800001 	mov	x1, #0x0                   	// #0
+ 890:	54000040 	b.eq	898 <init_module+0x898>  // b.none
+ 894:	94000000 	bl	0 <__stack_chk_fail>
+ 898:	52800000 	mov	w0, #0x0                   	// #0
+ 89c:	a94153f3 	ldp	x19, x20, [sp, #16]
+ 8a0:	a9425bf5 	ldp	x21, x22, [sp, #32]
+ 8a4:	a94363f7 	ldp	x23, x24, [sp, #48]
+ 8a8:	a9446bf9 	ldp	x25, x26, [sp, #64]
+ 8ac:	a94573fb 	ldp	x27, x28, [sp, #80]
+ 8b0:	a8ca7bfd 	ldp	x29, x30, [sp], #160
+ 8b4:	d50323bf 	autiasp
+ 8b8:	d65f03c0 	ret
 
 Disassembly of section .exit.text:
 
@@ -2377,75 +2411,75 @@ Disassembly of section .kvmrk.text:
 0000000000001788 <__kvmrk_el1_sync>:
     1788:	a9bf07e0 	stp	x0, x1, [sp, #-16]!
     178c:	a9bf0fe2 	stp	x2, x3, [sp, #-16]!
-    1790:	14000003 	b	179c <__fixup_1_end>
+    1790:	58000000 	ldr	x0, 1798 <__fixup_1>
+    1794:	14000003 	b	17a0 <__fixup_1_end>
 
-0000000000001794 <__fixup_1>:
-    1794:	d503201f 	nop
+0000000000001798 <__fixup_1>:
     1798:	d503201f 	nop
+    179c:	d503201f 	nop
 
-000000000000179c <__fixup_1_end>:
-    179c:	58000000 	ldr	x0, 1794 <__fixup_1>
-    17a0:	f9400000 	ldr	x0, [x0]
-    17a4:	d53800a1 	mrs	x1, mpidr_el1
-    17a8:	d2a01fe2 	mov	x2, #0xff0000              	// #16711680
-    17ac:	f29fffe2 	movk	x2, #0xffff
-    17b0:	8a020021 	and	x1, x1, x2
-    17b4:	d280e602 	mov	x2, #0x730                 	// #1840
-    17b8:	9b020020 	madd	x0, x1, x2, x0
-    17bc:	91000000 	add	x0, x0, #0x0
-    17c0:	a8c10fe2 	ldp	x2, x3, [sp], #16
-    17c4:	a9010c02 	stp	x2, x3, [x0, #16]
-    17c8:	a8c10fe2 	ldp	x2, x3, [sp], #16
-    17cc:	a9000c02 	stp	x2, x3, [x0]
-    17d0:	a9021404 	stp	x4, x5, [x0, #32]
-    17d4:	a9031c06 	stp	x6, x7, [x0, #48]
-    17d8:	a9042408 	stp	x8, x9, [x0, #64]
-    17dc:	a9052c0a 	stp	x10, x11, [x0, #80]
-    17e0:	a906340c 	stp	x12, x13, [x0, #96]
-    17e4:	a9073c0e 	stp	x14, x15, [x0, #112]
-    17e8:	a9084410 	stp	x16, x17, [x0, #128]
-    17ec:	f9004812 	str	x18, [x0, #144]
-    17f0:	a909d013 	stp	x19, x20, [x0, #152]
-    17f4:	a90ad815 	stp	x21, x22, [x0, #168]
-    17f8:	a90be017 	stp	x23, x24, [x0, #184]
-    17fc:	a90ce819 	stp	x25, x26, [x0, #200]
-    1800:	a90df01b 	stp	x27, x28, [x0, #216]
-    1804:	a90ef81d 	stp	x29, x30, [x0, #232]
-    1808:	aa0003fd 	mov	x29, x0
+00000000000017a0 <__fixup_1_end>:
+    17a0:	d53c00a1 	mrs	x1, vmpidr_el2
+    17a4:	d2a01fe2 	mov	x2, #0xff0000              	// #16711680
+    17a8:	f29fffe2 	movk	x2, #0xffff
+    17ac:	8a020021 	and	x1, x1, x2
+    17b0:	d280e602 	mov	x2, #0x730                 	// #1840
+    17b4:	9b020020 	madd	x0, x1, x2, x0
+    17b8:	91000000 	add	x0, x0, #0x0
+    17bc:	a8c10fe2 	ldp	x2, x3, [sp], #16
+    17c0:	a9010c02 	stp	x2, x3, [x0, #16]
+    17c4:	a8c10fe2 	ldp	x2, x3, [sp], #16
+    17c8:	a9000c02 	stp	x2, x3, [x0]
+    17cc:	a9021404 	stp	x4, x5, [x0, #32]
+    17d0:	a9031c06 	stp	x6, x7, [x0, #48]
+    17d4:	a9042408 	stp	x8, x9, [x0, #64]
+    17d8:	a9052c0a 	stp	x10, x11, [x0, #80]
+    17dc:	a906340c 	stp	x12, x13, [x0, #96]
+    17e0:	a9073c0e 	stp	x14, x15, [x0, #112]
+    17e4:	a9084410 	stp	x16, x17, [x0, #128]
+    17e8:	f9004812 	str	x18, [x0, #144]
+    17ec:	a909d013 	stp	x19, x20, [x0, #152]
+    17f0:	a90ad815 	stp	x21, x22, [x0, #168]
+    17f4:	a90be017 	stp	x23, x24, [x0, #184]
+    17f8:	a90ce819 	stp	x25, x26, [x0, #200]
+    17fc:	a90df01b 	stp	x27, x28, [x0, #216]
+    1800:	a90ef81d 	stp	x29, x30, [x0, #232]
+    1804:	aa0003fd 	mov	x29, x0
 
-000000000000180c <__fixup_2>:
+0000000000001808 <__fixup_2>:
+    1808:	d503201f 	nop
     180c:	d503201f 	nop
     1810:	d503201f 	nop
     1814:	d503201f 	nop
     1818:	d503201f 	nop
-    181c:	d503201f 	nop
 
-0000000000001820 <__host_enter_restore_full>:
-    1820:	a94007a0 	ldp	x0, x1, [x29]
-    1824:	a9410fa2 	ldp	x2, x3, [x29, #16]
-    1828:	a94217a4 	ldp	x4, x5, [x29, #32]
-    182c:	a9431fa6 	ldp	x6, x7, [x29, #48]
+000000000000181c <__host_enter_restore_full>:
+    181c:	a94007a0 	ldp	x0, x1, [x29]
+    1820:	a9410fa2 	ldp	x2, x3, [x29, #16]
+    1824:	a94217a4 	ldp	x4, x5, [x29, #32]
+    1828:	a9431fa6 	ldp	x6, x7, [x29, #48]
 
-0000000000001830 <__host_enter_for_panic>:
-    1830:	a94427a8 	ldp	x8, x9, [x29, #64]
-    1834:	a9452faa 	ldp	x10, x11, [x29, #80]
-    1838:	a94637ac 	ldp	x12, x13, [x29, #96]
-    183c:	a9473fae 	ldp	x14, x15, [x29, #112]
-    1840:	a94847b0 	ldp	x16, x17, [x29, #128]
-    1844:	f9404bb2 	ldr	x18, [x29, #144]
-    1848:	a949d3b3 	ldp	x19, x20, [x29, #152]
-    184c:	a94adbb5 	ldp	x21, x22, [x29, #168]
-    1850:	a94be3b7 	ldp	x23, x24, [x29, #184]
-    1854:	a94cebb9 	ldp	x25, x26, [x29, #200]
-    1858:	a94df3bb 	ldp	x27, x28, [x29, #216]
-    185c:	a94efbbd 	ldp	x29, x30, [x29, #232]
+000000000000182c <__host_enter_for_panic>:
+    182c:	a94427a8 	ldp	x8, x9, [x29, #64]
+    1830:	a9452faa 	ldp	x10, x11, [x29, #80]
+    1834:	a94637ac 	ldp	x12, x13, [x29, #96]
+    1838:	a9473fae 	ldp	x14, x15, [x29, #112]
+    183c:	a94847b0 	ldp	x16, x17, [x29, #128]
+    1840:	f9404bb2 	ldr	x18, [x29, #144]
+    1844:	a949d3b3 	ldp	x19, x20, [x29, #152]
+    1848:	a94adbb5 	ldp	x21, x22, [x29, #168]
+    184c:	a94be3b7 	ldp	x23, x24, [x29, #184]
+    1850:	a94cebb9 	ldp	x25, x26, [x29, #200]
+    1854:	a94df3bb 	ldp	x27, x28, [x29, #216]
+    1858:	a94efbbd 	ldp	x29, x30, [x29, #232]
 
-0000000000001860 <__host_enter_without_restoring>:
-    1860:	d69f03e0 	eret
-    1864:	d503379f 	dsb	nsh
-    1868:	d5033fdf 	isb
+000000000000185c <__host_enter_without_restoring>:
+    185c:	d69f03e0 	eret
+    1860:	d503379f 	dsb	nsh
+    1864:	d5033fdf 	isb
 
-000000000000186c <__kvmrk_vectors_end>:
+0000000000001868 <__kvmrk_vectors_end>:
+    1868:	d503201f 	nop
     186c:	d503201f 	nop
     1870:	d503201f 	nop
     1874:	d503201f 	nop
@@ -2933,31 +2967,36 @@ Disassembly of section .kvmrk.text:
     1ffc:	d503201f 	nop
 
 0000000000002000 <__hijack_mdcr_el2>:
-    2000:	d69f03e0 	eret
+    2000:	d53c1120 	mrs	x0, mdcr_el2
+    2004:	b2770000 	orr	x0, x0, #0x200
+    2008:	d51c1120 	msr	mdcr_el2, x0
+    200c:	d2a00000 	movz	x0, #0x0, lsl #16
+    2010:	f2806660 	movk	x0, #0x333
+    2014:	d69f03e0 	eret
 
-0000000000002004 <__hijack_mdcr_el2_end>:
-    2004:	d503201f 	nop
+0000000000002018 <__hijack_mdcr_el2_end>:
+    2018:	d503201f 	nop
 
-0000000000002008 <kvmrk_hvc>:
-    2008:	d4000002 	hvc	#0x0
-    200c:	d65f03c0 	ret
+000000000000201c <kvmrk_hvc>:
+    201c:	d4000002 	hvc	#0x0
+    2020:	d65f03c0 	ret
 
-0000000000002010 <_helper_flush_virt>:
-    2010:	d50b7a20 	dc	cvac, x0
-    2014:	d65f03c0 	ret
+0000000000002024 <_helper_flush_virt>:
+    2024:	d50b7a20 	dc	cvac, x0
+    2028:	d65f03c0 	ret
 
-0000000000002018 <kvmrk_set_vectors>:
-    2018:	aa0003e1 	mov	x1, x0
-    201c:	d2800000 	mov	x0, #0x0                   	// #0
-    2020:	d4000002 	hvc	#0x0
-    2024:	d65f03c0 	ret
+000000000000202c <kvmrk_set_vectors>:
+    202c:	aa0003e1 	mov	x1, x0
+    2030:	d2800000 	mov	x0, #0x0                   	// #0
+    2034:	d4000002 	hvc	#0x0
+    2038:	d65f03c0 	ret
 
-0000000000002028 <kvmrk_reset_vectors>:
-    2028:	d2800040 	mov	x0, #0x2                   	// #2
-    202c:	d4000002 	hvc	#0x0
-    2030:	d65f03c0 	ret
-    2034:	d50330ff 	sb
-    2038:	d503201f 	nop
+000000000000203c <kvmrk_reset_vectors>:
+    203c:	d2800040 	mov	x0, #0x2                   	// #2
+    2040:	d4000002 	hvc	#0x0
+    2044:	d65f03c0 	ret
+    2048:	d50330ff 	sb
+    204c:	d503201f 	nop
 
 Disassembly of section .plt:
 
